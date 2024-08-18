@@ -587,7 +587,7 @@ Backend di rendering da utilizzare per l'uscita video (predefinito 'texture').
 .
 :CONFIGITEM_OUTPUT_TEXTURENB
   texturenb:  Il backend texture di SDL con metodo di ricampionamento
-              nearest-neighbor (non bilineare).
+              vicino più prossimo (non bilineare).
 .
 :CONFIG_TEXTURE_RENDERER
 Driver di rendering da utilizzare nella modalità di uscita 'texture'
@@ -1033,7 +1033,7 @@ Altre opzioni dello shader comprendono (lista non esaustiva):
                          metodo di ricampionamento bilineare (l'immagine
                          risultante sarà sfocata).
   nearest:               Ridimensiona l'immagine utilizzando il metodo di
-                         ricampionamento nearest-neighbour (conosciuto anche
+                         ricampionamento vicino più prossimo (conosciuto anche
                          come "non bilineare"). Il risultato sarà un'immagine
                          il più nitida possibile, a scapito di eventuali pixel
                          irregolari (meno visibile su schermi ad alta
