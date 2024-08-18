@@ -1094,10 +1094,9 @@ Core della CPU usato nell'emulazione (predefinito 'auto').
             un carico sulla CPU di sistema da 3 a 5 volte minore rispetto al
             core 'normal', ma la temporizzazione potrebbe essere meno accurata.
             Il core 'dynamic' è una necessità per i giochi esigenti in termini
-            di CPU (e.g. giochi 3D SVGA). Programmi che modificano il
-            proprio codice potrebbero non funzionare correttamente o andare in
-            crash con questa impostazione; in tal caso utilizzare il core
-            'normal'.
+            di CPU (es. giochi 3D SVGA). Programmi che modificano il proprio
+            codice potrebbero non funzionare correttamente o andare in crash
+            con questa impostazione; in tal caso utilizzare il core 'normal'.
 .
 :CONFIG_CPUTYPE
 Tipo di CPU usata nell'emulazione (predefinito 'auto').
@@ -1126,7 +1125,7 @@ programma non funzioni correttamente in modalità 'auto'.
   pentium:       Equivalente a '486', ma con il CPUID di un processore Pentium,
                  il comportamento di un Pentium per i registri CR e il supporto
                  all'istruzione RDTSC. Impostazione consigliata per i giochi
-                 Windows 3.x (e.g. Betrayal in Antara).
+                 Windows 3.x (es. Betrayal in Antara).
   pentium_mmx:   Equivalente a 'pentium' ma include inoltre il set di istruzioni
                  MMX. Pochissimi giochi utilizzano le istruzioni MMX; questa
                  impostazione è per lo più utile solo per le produzioni
@@ -1362,7 +1361,7 @@ ricampioni in ogni caso a 48000 Hz le frequenze di campionamento atipiche.
 :CONFIG_BLOCKSIZE
 Dimensione dei blocchi del mixer misurato in campioni (predefinito %s).
 L'intervallo di valori valido va da 64 a 8192. Dovrebbero essere inseriti valori
-che sono potenze di due (e.g. 256, 512, 1024, etc). Valori più grandi potrebbero
+che sono potenze di due (es. 256, 512, 1024, etc). Valori più grandi potrebbero
 ridurre l'audio a singhiozzo, ma anche introdurre latenza nella riproduzione.
 Vedere anche l'opzione 'negotiate'.
 .
@@ -1481,7 +1480,7 @@ Note:
 .
 :CONFIGITEM_MIDICONFIG_ALSA
   - Quando si utilizza ALSA, usare il comando 'aconnect -l' per visualizzare
-    l'elenco di tutte le porte MIDI aperte e selezionarne una (e.g.
+    l'elenco di tutte le porte MIDI aperte e selezionarne una (es.
     'midiconfig = 14:0' per usare il sequenziatore client 14, porta 0).
 .
 :CONFIGITEM_MIDICONFIG_MT32
@@ -1650,7 +1649,7 @@ CDAUDIO, rispettivamente.
   on:   Il volume di questi canali è una combinazione del volume impostato
         dal programma e del volume impostato nel mixer di DOSBox.
   off:  Solo il mixer di DOSBox determina il volume di questi canali.
-Nota: Alcuni giochi cambiano i livelli di volume dinamicamente (e.g. abbassano
+Nota: Alcuni giochi cambiano i livelli di volume dinamicamente (es. abbassano
       la traccia FM se qualcuno sta parlando); è meglio lasciare 'sbmixer'
       abilitato in questi casi.
 .
