@@ -29,8 +29,8 @@ Elenco delle opzioni disponibili:
   --nolocalconf             Non carica il file di configurazione locale 'dosbox.conf'
                             se presente nella directory di lavoro corrente.
 
-  --set <proprietà>=<val>   Imposta il valore di una proprietà di configurazione.
-                            È possibile specificare più proprietà di configurazione.
+  --set <opzione>=<val>     Imposta il valore di un'opzione di configurazione.
+                            È possibile specificare più opzioni di configurazione.
                             Esempio:
                             --set mididevice=fluidsynth --set soundfont=4GMGSMT.sf2
 
@@ -737,10 +737,10 @@ Gestisce i blocchi della catena di memoria software corrotti:
   deny:      Segnala gli errori rilevati e arresta l'emulazione.
 .
 :CONFIG_VMEMSIZE
-Memoria video in MB (1-8) o KB (da 256 a 8192).
-'auto' utilizza il valore predefinito in base alla scheda video selezionata
-(predefinito 'auto'). Fare riferimento all'impostazione 'machine' per l'elenco
-delle opzioni valide e dei valori predefiniti per ogni scheda.
+Memoria video in MB (1-8) o KB (da 256 a 8192). 'auto' utilizza il valore
+predefinito in base alla scheda video selezionata (predefinito 'auto').
+Fare riferimento all'impostazione 'machine' per l'elenco delle opzioni valide
+e dei valori predefiniti per ogni scheda.
 .
 :CONFIG_VMEM_DELAY
 Configura l'emulazione del ritardo di accesso alla memoria video (predefinito
@@ -766,19 +766,19 @@ Personalizza la frequenza dei fotogrammi della modalità video emulata:
              schermo (vedi impostazione 'host_rate').
   <valore>:  Imposta la frequenza su un valore intero o decimale compreso
              tra 24.000 e 1000.000 Hz.
-Si consiglia la frequenza dei fotogrammi predefinita ('default'), altrimenti
-è possibile provare a regolarla in base al gioco.
+Nota: Si consiglia la frequenza dei fotogrammi predefinita ('default'),
+      altrimenti è possibile provare a regolarla in base al gioco.
 .
 :CONFIG_VESA_MODES
 Controlla quali modalità video VESA sono disponibili:
   compatible: Solo le modalità video VESA con maggiore compatibilità per la
               dimensione della memoria video configurata (predefinito).
-              Utilizzare 4 o 8 MB di memoria video ('vmemsize') per avere
+              Consigliato con 4 o 8 MB di memoria video ('vmemsize') per avere
               la migliore compatibilità possibile con i giochi. Le modalità
               high color a risoluzione 320x200 sono escluse in quanto il loro
               supporto fu parziale fino alla fine degli anni '90. Sono escluse
-              anche le modalità video framebuffer lineari a 256 colori e
-              risoluzione 320x240, 400x300 e 512x384 in quanto causano problemi
+              anche le modalità video a framebuffer lineare a 256 colori e
+              risoluzione 320x240, 400x300 e 512x384 poichè causano problemi
               di temporizzazione nei giochi che usano Build Engine.
   halfline:   Equivalente a 'compatible', ma la modalità VESA 120h è sostituita
               da una speciale modalità a mezza linea utilizzata da Extreme
@@ -905,31 +905,31 @@ disabilitato automaticamente (equivalente ad 'off'). Valori possibili:
 .
 :CONFIG_VIEWPORT
 Imposta le dimensioni dell'area di visualizzazione (predefinito 'fit').
-L'immagine è sempre contenuta all'interno dell'area di visualizzazione, tenendo
-conto delle proporzioni specificate (vedi impostazione 'aspect'). Valori
-possibili:
-  fit:            Adatta l'area di visualizzazione alla finestra/schermo
-                  disponibile (predefinito). Con l'impostazione
-                  'integer_scaling' abilitata, potrebbero essere visualizzate
-                  delle barre nere orizzontali e/o verticali attorno
-                  all'immmagine.
-  LxA:            Imposta le dimensioni dell'area di visualizzazione nel
-                  formato LxA (ad esempio 960x720). La dimensione specificata
-                  non deve essere maggiore della risoluzione del desktop.
-                  Se più grande della finestra, l'immagine viene ridimensionata
-                  per adattarsi alla finestra.
-  N%%:             Simile a 'LxA' ma la dimensione è specificata come
-                  percentuale della risoluzione del desktop.
-  relative O%% V%%: L'area di visualizzazione è impostata su un rettangolo con
-                  rapporto d'aspetto 4:3, adattato alla finestra/schermo
-                  disponibile, e quindi ridimensionato in base ai fattori di
-                  scala orizzontale e verticale O e V (l'intervallo valido va
-                  dal 20%% al 300%%). L'area di visualizzazione risultante può
-                  estendersi oltre la finestra/schermo. Questo è utile per
-                  forzare determinati rapporti d'aspetto con 'aspect = stretch'
-                  o per ingrandire l'immagine. Ciò emula efficacemente i
-                  controlli per la dimensione orizzontale e verticale
-                  dell'immagine dei monitor CRT.
+Questa è l'area massima disegnabile; l'immagine è sempre contenuta all'interno
+di quest'area, tenendo conto delle proporzioni specificate (vedi impostazione
+'aspect'). Valori possibili:
+  fit:              Adatta l'area di visualizzazione alla finestra/schermo
+                    disponibile (predefinito). Con l'impostazione
+                    'integer_scaling' abilitata, potrebbero essere visualizzate
+                    delle barre nere orizzontali e/o verticali attorno
+                    all'immmagine.
+  LxA:              Imposta le dimensioni dell'area di visualizzazione nel
+                    formato LxA (ad esempio 960x720). La dimensione specificata
+                    non deve essere maggiore della risoluzione del desktop.
+                    Se più grande della finestra, l'immagine viene
+                    ridimensionata per adattarsi alla finestra.
+  N%%:               Simile a 'LxA' ma la dimensione è specificata come
+                    percentuale della risoluzione del desktop.
+  relative O%% V%%:   L'area di visualizzazione è impostata su un rettangolo con
+                    rapporto d'aspetto 4:3, adattato alla finestra/schermo
+                    disponibile, e quindi ridimensionato in base ai fattori di
+                    scala orizzontale e verticale O e V (l'intervallo valido va
+                    dal 20%% al 300%%). L'area di visualizzazione risultante può
+                    estendersi oltre la finestra/schermo. Questo è utile per
+                    forzare determinati rapporti d'aspetto con
+                    'aspect = stretch' o per ingrandire l'immagine. Ciò emula
+                    efficacemente i controlli per la dimensione orizzontale e
+                    verticale dell'immagine dei monitor CRT.
 Note:
   - L'uso della modalità 'relative' in combinazione con 'integer_scaling',
     potrebbe portare a risultati sorprendenti (ma corretti).
@@ -1072,7 +1072,7 @@ Luminosità dell'immagine, da scura a chiara (predefinito 0).
 Convergenza degli elementi del subpixel, da sfocati a nitidi (predefinito 0).
 .
 :CONFIG_CORE
-Core della CPU usato nell'emulazione (predefinito 'auto').
+Tipo di core di emulazione della CPU da utilizzare (predefinito 'auto').
   auto:     Usa il core 'normal' per i programmi che operano in modalità reale
             e il core 'dynamic' per quelli che operano in modalità protetta.
             La maggior parte dei programmi funzioneranno correttamente con
@@ -1100,7 +1100,7 @@ Core della CPU usato nell'emulazione (predefinito 'auto').
 .
 :CONFIG_CPUTYPE
 Tipo di CPU usata nell'emulazione (predefinito 'auto').
-È consigliabile cambiare questa impostazione solamente nel caso in cui il
+È consigliabile modificare questa impostazione solamente nel caso in cui il
 programma non funzioni correttamente in modalità 'auto'.
   auto:          La modalità più veloce e compatibile (predefinito). Dal
                  punto di vista tecnico, equivale alla modalità '386_fast' con
@@ -1132,30 +1132,29 @@ programma non funzioni correttamente in modalità 'auto'.
                  demoscene.
 .
 :CONFIG_CYCLES
-L'impostazione 'cycles' è deprecata ma ancora consentita; si consiglia invece
+L'impostazione 'cycles' è deprecata ma ancora consentita; si prega invece
 di utilizzare le impostazioni 'cpu_cycles', 'cpu_cycles_protected' e
 'cpu_throttle' poiché il supporto a 'cycles' verrà rimosso in futuro.
 .
 :CONFIG_CPU_CYCLES
 Velocità della CPU emulata (predefinito '3000'). Se 'cpu_cycles_protected' è
-'auto', imposta i cicli sia per i programmi in modalità reale che protetta.
-Speed of the emulated CPU ('3000' by default). If 'cpu_cycles_protected' is on
-'auto', this sets the cycles for both real and protected mode programs.
-  <number>:  Emula un numero fisso di cicli per millisecondo (circa
+impostato su 'auto', i cicli qui specificati saranno validi sia per i programmi
+in modalità reale che per quelli in modalità protetta.
+  <numero>:  Emula un numero fisso di cicli per millisecondo (circa
              corrispondente ai MIPS). L'intervallo di valori valido va da 50
              a 2000000.
   max:       Emula quanti pìu cicli la CPU di sistema è in grado di sostenere
              in un singolo core. Il numero di cicli per millisecondo può
              variare; ciò può creare problemi in alcuni programmi DOS.
 Note:
-  - Impostare la velocità della CPU a 'max' o valori alti può causare
-    rallentamenti e interruzioni dell'audio.
-  - Per un risultato ottimale, impostare questo valore al minimo possibile che
-    permette di eseguire il gioco ad una velocità accettabile.
-  - Questa tabella mostra valori di cicli approssimativi per i modelli di CPU
-    più comuni. DOSBox non emula la CPU in maniera accurata al ciclo: questi
-    valori sono solo punti di partenza, da regolare poi con precisione in base
-    al gioco.
+  - Impostare la velocità della CPU su 'max' o su cicli fissi troppo elevati,
+    può causare rallentamenti e interruzioni dell'audio.
+  - Per un risultato ottimale, imposta il numero più basso possibile di cicli
+    sufficenti ad eseguire il gioco ad una velocità accettabile.
+  - Questa tabella mostra i valori di cicli approssimativi per i modelli di CPU
+    più comuni. DOSBox non esegue un'emulazione della CPU accurata al ciclo:
+    questi valori sono solo punti di partenza, da regolare poi con precisione i
+    in base al gioco da eseguire.
       8088 (4.77 MHz)     300
       286-8               700
       286-12             1500
@@ -1170,22 +1169,21 @@ Note:
 .
 :CONFIG_CPU_CYCLES_PROTECTED
 Velocità della CPU emulata solo per i programmi in modalità protetta
-('60000' predefinito).
+(predefinito '60000').
   auto:      Utilizza l'impostazione 'cpu_cycles'.
-  <number>:  Emula un numero fisso di cicli per millisecondo (circa
-             corrispondente ai MIPS). L'intervallo di valori valido va da 50
-             a 2000000.
-  max:       Emula quanti pìu cicli la macchina host è in grado di sostenere in
-             un singolo core. Il numero di cicli per millisecondo può variare;
-             ciò può creare problemi in alcuni programmi DOS.
-Nota: Consultare l'impostazione 'cpu_cycles' per informazioni aggiuntive.
+  <numero>:  Emula un numero fisso di cicli al millisecondo (pressocché
+             equivalente all'unità di misura MIPS). L'intervallo di valori
+             valido va da 50 a 2000000.
+  max:       Emula quanti pìu cicli la CPU di sistema è in grado di sostenere
+             in un singolo core. Il numero di cicli per millisecondo può
+             variare; ciò potrebbe creare problemi in alcuni programmi DOS.
+Nota: Fare riferimento all'impostazione 'cpu_cycles' per ulteriori informazioni.
 .
 :CONFIG_CPU_THROTTLE
-Abbass automaticamente il numero dei cicli CPU emulati dinamicamente se la CPU
-della macchina host non riesce a sostenere l'emulazione (predefinito
-disabilitato). Ha effetto solo se i cicli sono impostati ad un valore fisso.
-Quando abilitato, il numero di cicli per millisecondo può variare; ciò può
-creare problemi in alcuni programmi DOS.
+Riduce dinamicamente il numero di cicli della CPU emulati se la CPU di sistema
+non è in grado di gestirli (predefinito disabilitato). Ha effetto solo se i
+cicli sono impostati ad un valore fisso. Se abilitato, il numero di cicli per
+millisecondo può variare; ciò potrebbe creare problemi in alcuni programmi DOS.
 .
 :CONFIG_CYCLEUP
 Numero di cicli di cui aumentare utilizzando l'apposito tasto di scelta rapida
@@ -1351,19 +1349,19 @@ riprodurrà alcun suono. In modalità silenziosa, l'acquisizione dell'uscita
 audio emulata in un file WAV funzionerà ugualmente.
 .
 :CONFIG_RATE
-Frequenza di campionamento del mixer in Hz (predefinito %s). L'intervallo di
-valori valido va da 8000 a 96000 Hz. La maggior parte dei dispositivi audio non
-professionali utilizza una frequenza di campionamento nativa di 48000 Hz. È
-consigliabile lasciare questa impostazione così come è, a meno che non si abbia
-una buona ragione per cambiarla. È molto probabile che il sistema operativo
+Frequenza di campionamento del mixer audio di DOSBox, in Hz (predefinito %s).
+L'intervallo di valori valido é compreso tra 8000 e 96000 Hz. La maggior parte
+dei dispositivi audio di consumo utilizza una frequenza di campionamento nativa
+di 48000 Hz. È consigliabile non modificare questo valore, a meno che non si
+abbia una buona ragione per farlo. È molto probabile che il sistema operativo
 ricampioni in ogni caso a 48000 Hz le frequenze di campionamento atipiche.
 .
 :CONFIG_BLOCKSIZE
-Dimensione dei blocchi del mixer misurato in campioni (predefinito %s).
-L'intervallo di valori valido va da 64 a 8192. Dovrebbero essere inseriti valori
-che sono potenze di due (es. 256, 512, 1024, etc). Valori più grandi potrebbero
-ridurre l'audio a singhiozzo, ma anche introdurre latenza nella riproduzione.
-Vedere anche l'opzione 'negotiate'.
+Dimensione dei blocchi del dispositivo audio di sistema, misurato in campioni
+(predefinito %s). L'intervallo di valori valido é compreso tra 64 e 8192.
+Dovrebbero essere inseriti valori a potenze di due (es. 256, 512, 1024, etc).
+Valori più grandi potrebbero ridurre l'audio a singhiozzo, ma anche introdurre
+latenza nella riproduzione. Vedere anche l'opzione 'negotiate'.
 .
 :CONFIG_PREBUFFER
 Millisecondi di suono da elaborare in anticipo in aggiunta alla dimensione dei
@@ -1400,7 +1398,7 @@ spazializzazione del suono:
   on:        Abilita riverbero (preimpostazione 'medium').
   tiny:      Simula il suono di un piccolo altoparlante integrato;
              specificamente progettato per sistemi audio di piccole dimensioni
-             (Altoparlante interno, Tandy, PS/1 Audio, e dispositivi DAC LPT).
+             (altoparlante interno, Tandy, PS/1 Audio, e dispositivi DAC LPT).
   small:     Aggiunge un sottile senso di spazializzazione; ottimo per i giochi
              che usano un singolo canale del sintetizzatore (tipicamente OPL)
              sia per la musica che per gli effetti sonori.
@@ -1429,40 +1427,40 @@ Imposta dove vengono inviati i dati MIDI dall'interfaccia MPU-401 emulata
 (predefinito 'auto'):
 .
 :CONFIGITEM_MIDIDEVICE_COREMIDI
-  coremidi:    Utilizza qualsiasi dispositivo configurato nelle impostazioni
-               audio MIDI di MacOS.
+  coremidi:     Utilizza qualsiasi dispositivo configurato nelle impostazioni
+                audio MIDI di MacOS.
 .
 :CONFIGITEM_MIDIDEVICE_COREAUDIO
-  coreaudio:   Utilizza il sintetizzatore MIDI integrato in MacOS.
+  coreaudio:    Utilizza il sintetizzatore MIDI integrato in MacOS.
 .
 :CONFIGITEM_MIDIDEVICE_WIN32
-  win32:       Utilizza l'interfaccia di riproduzione MIDI Win32.
+  win32:        Utilizza l'interfaccia di riproduzione MIDI di Windows.
 .
 :CONFIGITEM_MIDIDEVICE_OSS
-  oss:         Utilizza l'interfaccia di riproduzione MIDI OSS (Linux).
+  oss:          Utilizza l'interfaccia di riproduzione MIDI OSS di Linux.
 .
 :CONFIGITEM_MIDIDEVICE_ALSA
-  alsa:        Utilizza l'interfaccia di riproduzione MIDI ALSA (Linux).
+  alsa:         Utilizza l'interfaccia di riproduzione MIDI ALSA di Linux.
 .
 :CONFIGITEM_MIDIDEVICE_FLUIDSYNTH
-  fluidsynth:  Utilizza il sintetizzatore MIDI FluidSynth incluso in DOSBox.
-               Fare riferimento alla sezione [fluidsynth] per una
-               configurazione dettagliata.
+  fluidsynth:   Utilizza il sintetizzatore MIDI FluidSynth incluso in DOSBox.
+                Fare riferimento alla sezione [fluidsynth] per una
+                configurazione dettagliata.
 .
 :CONFIGITEM_MIDIDEVICE_MT32
-  mt32:        Utilizza il sintetizzatore Roland MT-32 incluso in DOSBox.
-               Fare riferimento alla sezione [mt32] per una configurazione
-               dettagliata.
+  mt32:         Utilizza il sintetizzatore Roland MT-32 incluso in DOSBox.
+                Fare riferimento alla sezione [mt32] per una configurazione
+                dettagliata.
 .
 :CONFIGITEM_MIDIDEVICE_AUTO
-  auto:        Utilizza uno dei sintetizzatori MIDI inclusi in DOSBox
-               (se `midiconfig` è impostato su 'fluidsynth' o 'mt32'), o un
-               dispositivo MIDI esterno a DOSBox (qualsiasi altro valore in
-               'midiconfig'). Quest'ultimo potrebbe essere un sintetizzatore
-               software o un dispositivo fisico (predefinito).
+  auto:         Utilizza uno dei sintetizzatori MIDI inclusi in DOSBox
+                (se `midiconfig` è impostato su 'fluidsynth' o 'mt32'), o un
+                dispositivo MIDI esterno a DOSBox (qualsiasi altro valore in
+                `midiconfig`). Quest'ultimo potrebbe essere un sintetizzatore
+                software o un dispositivo fisico (predefinito).
 .
 :CONFIGITEM_MIDIDEVICE_NONE
-  none:        Disabilita l'uscita MIDI.
+  none:         Disabilita l'uscita MIDI.
 .
 :CONFIG_MIDICONFIG
 Opzioni di configurazione per l'interfaccia MIDI selezionata
@@ -1479,9 +1477,10 @@ Note:
   - Quando si utilizza 'coreaudio', è qui possibile specificare un SoundFont.
 .
 :CONFIGITEM_MIDICONFIG_ALSA
-  - Quando si utilizza ALSA, usare il comando 'aconnect -l' per visualizzare
-    l'elenco di tutte le porte MIDI aperte e selezionarne una (es.
-    'midiconfig = 14:0' per usare il sequenziatore client 14, porta 0).
+  - Quando si utilizza ALSA, eseguire il comando 'aconnect -l' da riga di
+    comando per visualizzare l'elenco di tutte le porte MIDI aperte e
+    selezionarne una (es. 'midiconfig = 14:0' per usare il sequenziatore
+    client 14, porta 0).
 .
 :CONFIGITEM_MIDICONFIG_MT32
   - Se stai usando un vero Roland MT-32 con revisione 0 del PCB, l'hardware
@@ -1609,13 +1608,13 @@ Caricata da
 :CONFIG_SBTYPE
 Modello di Sound Blaster da emulare (predefinito 'sb16').
 Sono elencati anche i modelli scelti automaticamente quando 'oplmode' e
-'cms' sono impostate su 'auto'.
+'cms' sono impostati su 'auto'.
   gb:        Game Blaster          - CMS
   sb1:       Sound Blaster 1.0     - OPL2, CMS
   sb2:       Sound Blaster 2.0     - OPL2
-  sbpro1:    Sound Blaster Pro     - Due OPL2
+  sbpro1:    Sound Blaster Pro     - Due chip OPL2
   sbpro2:    Sound Blaster Pro 2   - OPL3
-  sb16:      Sound Blaster 16      - OPL3 (default)
+  sb16:      Sound Blaster 16      - OPL3 (predefinito)
   ess:       ESS ES1688 AudioDrive - ESFM
   none/off:  Disabilita l'emulazione della Sound Blaster.
 Note:
@@ -1624,7 +1623,7 @@ Note:
   - L'opzione 'ess' permette di ottenere una migliore resa delle tracce
     musicali attraverso il sintetizzatore ESFM nei giochi che lo supportano.
     Il DAC ESS non è emulato, ma la scheda è comunque compatibile con la Sound
-    Blaster Pro, è quindi possibile configurare il gioco per utilizzare
+    Blaster Pro; è quindi possibile configurare il gioco per utilizzare
     Sound Blaster per riprodurre gli effetti sonori.
 .
 :CONFIG_SBBASE
@@ -1696,8 +1695,8 @@ Abilita l'emulazione CMS (predefinito 'auto').
          Blaster.
 .
 :CONFIG_OPLMODE
-Tipo di emulazione OPL (predefinito 'auto').
-  auto:      Usa il modello appropriato determinato da 'sbtype'.
+Modello del chip OPL da emulare (predefinito 'auto').
+  auto:      Utilizza il modello appropriato determinato da 'sbtype'.
   opl2:      Yamaha OPL2 (YM3812, mono).
   dualopl2:  Due OPL2 (due chip OPL2 in configurazione stereo).
   opl3:      Yamaha OPL3 (YMF262, stereo).
@@ -1708,12 +1707,12 @@ Tipo di emulazione OPL (predefinito 'auto').
              con Yamaha OPL3).
   none/off:  Disabilitare l'emulazione OPL.
 Note:
-  - La combinazione di impostazioni 'sbtype = none' e 'oplmode = opl2'
-    emulano la scheda AdLib originale.
+  - La combinazione di 'sbtype = none' e 'oplmode = opl2' permette di emulare
+    la scheda AdLib originale.
   - Non è sufficiente impostare 'oplmode = esfm' per permettere ai giochi di
     utilizzare la musica FM ESS; è necessario impostare anche 'sbtype = ess'.
-    'oplmode = esfm' è utile per dare la possibilità di usare un OPL simil-ESFM
-    con i modelli Sound Blaster originali.
+    'oplmode = esfm' è utile per ottenere la sintesi FM in stile ESFM con i
+    modelli Sound Blaster originali.
 .
 :CONFIG_OPL_FADEOUT
 Dissolvenza in chiusura dell'uscita audio del sintetizzatore OPL dopo l'ultima
@@ -1769,8 +1768,8 @@ state scelte in modo tale che la scheda GUS possa coesistere con una scheda
 Sound Blaster. Funziona bene per la maggior parte dei programmi, ma alcuni
 giochi e demo si aspettano le impostazioni predefinite di fabbrica della scheda
 GUS, cioè: indirizzo porta I/O 220, IRQ 11 e DMA 1. Da notare inoltre che il
-valore predefinito dell'IRQ 11 pùo essere problematico con specifiche versioni
-dell'extender DOS4GW che non riescono a gestire IRQ superiori al 7.
+valore predefinito dell'IRQ 11 può essere problematico con alcune versioni
+specifiche dell'extender DOS4GW che non possono gestire IRQ superiori al 7.
 .
 :CONFIG_GUSBASE
 Indirizzo porta I/O della scheda Gravis Ultrasound (predefinito 240).
@@ -1847,9 +1846,9 @@ Filtro per l'uscita audio della scheda Innovation:
 :CONFIG_PCSPEAKER
 Modello di emulazione dell'altoparlante interno del PC (PC speaker):
   impulse:   Emulazione molto fedele dell'usicta audio dell'altoparlante
-             interno (predefinito). Funziona con la maggior parte dei giochi,
-             ma potrebbe causare suoni distorti o totale silenzio in un numero
-             limitato di programmi.
+             interno del PC (predefinito). Funziona con la maggior parte dei
+             giochi, ma potrebbe causare suoni distorti o totale silenzio in
+             un numero limitato di programmi.
   discrete:  Emulazione semplificata dell'altoparlante interno del PC;
              utilizzare solo per quei titoli che riportano problemi con il
              modello 'impulse'.
@@ -2173,7 +2172,7 @@ Il formato è lo stesso dell'inoltro porte TCP.
 .
 :AUTOEXEC_CONFIGFILE_HELP
 Ogni riga in questa sezione viene eseguita all'avvio come comando DOS.
-Importante: La sezione [autoexec] deve necessariamente essere l'ultima sezione
+Importante: la sezione [autoexec] deve necessariamente essere l'ultima sezione
 del file di configurazione!
 .
 :CONFIGFILE_INTRO
@@ -2304,22 +2303,22 @@ Dove [color=white]COMANDO[reset] è uno dei seguenti:
 
 .
 :PROGRAM_CONFIG_HLP_NOCHANGE
-[color=yellow]Impossibile modificare questa impostazione mentre l'emulatore è in esecuzione.[reset]
+[color=yellow]Questa opzione non può essere modificata durante l'esecuzione.[reset]
 
 .
 :PROGRAM_CONFIG_HLP_POSINT
 numero intero positivo.
 .
 :PROGRAM_CONFIG_HLP_SECTHLP
-[color=white]Lista delle impostazioni della sezione [color=light-cyan][%s][color=white]:[reset]
+[color=white]Elenco delle opzioni nella sezione [color=light-cyan][%s][color=white]:[reset]
 
 .
 :PROGRAM_CONFIG_HLP_SECTLIST
-[color=white]Lista delle sezioni di configurazione:[reset]
+[color=white]Elenco delle sezioni di configurazione:[reset]
 
 .
 :PROGRAM_CONFIG_SECURE_ON
-Modalità sicura attivata.
+Modalità sicura abilitata.
 
 .
 :PROGRAM_CONFIG_SECURE_DISALLOW
@@ -2331,7 +2330,7 @@ La sezione [%s] non esiste.
 
 .
 :PROGRAM_CONFIG_VALUE_ERROR
-'%s' non è un valore valido per l'impostazione '%s'.
+'%s' non è un valore valido per l'opzione '%s'.
 
 .
 :PROGRAM_CONFIG_GET_SYNTAX
@@ -2361,6 +2360,7 @@ e
 .
 :PROGRAM_CONFIG_NOT_CHANGEABLE
 L'impostazione '%s' non è modificabile durante l'esecuzione.
+
 .
 :PROGRAM_CONFIG_DEPRECATED
 [color=light-red]Questa impostazione è deprecata, ed è supportata solo per
@@ -2375,13 +2375,13 @@ Elenco non supportato
 Dispositivo non configurato
 .
 :BIOS_REBOOTING_3
-Riavvio in 3 secondi...
+Riavvio tra 3 secondi...
 .
 :BIOS_REBOOTING_2
-Riavvio in 2 secondi...
+Riavvio tra 2 secondi...
 .
 :BIOS_REBOOTING_1
-Riavvio in 1 secondo...
+Riavvio tra 1 secondo...
 .
 :MOUNT_TYPE_LOCAL_DIRECTORY
 Directory locale
@@ -2772,8 +2772,8 @@ Puoi eseguire programmi/file con estensione [color=red].exe[reset], [color=red].
 .
 :PROGRAM_INTRO_CDROM_WINDOWS
 [erases=entire][color=light-green]Come montare un'unità CD-ROM reale/virtuale in DOSBox:[reset]
-Il comando [color=light-blue]mount[reset] funziona con tutte le directory normali, ed è programmato per
-installare MSCDEX e impostare tutti i file in sola lettura.
+Il comando [color=light-blue]mount[reset] funziona con tutte le directory normali, installa MSCDEX e
+contrassegna i file in sola lettura.
 Solitamente, ciò è sufficiente per la maggior parte dei giochi:
 [color=light-blue]mount D C:\esempio -t cdrom[reset]
 Se non funziona, potresti dover specificare a DOSBox l'etichetta del CD-ROM:
@@ -2786,10 +2786,8 @@ Inoltre puoi usare [color=light-blue]imgmount[reset] per montare immagini ISO o 
 .
 :PROGRAM_INTRO_CDROM_OTHER
 [erases=entire][color=light-green]Come montare un'unità CD-ROM reale/virtuale in DOSBox:[reset]
-DOSBox fornisce un'emulazione CD-ROM su due livelli.
-
-Il comando [color=light-blue]mount[reset] funziona con tutte le directory normali, ed è programmato per
-installare MSCDEX e impostare tutti i file in sola lettura.
+Il comando [color=light-blue]mount[reset] funziona con tutte le directory normali, installa MSCDEX e
+contrassegna i file in sola lettura.
 Solitamente, ciò è sufficiente per la maggior parte dei giochi:
 [color=light-blue]mount D ~/esempio -t cdrom[reset]
 Se non funziona, potresti dover specificare a DOSBox l'etichetta del CD-ROM:
@@ -3143,13 +3141,13 @@ Imposta la modalità di visualizzazione o la frequenza tipomatica.
 Utilizzo:
   [color=light-green]mode[reset] [color=white]COLONNExRIGHE[reset]
   [color=light-green]mode[reset] [color=white]COLONNE,RIGHE[reset]
-  [color=light-green]mode[reset] rate=[color=white]FREQ[reset] delay=[color=white]RITARDO[reset]
+  [color=light-green]mode[reset] rate=[color=white]FREQUENZA[reset] delay=[color=white]RITARDO[reset]
 
 Parametri:
   [color=white]COLONNE[reset]   numero di caratteri (colonne) per riga (40, 80, or 132)
   [color=white]RIGHE[reset]     numero di righe sullo schermo (25, 28, 30, 34, 43, 50, o 60)
-  [color=white]FREQ[reset]      freq. ripetizione caratteri, da [color=white]1[reset] (lento) a [color=white]32[reset] (veloce)
-  [color=white]RITARDO[reset]   rit. ripetizione caratteri, da [color=white]1[reset] (minore) a [color=white]4[reset] (maggiore)
+  [color=white]FREQUENZA[reset] frequenza di ripetizione caratteri, da [color=white]1[reset] (lento) a [color=white]32[reset] (veloce)
+  [color=white]RITARDO[reset]   ritardo di ripetizione caratteri, da [color=white]1[reset] (minore) a [color=white]4[reset] (maggiore)
 
 Note:
   - Combinazioni valide di [color=white]COLONNExRIGHE[reset] per ogni tipo di scheda video:
@@ -3171,7 +3169,7 @@ Modalità di visualizzazione non valida: [color=white]%s[reset]
 Modalità di visualizzazione [color=white]%s[reset] non supportata su questa scheda video.
 .
 :PROGRAM_MODE_INVALID_TYPEMATIC_RATE
-Impostazioni di frequenza e ritardo di ripetizione della tastiera non valide.
+Impostazione frequenza tipomatica non valida.
 .
 :PROGRAM_MORE_HELP_LONG
 Visualizza l'output una schermata alla volta.
@@ -3274,13 +3272,13 @@ Parametri:
   [color=white]UNITÀ[reset]      lettera dell'unità in cui verrà montata la directory: A, C, D, ...
   [color=light-cyan]DIRECTORY[reset]  directory del sistema da montare sull'unità virtuale
   TIPO       tipo di directory da montare: dir, floppy, cdrom o overlay
-  DIM        spazio libero per l'unità virtuale (KB per floppy, altrimenti MB).
+  DIM        spazio libero per l'unità virtuale (KB per floppy, altrimenti MB)
   ETICHETTA  nome dell'etichetta dell'unità da utilizzare
 
 Note:
   - '-t overlay' reindirizza le scritture per l'unità montata in un'altra
     directory.
-  - '-ro' monta l'unità come sola lettura.
+  - '-ro' monta l'unità in sola lettura.
   - Ulteriori opzioni sono descritte nel manuale (file README, capitolo 4).
 
 Esempi:
@@ -3297,13 +3295,13 @@ Esempi:
 .
 :PROGRAM_MOUNT_HELP_LONG_MACOSX
   [color=light-green]mount[reset] [color=white]C[reset] [color=light-cyan]~/giochi[reset]
-  [color=light-green]mount[reset] [color=white]D[reset] [color=light-cyan]"/Volumes/CD del Gioco"[reset] -t cdrom
+  [color=light-green]mount[reset] [color=white]D[reset] [color=light-cyan]"/Volumi/CD_Gioco"[reset] -t cdrom
   [color=light-green]mount[reset] [color=white]C[reset] [color=light-cyan]i_miei_salvataggi[reset] -t overlay
 
 .
 :PROGRAM_MOUNT_HELP_LONG_OTHER
   [color=light-green]mount[reset] [color=white]C[reset] [color=light-cyan]~/giochi[reset]
-  [color=light-green]mount[reset] [color=white]D[reset] [color=light-cyan]"/media/UTENTE/CD del Gioco"[reset] -t cdrom
+  [color=light-green]mount[reset] [color=white]D[reset] [color=light-cyan]"/media/UTENTE/CD_Gioco"[reset] -t cdrom
   [color=light-green]mount[reset] [color=white]C[reset] [color=light-cyan]i_miei_salvataggi[reset] -t overlay
 
 .
@@ -3946,7 +3944,7 @@ Spazio di ambiente insufficiente.
 
 .
 :SHELL_CMD_SET_OPTION_P_UNSUPPORTED
-Il parametro /P non è supportato; utilizzare il comando CHOICE.
+Il parametro /P non è supportato; si prega utilizzare il comando CHOICE.
 
 .
 :SHELL_CMD_IF_EXIST_MISSING_FILENAME
