@@ -711,7 +711,7 @@ Turco (non standard)
 Tataro (standard, QWERTY/nazionale)
 .
 :KEYBOARD_LAYOUT_NAME_TT443
-Tatar (disp. macchina da scrivere, QWERTY/nazionale)
+Tataro (disp. macchina da scrivere, QWERTY/nazionale)
 .
 :KEYBOARD_LAYOUT_NAME_UR
 Ucraino (101 tasti, QWERTY/nazionale)
@@ -2503,7 +2503,7 @@ Imposta l'epoca della localizzazione (predefinito 'native').
 Imposta il codice paese DOS (predefinito 'auto').
 Ciò influisce su informazioni come data, ora e formati decimali.
 Se impostato su 'auto', seleziona il codice paese corrispondente alle
-impostazioni del sistema operativo primario.
+impostazioni del sistema operativo in uso.
 L'elenco dei codici paese supportati può essere visualizzato utilizzando
 l'argomento della riga di comando '--list-countries'.
 .
@@ -2511,12 +2511,13 @@ l'argomento della riga di comando '--list-countries'.
 Rinominato in 'keyboard_layout'.
 .
 :CONFIG_KEYBOARD_LAYOUT
-Codice della disposizione della tastiera (predefinito 'auto').
+Codice della disposizione della tastiera (predefinito 'us').
 L'elenco dei codici di tastiera supportati può essere visualizzato utilizzando
-l'argomento della riga di comando '--list-layouts'; ad esempio 'it' è la
+l'argomento della riga di comando '--list-layouts'. Ad esempio 'it' è la
 disposizione della tastiera italiana. La disposizione può essere seguita dal
 numero di una tabella codici; ad esempio 'it 850' seleziona il set di caratteri
-utilizzati nell'Europa occidentale.
+utilizzato nell'Europa occidentale.
+Se impostato su 'auto', i valori saranno ottenuti dal sistema operativo in uso.
 Dopo l'avvio dell'emulatore, utilizzare il comando 'KEYB' per gestire le
 disposizioni della tastiera e le tabelle codici (esegui 'HELP KEYB' per
 ulteriori dettagli).
@@ -2790,8 +2791,9 @@ e
 .
 :PROGRAM_CONFIG_NOT_CHANGEABLE
 [color=yellow]L'opzione '%s' non può essere modificata durante l'esecuzione.[reset]
-Tuttavia le modifiche saranno applicate eseguendo il riavvio dell'emulatore con
-il comando 'CONFIG -r' o tramite l'apposito tasto di scelta rapida.
+Tuttavia le modifiche saranno applicate dopo aver eseguito il riavvio
+dell'emulatore con il comando 'CONFIG -r' o tramite l'apposito tasto di
+scelta rapida.
 
 .
 :PROGRAM_CONFIG_DEPRECATED
@@ -3292,7 +3294,7 @@ Parametri:
 
 Note:
   - L'esecuzione di [color=light-green]keyb[reset] senza un argomento, mostra la disposizione della
-    tastiera e la tabella codici attulamente caricati.
+    tastiera e la tabella codici attualmente caricati.
   - Il [color=white]FILECPI[reset], se specificato, deve contenere il set di caratteri per la
     [color=white]TABELLACODICI[reset] selezionata.
   - Se non viene specificato alcun [color=white]FILECPI[reset] personalizzato, il comando cercherà
@@ -3350,7 +3352,7 @@ File con disposizione della tastiera '%s' non trovato.
 
 .
 :PROGRAM_KEYB_INVALID_LAYOUT_FILE
-File non valido con la disposizione della tastiera '%s'.
+File con disposizione della tastiera '%s' non valido.
 
 .
 :PROGRAM_KEYB_CPI_FILE_NOT_FOUND
