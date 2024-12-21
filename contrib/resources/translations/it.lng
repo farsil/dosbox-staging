@@ -1,3 +1,7 @@
+// Writing script used in this translation, can be one of:
+// Latin, Arabic, Armenian, Cherokee, Cyrillic, Georgian, Greek, Hebrew
+#SCRIPT Latin
+
 :DOSBOX_HELP
 Utilizzo: %s [OPZIONE]... [PERCORSO]
 
@@ -44,6 +48,8 @@ Elenco delle opzioni disponibili:
   --list-layouts            Elenca tutte le disposizioni della tastiera supportate e
                             i relativi codici. I codici possono essere utilizzati
                             nell'impostazione di configurazione 'keyboard_layout'.
+                            
+  --list-code-pages         Elenca tutte le tabelle codici supportate.
 
   --list-glshaders          Elenca tutti gli shader OpenGL disponibili e i relativi
                             percorsi. Gli shader possono essere utilizzati
@@ -96,6 +102,13 @@ Elenco dei codici di tastiera disponibili
 .
 :DOSBOX_HELP_LIST_KEYBOARD_LAYOUTS_2
 I codici sopra indicati possono essere utilizzati nell'impostazione di
+configurazione 'keyboard_layout'.
+.
+:DOSBOX_HELP_LIST_CODE_PAGES_1
+Elenco delle tabelle codici disponibili
+.
+:DOSBOX_HELP_LIST_CODE_PAGES_2
+Le tabelle codici sopra indicate possono essere utilizzate nell'impostazione di
 configurazione 'keyboard_layout'.
 .
 :COUNTRY_NAME_XXA
@@ -422,6 +435,309 @@ Kirghizistan
 :COUNTRY_NAME_UZB
 Uzbekistan
 .
+:CODE_PAGE_DESCRIPTION_113
+Jugoslavo
+.
+:CODE_PAGE_DESCRIPTION_437
+Stati Uniti
+.
+:CODE_PAGE_DESCRIPTION_667
+Polacco, codifica Mazovia
+.
+:CODE_PAGE_DESCRIPTION_668
+Polacco, compatibile con 852
+.
+:CODE_PAGE_DESCRIPTION_737
+Greco-2
+.
+:CODE_PAGE_DESCRIPTION_770
+Baltico
+.
+:CODE_PAGE_DESCRIPTION_771
+Lituano e russo, codifica KBL
+.
+:CODE_PAGE_DESCRIPTION_773
+Latino-7 (Baltico, vecchia codifica)
+.
+:CODE_PAGE_DESCRIPTION_775
+Latino-7 (Baltico)
+.
+:CODE_PAGE_DESCRIPTION_777
+Lituano, lettere accentate, vecchia codifica
+.
+:CODE_PAGE_DESCRIPTION_778
+Lituano, lettere accentate, codifica LST 1590-2
+.
+:CODE_PAGE_DESCRIPTION_808
+Russo, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_848
+Ucraino, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_849
+Bielorusso, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_850
+Latino-1 (Europa occidentale)
+.
+:CODE_PAGE_DESCRIPTION_851
+Greco, vecchia codifica
+.
+:CODE_PAGE_DESCRIPTION_852
+Latino-2 (Europa centrale), con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_853
+Latino-3 (turco, maltese ed esperanto)
+.
+:CODE_PAGE_DESCRIPTION_855
+Slavo meridionale
+.
+:CODE_PAGE_DESCRIPTION_856
+Ebraico-2, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_857
+Latino-5 (turco), con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_858
+Latino-1 (Europa occidentale), con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_859
+Latino-9 (Europa occidentale), con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_860
+Portoghese
+.
+:CODE_PAGE_DESCRIPTION_861
+Islandese
+.
+:CODE_PAGE_DESCRIPTION_862
+Ebraico-2
+.
+:CODE_PAGE_DESCRIPTION_863
+Francese canadese
+.
+:CODE_PAGE_DESCRIPTION_864
+Arabo
+.
+:CODE_PAGE_DESCRIPTION_865
+Danese/norvegese
+.
+:CODE_PAGE_DESCRIPTION_866
+Russo
+.
+:CODE_PAGE_DESCRIPTION_867
+Ceco e slovacco, codifica Kamenický
+.
+:CODE_PAGE_DESCRIPTION_869
+Greco, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_872
+Slavo meridionale, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_899
+Armeno, codifica ArmSCII-8A
+.
+:CODE_PAGE_DESCRIPTION_991
+Polacco, codifica Mazovia, con simbolo PLN
+.
+:CODE_PAGE_DESCRIPTION_1116
+Estone
+.
+:CODE_PAGE_DESCRIPTION_1117
+Lettone
+.
+:CODE_PAGE_DESCRIPTION_1118
+Lituano, codifica LST 1283
+.
+:CODE_PAGE_DESCRIPTION_1119
+Lituano e russo, codifica LST 1284
+.
+:CODE_PAGE_DESCRIPTION_1125
+Ucraino
+.
+:CODE_PAGE_DESCRIPTION_1131
+Bielorusso
+.
+:CODE_PAGE_DESCRIPTION_3012
+Lettone e russo, codifica RusLat
+.
+:CODE_PAGE_DESCRIPTION_3021
+Bulgaro, codifica MIK
+.
+:CODE_PAGE_DESCRIPTION_3845
+Ungherese, codifica CWI-2
+.
+:CODE_PAGE_DESCRIPTION_3846
+Turco
+.
+:CODE_PAGE_DESCRIPTION_3848
+Brasiliano, codifica ABICOMP
+.
+:CODE_PAGE_DESCRIPTION_30000
+Saami, Kalo e Finnico
+.
+:CODE_PAGE_DESCRIPTION_30001
+Celtico e scozzese, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30002
+Tagiko, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30003
+Latinoamericano, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30004
+Groenlandese e germanico settentrionale, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30005
+Nigeriano, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30006
+Vietnamita, codifica VISCII
+.
+:CODE_PAGE_DESCRIPTION_30007
+Latino e romanzo, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30008
+Abcaso e osseto, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30009
+Romani e turco, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30010
+Gagauzo e Moldavo, con il simbolo dell'EUR
+.
+:CODE_PAGE_DESCRIPTION_30011
+Russo Meridionale, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30012
+Siberiano, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30013
+Turco, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30014
+Ugro-finnico (Mari, Udmurto), con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30015
+Ostiaco, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30016
+Mansi, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30017
+Russo nord-occidentale, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30018
+Tataro latino e russo, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30019
+Latino ceceno e russo, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30020
+Basso sassone e frisone, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30021
+Oceania, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30022
+Prime Nazioni canadesi, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30023
+Sudafricano, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30024
+Africa settentrionale e orientale, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30025
+Africa occidentale, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30026
+Africa centrale, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30027
+Beninese, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30028
+Nigeriano, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30029
+Messicano, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30030
+Messicano-2, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30031
+Latino-4 (Nord Europa), con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30032
+Latino-6, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_30033
+Tataro di Crimea, con simbolo UAH
+.
+:CODE_PAGE_DESCRIPTION_30034
+Cherokee
+.
+:CODE_PAGE_DESCRIPTION_30039
+Ucraino, con simbolo UAH
+.
+:CODE_PAGE_DESCRIPTION_30040
+Russo, con simbolo UAH
+.
+:CODE_PAGE_DESCRIPTION_58152
+Kazako, con simbolo EUR
+.
+:CODE_PAGE_DESCRIPTION_58210
+Cirillico azero e russo
+.
+:CODE_PAGE_DESCRIPTION_58335
+Casciubo, basato su Masovia, con simbolo PLN
+.
+:CODE_PAGE_DESCRIPTION_59234
+Tartaro
+.
+:CODE_PAGE_DESCRIPTION_59829
+Georgiano
+.
+:CODE_PAGE_DESCRIPTION_60258
+Azero latino e russo
+.
+:CODE_PAGE_DESCRIPTION_60853
+Georgiano con lettere maiuscole
+.
+:CODE_PAGE_DESCRIPTION_62306
+Uzbeko
+.
+:SCRIPT_NAME_LATN
+Latino
+.
+:SCRIPT_NAME_ARAB
+Arabo
+.
+:SCRIPT_NAME_ARMN
+Armeno
+.
+:SCRIPT_NAME_CHER
+Cherokee
+.
+:SCRIPT_NAME_CYRL
+Cirillico
+.
+:SCRIPT_NAME_GEOR
+Georgiano
+.
+:SCRIPT_NAME_GREK
+Greco
+.
+:SCRIPT_NAME_HEBR
+Ebraico
+.
+:SCRIPT_PROPERTY_PHONETIC
+fonetico
+.
+:SCRIPT_PROPERTY_NON_STANDARD
+non standard
+.
 :KEYBOARD_LAYOUT_NAME_US
 Stati Uniti (standard, QWERTY/nazionale)
 .
@@ -743,44 +1059,11 @@ Serbo (senza tasti morti, QWERTZ/nazionale)
 :KEYBOARD_LAYOUT_NAME_YU
 Jugoslavo (QWERTZ)
 .
-:SCRIPT_LATIN
-Latino
-.
-:SCRIPT_ARABIC
-Arabo
-.
-:SCRIPT_ARMENIAN
-Armeno
-.
-:SCRIPT_CHEROKEE
-Cherokee
-.
-:SCRIPT_CYRILLIC
-Cirillico
-.
-:SCRIPT_GEORGIAN
-Georgiano
-.
-:SCRIPT_GREEK
-Greco
-.
-:SCRIPT_HEBREW
-Ebraico
-.
-:SCRIPT_THAI
-Tailandese
-.
 :KEYBOARD_MOD_ADJECTIVE_LEFT
 Sinistro
 .
 :KEYBOARD_MOD_ADJECTIVE_RIGHT
 Destro
-.
-:SCRIPT_PROPERTY_PHONETIC
-fonetico
-.
-:SCRIPT_PROPERTY_NON_STANDARD
-non standard
 .
 :DOSBOX_HELP_LIST_GLSHADERS_1
 Elenco degli shader GLSL disponibili
@@ -1808,92 +2091,6 @@ Abilita l'effetto coro a livello globale per un suono più avvolgente:
 Nota: È possibile regolare con precisione i livelli di coro di ciascun canale
       tramite il comando MIXER.
 .
-:CONFIG_MIDIDEVICE
-Imposta dove vengono inviati i dati MIDI dall'interfaccia MPU-401 emulata
-(predefinito 'port'):
-.
-:CONFIGITEM_MIDIDEVICE_COREAUDIO
-  coreaudio:  Sintetizzatore MIDI integrato in MacOS. È possibile specificare
-              il SoundFont da utilizzare con l'impostazione 'midiconfig'.
-.
-:CONFIGITEM_MIDIDEVICE_FLUIDSYNTH
-  fluidsynth: Sintetizzatore MIDI FluidSynth incluso in DOSBox (necessita di
-              un SoundFont). Fare riferimento alla sezione [fluidsynth] per una
-              configurazione dettagliata.
-.
-:CONFIGITEM_MIDIDEVICE_MT32
-  mt32:       Sintetizzatore Roland MT-32 incluso in DOSBox. Fare riferimento
-              alla sezione [mt32] per una configurazione dettagliata.
-.
-:CONFIGITEM_MIDIDEVICE_PORT
-  port:       Porta MIDI dell'interfaccia MIDI del sistema operativo primario
-              (predefinito). La porta MIDI da utilizzare può essere configurata
-              con l'impostazione 'midiconfig'.
-.
-:CONFIGITEM_MIDIDEVICE_NONE
-  none:       Disabilita l'uscita MIDI.
-.
-:CONFIG_MIDICONFIG
-Opzioni di configurazione per il dispositivo MIDI selezionato (predefinito non
-impostato).
-Note:
-.
-:CONFIGITEM_MIDICONFIG_FLUIDSYNTH_OR_MT32EMU
-  - Questa impostazione non ha effetto quando si utilizzano i sintetizzatori
-    intergrati ('mididevice = fluidsynth' o 'mididevice = mt32').
-.
-:CONFIGITEM_MIDICONFIG_COREAUDIO
-  - Quando si utilizza 'mididevice = coreaudio', in questa impostazione è
-    possibile specificare il SoundFont. È necessario usare il percorso assoluto
-    del file SoundFont.
-.
-:CONFIGITEM_MIDICONFIG_LINUX
-  - Quando si utilizza 'mididevice = port', eseguire il comando 'aconnect -l'
-    sul terminale Linux per visualizzare l'elenco di tutte le porte MIDI aperte
-    e selezionarne una (es. 'midiconfig = 14:0' per usare il sequenziatore
-    client 14, porta 0).
-.
-:CONFIGITEM_MIDICONFIG_WINDOWS_OR_MACOS
-  - Quando si utilizza 'mididevice = port', è necessario individuare l'ID o
-    il nome della porta MIDI che si vuole utilizzare con il comando DOS
-    'MIXER /LISTMIDI', quindi impostare l'ID o una sottostringa del nome
-    (ad esempio, per utilizzare la porta denominata "loopMIDI Port A" con ID 2,
-    impostare 'midiconfig = 2' o 'midiconfig = port a').
-.
-:CONFIGITEM_MIDICONFIG_MT32
-  - Se stai usando un vero Roland MT-32 rev. 0, l'hardware potrebbe richiedere
-    un ritardo per evitare il sovraccarico del buffer. È possibile abilitare
-    questa funzione aggiungendo 'delaysysex' dopo l'ID o il nome della porta
-    (es. 'midiconfig = 2 delaysysex').
-.
-:CONFIG_MPU401
-Modalità MPU-401 da emulare (predefinito 'intelligent').
-.
-:CONFIG_RAW_MIDI_OUTPUT
-Abilita l'uscita MIDI senza alcuna elaborazione (predefinito disabilitato).
-I driver MIDI di molti giochi non sono completamente conformi allo standard
-MIDI, il che rende la modifica delle registrazioni MIDI di questi giochi
-altamente soggetta ad errori e problematica nei sequenziatori MIDI, spesso
-causando note sospese o mancanti. DOSBox corregge l'output MIDI di tali giochi
-per impostazione predefinita. Ciò non comporta alcuna differenza udibile;
-influisce solo sulla rappresentazione dei dati MIDI.
-Dovresti abilitare 'raw_midi_output' solo se hai davvero bisogno di catturare
-una sequenza MIDI (inalterata) da un programma, ad esempio quando si lavora con
-applicazioni musicali o quando si esegue il debug per problemi riguardanti
-la riproduzione MIDI.
-.
-:MIDI_DEVICE_LIST_NOT_SUPPORTED
-Elenco non supportato
-.
-:MIDI_DEVICE_NOT_CONFIGURED
-Dispositivo non configurato
-.
-:MIDI_DEVICE_NO_SUPPORTED_MODELS
-Nessun modello supportato disponibile
-.
-:MIDI_DEVICE_NO_MODEL_ACTIVE
-Nessun modello è attualmente attivo
-.
 :CONFIG_SOUNDFONT
 Nome o percorso del file SoundFont da utilizzare (predefinito 'default.sf2').
 Il SoundFont verrà ricercato nelle seguenti posizioni, rispettivamente:
@@ -1959,6 +2156,9 @@ Filtro per l'uscita audio di FluidSynth:
   <personalizzato>: Definizione di filtri personalizzati;
                     fare riferimento a 'sb_filter' per ulteriori dettagli.
 .
+:FLUIDSYNTH_NO_SOUNDFONTS
+Nessun SoundFont disponibile
+.
 :CONFIG_MODEL
 Modello di Roland MT-32/CM-32ML da utilizzare.
 È necessario avere a disposizione i file ROM per il modello selezionato
@@ -1970,8 +2170,12 @@ seguente ordine:
   mt32_new:   Seleziona il miglior modello MT-32 "new" (v2.0x) disponibile.
   mt32:       Seleziona il miglior modello MT-32 disponibile.
   <versione>: Utilizza la versione del modello specificata (es. 'mt32_204').
-Nota: Eseguire il comando `MIXER /LISTMIDI` per visualizzare l'elenco dei
-      modelli disponibili.
+Note:
+  - Eseguire il comando `MIXER /LISTMIDI` per visualizzare l'elenco dei
+    modelli disponibili.
+  - Questo *NON* è un dispositivo compatibile con General MIDI; Si prega di
+    utilizzarlo solo se il gioco supporta il Roland MT-32 (standard precedente
+    a General MIDI).
 .
 :CONFIG_ROMDIR
 Directory contenente le ROM del Roland MT-32/CM-32ML
@@ -1990,29 +2194,134 @@ Filtro per l'uscita audio Roland MT-32/CM-32L:
   <personalizzato>: Definizione di filtri personalizzati;
                     fare riferimento a 'sb_filter' per ulteriori dettagli.
 .
-:MT32_NO_SUPPORTED_MODELS
-Nessun modello supportato disponibile
-.
-:MT32_ROM_NOT_LOADED
-Nessun modello è attualmente attivo
-.
-:MT32_INVENTORY_TABLE_MISSING_LETTER
--
-.
-:MT32_INVENTORY_TABLE_AVAILABLE_LETTER
-s
-.
 :MT32_ROMS_LABEL
 Modelli  MT-32
 .
 :CM32L_ROMS_LABEL
 Modelli CM-32L
 .
-:MT32_ACTIVE_ROM_LABEL
-Modello attivo
+:MT32_ACTIVE_MODEL_LABEL
+Modello attivo: 
 .
 :MT32_SOURCE_DIR_LABEL
-Percorso ROM
+Percorso ROM  : 
+.
+:CONFIG_SOUNDCANVAS_MODEL
+Modello di Roland Sound Canvas da utilizzare.
+Nella cartella 'plugin' situata nella directory di configurazione di DOSBox,
+devono essere presenti uno o più plugin audio CLAP che implementano i modelli
+Sound Canvas supportati. DOSBox cerca il modello richiesto esaminando le
+descrizioni dei plugin.
+La ricerca dei modelli viene eseguita nel seguente ordine:
+  auto:       Seleziona il miglior modello disponibile (predefinito).
+  sc55:       Seleziona il miglior modello SC-55 originale disponibile.
+  sc55mk2:    Seleziona il miglior modello SC-55mk2 disponibile.
+  <versione>: Utilizza la versione del modello specificata (es. 'sc55_121').
+.
+:CONFIG_SOUNDCANVAS_FILTER
+Filtro per l'uscita audio del Roland Sound Canvas:
+  on:               Filtra l'uscita audio (predefinito).
+  off:              Non filtra l'uscita audio.
+  <personalizzato>: Definizione di filtri personalizzati;
+                    fare riferimento a 'sb_filter' per ulteriori dettagli.
+.
+:SC55_MODELS_LABEL
+Modelli SC-55
+.
+:SOUNDCANVAS_ACTIVE_MODEL_LABEL
+Modello attivo: 
+.
+:CONFIG_MIDIDEVICE
+Imposta dove l'interfaccia MPU-401 emulata invia i dati MIDI
+(predefinito 'port'):
+.
+:CONFIGITEM_MIDIDEVICE_PORT
+  port:        Porta MIDI disponibile nel sistema operativo in uso
+               (predefinito). È possibile scegliere la porta da utilizzare
+               con l'impostazione 'midiconfig'.
+.
+:CONFIGITEM_MIDIDEVICE_COREAUDIO
+  coreaudio:   Sintetizzatore MIDI integrato in MacOS. È possibile specificare
+               il SoundFont da utilizzare con l'impostazione 'midiconfig'.
+.
+:CONFIGITEM_MIDIDEVICE_MT32
+  mt32:        Sintetizzatore Roland MT-32 incluso in DOSBox (fare riferimento
+               alla sezione [mt32]).
+.
+:CONFIGITEM_MIDIDEVICE_SOUNDCANVAS
+  soundcanvas: Sintetizzatore Roland SC-55 incluso in DOSBox (fare riferimento
+               alla sezione [soundcanvas]).
+.
+:CONFIGITEM_MIDIDEVICE_FLUIDSYNTH
+  fluidsynth:  Sintetizzatore MIDI FluidSynth incluso in DOSBox (necessita di
+               un SoundFont) (fare riferimento alla sezione [fluidsynth].
+.
+:CONFIGITEM_MIDIDEVICE_NONE
+  none:        Disabilita l'uscita MIDI.
+.
+:CONFIG_MIDICONFIG
+Opzioni di configurazione per il dispositivo MIDI selezionato (predefinito non
+impostato).
+Note:
+.
+:CONFIGITEM_MIDICONFIG_WINDOWS_OR_MACOS
+  - Quando si utilizza 'mididevice = port', è necessario individuare l'ID o
+    il nome della porta MIDI che si vuole utilizzare con il comando DOS
+    'MIXER /LISTMIDI', quindi impostare l'ID o una sottostringa del nome
+    (ad esempio, per utilizzare la porta denominata "loopMIDI Port A" con ID 2,
+    impostare 'midiconfig = 2' o 'midiconfig = port a').
+.
+:CONFIGITEM_MIDICONFIG_COREAUDIO
+  - Quando si utilizza 'mididevice = coreaudio', in questa impostazione è
+    possibile specificare il SoundFont. È necessario usare il percorso assoluto
+    del file SoundFont.
+.
+:CONFIGITEM_MIDICONFIG_LINUX
+  - Quando si utilizza 'mididevice = port', eseguire il comando 'aconnect -l'
+    sul terminale Linux per visualizzare l'elenco di tutte le porte MIDI aperte
+    e selezionarne una (es. 'midiconfig = 14:0' per usare il sequenziatore
+    client 14, porta 0).
+.
+:CONFIGITEM_MIDICONFIG_INTERNAL_SYNTH
+  - Questa impostazione non ha effetto quando si utilizzano i sintetizzatori
+    intergrati ('mididevice = fluidsynth', 'mt32', or 'soundcanvas').
+.
+:CONFIGITEM_MIDICONFIG_PHYSICAL_MT32
+  - Se stai usando un vero Roland MT-32 rev. 0, l'hardware potrebbe richiedere
+    un ritardo per evitare il sovraccarico del buffer. È possibile abilitare
+    questa funzione aggiungendo 'delaysysex' dopo l'ID o il nome della porta
+    (es. 'midiconfig = 2 delaysysex').
+.
+:CONFIG_MPU401
+Modalità MPU-401 da emulare (predefinito 'intelligent').
+.
+:CONFIG_RAW_MIDI_OUTPUT
+Abilita l'uscita MIDI senza alcuna elaborazione (predefinito disabilitato).
+I driver MIDI di molti giochi non sono completamente conformi allo standard
+MIDI, il che rende la modifica delle registrazioni MIDI di questi giochi
+altamente soggetta ad errori e problematica nei sequenziatori MIDI, spesso
+causando note sospese o mancanti. DOSBox corregge l'output MIDI di tali giochi
+per impostazione predefinita. Ciò non comporta alcuna differenza udibile;
+influisce solo sulla rappresentazione dei dati MIDI.
+Dovresti abilitare 'raw_midi_output' solo se hai davvero bisogno di catturare
+una sequenza MIDI inalterata di un programma, ad esempio quando si lavora con
+applicazioni musicali o quando si esegue il debug per problemi riguardanti
+la riproduzione MIDI.
+.
+:MIDI_DEVICE_LIST_NOT_SUPPORTED
+Elenco non supportato
+.
+:MIDI_DEVICE_NOT_CONFIGURED
+Dispositivo non configurato
+.
+:MIDI_DEVICE_NO_PORTS
+Nessuna porta disponibile
+.
+:MIDI_DEVICE_NO_MODEL_ACTIVE
+Nessun modello è attualmente attivo
+.
+:MIDI_DEVICE_NO_MODELS
+Nessun modello disponibile
 .
 :CONFIG_SBTYPE
 Modello di Sound Blaster da emulare (predefinito 'sb16').
