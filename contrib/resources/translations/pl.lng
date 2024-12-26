@@ -1,3 +1,7 @@
+// Writing script used in this translation, can be one of:
+// Latin, Arabic, Armenian, Cherokee, Cyrillic, Georgian, Greek, Hebrew
+#SCRIPT Latin
+
 :DOSBOX_HELP
 Składnia: %s [OPCJE]... [ŚCIEŻKA]
 
@@ -67,7 +71,6 @@ Lista dostępnych opcji:
 .
 :DOSBOX_HELP_LIST_COUNTRIES_1
 Kody krajów; zazwyczaj takie same, jak telefoniczny numer kierunkowy
---------------------------------------------------------------------
 .
 :DOSBOX_HELP_LIST_COUNTRIES_2
 Powyższych kodów numerycznych należy użyć w ustawieniu 'country'
@@ -430,6 +433,9 @@ Składnia: [color=light-green]config [/reset]-set [color=light-cyan][SECTION][/r
 :TITLEBAR_CYCLES_MS
 cykli/ms
 .
+:TITLEBAR_CYCLES_THROTTLED
+ograniczone
+.
 :TITLEBAR_MUTED
 WYCISZONE
 .
@@ -481,7 +487,7 @@ Wybór wyjścia obrazu (domyślnie 'texture').
 .
 :CONFIG_TEXTURE_RENDERER
 Wybór renderera dla 'output = texture'.
-Wartość 'auto' (domyślnie) wybiera automatycznie.
+Wartość 'auto' (domyślne) wybiera automatycznie.
 .
 :CONFIG_DISPLAY
 Numer monitora do wyświetlania obrazu (domyślnie 0); wartości zależą od
@@ -805,7 +811,7 @@ Użyj ustawienia 'host_rate'.
 Wybór shadera w trybach OpenGL. Lista dostępnych shaderów adaptacyjnych,
 symulujących obraz monitora kineskopowego (CRT):
   crt-auto:               Shader symulujący obraz monitora z okresu wydania
-                          danej gry (domyślnie). Odpowiedni shader jest
+                          danej gry (domyślne). Odpowiedni shader jest
                           wybierany bazując na trybie graficznym
                           i rozdzielczości, bez uwzględniania opcji
                           'machine' - zatem nawet podczas emulowania systemu
@@ -927,7 +933,7 @@ zdolnych do wyświetlania obrazu CGA lub lepszego. Wbudowane ustawienia:
   scumm-amiga:   Paleta używana przez porty gier LucasArts EGA na
                  komputery Amiga.
   colodore:      Zainspirowane przez komputer Commodore 64 i paletę Colodore.
-  colodore-sat:  Paleta Colodore z nasyceniem większym o 20%.
+  colodore-sat:  Paleta Colodore z nasyceniem większym o 20%%.
   dga16:         Nowoczesne podejście do palety CGA, ze stonowanym kontrastem.
 Można również podać własny zestaw kolorów, jako 16 rozdzielonych spacjami
 lub przecinkami wartości, jako 3- lub 6-cyfrowe liczby szesnastkowe (np. #f00
@@ -1064,7 +1070,7 @@ Szybkość emulowanego procesora dla programów działających w trybie chronion
 Uwaga: Więcej informacji znajdziesz w opisie 'cpu_cycles'.
 .
 :CONFIG_CPU_THROTTLE
-Dynamicznie zmniejsza ilość emulowanych cykli procesora, jeśli system
+Dynamicznie ogranicza ilość emulowanych cykli procesora, jeśli system
 gospodarza nie jest w stanie emulować zadanej liczby (domyślnie wyłączone).
 Działa jedynie w przypadku ustawienia stałej liczby cykli. Po włączeniu
 ilość cykli na milisekundę będzie się zmieniać, może to powodować problemy
@@ -1088,12 +1094,18 @@ Włącza emulację karty 3dfx Voodoo (domyślnie włączone).
 Wielkość pamięci (w megabajtach) emulowanej karty 3dfx Voodooo, 4 lub 12 MB.
 Pamięć jest dzielona na Frame Buffer Interface (FBI) oraz Texture Mapping Unit
 (TMU) w następujący sposób:
-   4: 2 MB dla FBI, jeden TMU z 2 MB pamięci (domyślne)
+   4: 2 MB dla FBI, jeden TMU z 2 MB pamięci (domyślne).
   12: 4 MB dla FBI, dwa TMUs, każdy z 4 MB pamięci.
 .
 :CONFIG_VOODOO_MULTITHREADING
-Używa wielowątkowości aby polepszyć wydajność emulacji 3dfx Voodoo
-(domyślnie włączone).
+Nazwa zmieniona na 'voodoo_threads'.
+.
+:CONFIG_VOODOO_THREADS
+Używa wątków procesora do polepszenia wydajności karty 3dfx:
+  auto:       Używa do 8 wątków, zależnie od ilości rdzeni (domyślne).
+  <wartość>:  Używa określonej ilości wątków, od 1 do 16.
+Uwaga: Testy wykazują, że wydajność rośnie do 8 wątków, powyżej nie ma już
+       poprawy lub wydajność maleje.
 .
 :CONFIG_VOODOO_BILINEAR_FILTERING
 Używa filtrowania bilinearnego żeby zasymulować efekt wygładzania tekstur
@@ -1895,6 +1907,13 @@ Plik z tabelą programów i przypisanych do nich wersji systemu DOS, w formacie
 wartości rozdzielonych tabulatorami, używany przez polecenie SETVER.EXE do
 trwałego zapamiętania ustawień (domyślnie wartość pusta).
 .
+:CONFIG_FILE_LOCKING
+Włącza blokowanie plików (emulacja SHARE.EXE; domyślnie włączona).
+Wymagane do poprawnego działania niektórych aplikacji Windows 3.1x.
+Zazwyczaj nie powoduje problemów z grami dla systemu DOS, z rzadkimi wyjątkami
+(np. demo Astral Blur). Jeśli zobaczysz błędy związane z dostępem do plików,
+spróbuj wyłączyć to ustawienie.
+.
 :CONFIGITEM_IPX
 Włącza emulację protokołu IPX po UDP/IP (domyślnie wyłączone).
 .
@@ -1954,7 +1973,7 @@ Linie z tej sekcji zostaną wykonane podczas startu.
 Ważne: sekcja [autoexec] musi znajdować się na końcu pliku konfiguracyjnego!
 .
 :CONFIGFILE_INTRO
-# DOSBox Staging %s - plik konfiguracyjny.
+# DOSBox Staging (%s) - plik konfiguracyjny.
 # Linie zaczynające się od # są komentarzami.
 
 .
@@ -2128,8 +2147,9 @@ Nie znaleziono pliku wykonywalnego: '%s'
 i
 .
 :PROGRAM_CONFIG_NOT_CHANGEABLE
-Parametr '%s' nie może być zmieniony w trakcie pracy.
-
+[color=yellow]Ustawienie '%s' nie może być zmieniony w trakcie pracy.[reset]
+Zmiana zostanie uwzględniona dopiero po restarcie poleceniem 'CONFIG -r'
+lub odpowiednim skrótem klawiszowym.
 .
 :PROGRAM_CONFIG_DEPRECATED
 [color=light-red]To ustawienie jest przestarzałe, obsługiwane wyłącznie dla kompatybilności
@@ -3064,6 +3084,15 @@ Mapowanie niedostępne w trybie pracy bez użycia myszy ('nomouse').
 Mapowanie niedostępne przy obecnym sterowniku myszy w systemie gościa.
 
 .
+:PROGRAM_MOUSECTL_MANYMOUSE_NOT_BUILT
+Ta kompilacja nie obsługuje mapowania fizycznych myszy.
+
+.
+:PROGRAM_MOUSECTL_MANYMOUSE_RAW_INPUT
+Mapowanie fizycznych myszy jest niedostępne z powodu włączonego ustawienia
+'mouse_raw_input'.
+
+.
 :PROGRAM_MOUSECTL_NO_INTERFACES
 Żaden interfejs myszy nie jest dostępny.
 
@@ -3777,7 +3806,7 @@ Polecenia można użyć jedynie na lokalnych dyskach.
 :SHELL_STARTUP_CGA
 ║ DOSBox wspiera tryb obrazu kompozytowego CGA.                      ║
 ║ Wciśnij [color=light-red]F12[color=white], aby włączyć lub wyłączyć tryb kompozytowy obrazu.     ║
-║ [color=light-red]%s+F11[color=white] zmienia barwę; [color=light-red]%s+%s+F11[color=white] zmienia model CGA.%s             ║
+║ [color=light-red]F10[color=white] wybiera ustawienie do zmiany; [color=light-red](%s+)F11[color=white] zmienia je.            ║
 ║                                                                    ║
 
 .

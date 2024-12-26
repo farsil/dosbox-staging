@@ -21,6 +21,9 @@
 /* Define to 1 to enable slirp networking support, requires libslirp */
 #define C_SLIRP 1
 
+/* Define to 1 to enable dual-mouse gaming support using ManyMouse library */
+#define C_MANYMOUSE 1
+
 /* Define to 1 when zlib-ng support is provided by the system */
 #define C_SYSTEM_ZLIB_NG 1
 
@@ -81,9 +84,6 @@
 
 // Modern MSVC provides POSIX-like routines, so prefer that over built-in
 #define HAVE_STRNLEN
-
-// Modern MSVC provides the C++17 <memory_resource> header
-#define HAVE_MEMORY_RESOURCE
 
 // MSVC issues pedantic warnings on POSIX functions; for portability we don't
 // want to deal with these warnings, as the only way to avoid them is using

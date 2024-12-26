@@ -54,6 +54,7 @@ install_data(
     'LICENSE',
     'licenses/BSD-2-Clause.txt',
     'licenses/BSD-3-Clause.txt',
+    'licenses/DEBUG.COM.txt',
     'licenses/GPL-2.0.txt',
     'licenses/LGPL-2.1.txt',
     'licenses/MIT.txt',
@@ -468,13 +469,6 @@ if cc.has_function('__builtin___clear_cache')
     conf_data.set10('HAVE_BUILTIN_CLEAR_CACHE', true)
 endif
 
-if cxx.has_type(
-    'std::pmr::unsynchronized_pool_resource',
-    prefix: '#include <memory_resource>',
-)
-    conf_data.set10('HAVE_MEMORY_RESOURCE', true)
-endif
-
 if cc.has_function('mprotect', prefix: '#include <sys/mman.h>')
     conf_data.set10('HAVE_MPROTECT', true)
 endif
@@ -708,7 +702,7 @@ sdl2_dep = dependency(
 
         'use_dummies=false',
         'system_iconv=disabled',
-        'use_atomic=disabled',
+        'use_atomic=enabled',
         'use_file=disabled',
         'use_filesystem=disabled',
         'use_hidapi=disabled',
@@ -1294,6 +1288,7 @@ if conf_data.get('C_MANYMOUSE') != 0
 endif
 
 # internal libs
+subdir('src/audio')
 subdir('src/capture')
 subdir('src/cpu')
 subdir('src/dos')
