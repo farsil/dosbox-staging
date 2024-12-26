@@ -48,7 +48,7 @@ Elenco delle opzioni disponibili:
   --list-layouts            Elenca tutte le disposizioni della tastiera supportate e
                             i relativi codici. I codici possono essere utilizzati
                             nell'impostazione di configurazione 'keyboard_layout'.
-                            
+
   --list-code-pages         Elenca tutte le tabelle codici supportate.
 
   --list-glshaders          Elenca tutti gli shader OpenGL disponibili e i relativi
@@ -1342,7 +1342,7 @@ del sistema operativo mentre l'emulatore è in esecuzione (predefinito 'auto').
 Seleziona la lingua dei messaggi visualizzati nella finestra DOS (predefinito
 non impostato; equivalente ad 'auto'):
   auto:      Individua la lingua dal sistema operativo in uso (predefinito).
-  <valore>:  Carica la traduzione dal file specificato.            
+  <valore>:  Carica la traduzione dal file specificato.
 Note:
   - Sono disponibili i seguenti file di lingua:
     'br', 'de', 'en', 'es', 'fr', 'it', 'nl', 'pl' e 'ru'.
@@ -2201,10 +2201,10 @@ Modelli  MT-32
 Modelli CM-32L
 .
 :MT32_ACTIVE_MODEL_LABEL
-Modello attivo: 
+Modello attivo:
 .
 :MT32_SOURCE_DIR_LABEL
-Percorso ROM  : 
+Percorso ROM  :
 .
 :CONFIG_SOUNDCANVAS_MODEL
 Modello di Roland Sound Canvas da utilizzare.
@@ -2229,7 +2229,7 @@ Filtro per l'uscita audio del Roland Sound Canvas:
 Modelli SC-55
 .
 :SOUNDCANVAS_ACTIVE_MODEL_LABEL
-Modello attivo: 
+Modello attivo:
 .
 :CONFIG_MIDIDEVICE
 Imposta dove l'interfaccia MPU-401 emulata invia i dati MIDI

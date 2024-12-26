@@ -180,6 +180,10 @@ struct SDL_Block {
 
 	uint32_t start_event_id = UINT32_MAX;
 
+#ifdef WIN32
+	uint16_t original_code_page = 0;
+#endif
+
 	bool is_paused = false;
 
 	RenderingBackend rendering_backend      = RenderingBackend::Texture;
@@ -193,7 +197,7 @@ struct SDL_Block {
 		Fraction render_pixel_aspect_ratio = {1};
 
 		bool has_changed        = false;
-		GFX_CallBack_t callback = nullptr;
+		GFX_Callback_t callback = nullptr;
 		bool width_was_doubled  = false;
 		bool height_was_doubled = false;
 	} draw = {};

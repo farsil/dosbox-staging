@@ -56,6 +56,7 @@ static constexpr int MixerBufferMask     = MixerBufferByteSize - 1;
 
 // TODO This seems like is a general-purpose lookup, consider moving it
 extern int16_t lut_u8to16[UINT8_MAX + 1];
+static constexpr int16_t* lut_s8to16 = lut_u8to16 + 128;
 
 constexpr auto Max16BitSampleValue = INT16_MAX;
 constexpr auto Min16BitSampleValue = INT16_MIN;
@@ -125,12 +126,12 @@ enum class ChannelFeature {
 enum class FilterState { Off, On };
 
 struct MixerChannelSettings {
-	bool is_enabled          = {};
-	AudioFrame user_volume   = {};
-	StereoLine lineout_map   = {};
-	float crossfeed_strength = {};
-	float reverb_level       = {};
-	float chorus_level       = {};
+	bool is_enabled             = {};
+	AudioFrame user_volume_gain = {};
+	StereoLine lineout_map      = {};
+	float crossfeed_strength    = {};
+	float reverb_level          = {};
+	float chorus_level          = {};
 };
 
 enum class ResampleMethod {
@@ -181,6 +182,7 @@ public:
 	int GetSampleRate() const;
 	float GetFramesPerTick() const;
 	float GetFramesPerBlock() const;
+	double GetMillisPerFrame() const;
 
 	void Set0dbScalar(const float f);
 	void UpdateCombinedVolume();
@@ -188,19 +190,19 @@ public:
 	// The "user volume" is the volume level of the built-in DOSBox mixer
 	// (MIXER command)
 	const AudioFrame GetUserVolume() const;
-	void SetUserVolume(const AudioFrame volume);
+	void SetUserVolume(const AudioFrame gain);
 
 	// The "app volume" is the volume level set programmatically by DOS
 	// programs (on audio devices that support that, e.g., the Sound
 	// Blaster mixer, or the CD Audio volume level).
 	//
-	// For example, if you set the volume level of the CDAUDIO channel to 50%
-	// in the mixer via `MIXER CDAUDIO 50`, then you also set the CD audio
-	// music level in a game to "half volume", the final volume will be around
-	// 25%.
+	// For example, if you set the volume level of the CDAUDIO channel to
+	// 50% in the mixer via `MIXER CDAUDIO 50`, then you also set the CD
+	// audio music level in a game to "half volume", the final volume will
+	// be around 25%.
 	//
 	const AudioFrame GetAppVolume() const;
-	void SetAppVolume(const AudioFrame volume);
+	void SetAppVolume(const AudioFrame gain);
 
 	void SetChannelMap(const StereoLine map);
 
@@ -231,34 +233,32 @@ public:
 	void SetResampleMethod(const ResampleMethod method);
 	void SetZeroOrderHoldUpsamplerTargetRate(const int target_rate_hz);
 
+	// The crossfeed strength is a perceptually linear scale from 0.0
+	// to 1.0. A value of 0.0 means no crossfeed, and 1.0 means the stereo
+	// signal is collapsed into mono.
 	void SetCrossfeedStrength(const float strength);
 	float GetCrossfeedStrength() const;
 
+	// The reverb level is a perceptually linear scale from 0.0 to 1.0.
 	void SetReverbLevel(const float level);
 	float GetReverbLevel() const;
 
+	// The chorus level is a perceptually linear scale from 0.0 to 1.0
 	void SetChorusLevel(const float level);
 	float GetChorusLevel() const;
+
+	void AddAudioFrames(const std::vector<AudioFrame>& frames);
 
 	template <class Type, bool stereo, bool signeddata, bool nativeorder>
 	void AddSamples(const int num_frames, const Type* data);
 
 	void AddSamples_m8(const int num_frames, const uint8_t* data);
-	void AddSamples_s8(const int num_frames, const uint8_t* data);
-	void AddSamples_m8s(const int num_frames, const int8_t* data);
-	void AddSamples_s8s(const int num_frames, const int8_t* data);
 	void AddSamples_m16(const int num_frames, const int16_t* data);
 	void AddSamples_s16(const int num_frames, const int16_t* data);
-	void AddSamples_m16u(const int num_frames, const uint16_t* data);
-	void AddSamples_s16u(const int num_frames, const uint16_t* data);
 	void AddSamples_mfloat(const int num_frames, const float* data);
 	void AddSamples_sfloat(const int num_frames, const float* data);
 	void AddSamples_m16_nonnative(const int num_frames, const int16_t* data);
 	void AddSamples_s16_nonnative(const int num_frames, const int16_t* data);
-	void AddSamples_m16u_nonnative(const int num_frames, const uint16_t* data);
-	void AddSamples_s16u_nonnative(const int num_frames, const uint16_t* data);
-
-	void AddStretched(const int num_frames, int16_t* data);
 
 	void Enable(const bool should_enable);
 
@@ -266,7 +266,7 @@ public:
 	bool WakeUp();
 
 	std::vector<AudioFrame> audio_frames = {};
-	std::recursive_mutex mutex = {};
+	std::recursive_mutex mutex           = {};
 
 	std::atomic<bool> is_enabled = false;
 
@@ -275,7 +275,6 @@ public:
 		float send_gain = 0.0f;
 	} reverb            = {};
 	bool do_reverb_send = false;
-
 
 	struct {
 		float level     = 0.0f;
@@ -302,6 +301,7 @@ public:
 		static constexpr auto DefaultWaitMs = 500;
 		static constexpr auto MaxWaitMs     = 5000;
 
+		AudioFrame last_frame          = {};
 		int64_t woken_at_ms            = {};
 		float fadeout_level            = {};
 		float fadeout_decrement_per_ms = {};
@@ -349,14 +349,14 @@ private:
 	std::atomic<int> sample_rate_hz = 0;
 
 	// Volume gains
-	// ~~~~~!~~~~~~
-	// The user sets this via MIXER.COM, which lets them magnify or diminish
-	// the channel's volume relative to other adjustments, such as any
-	// adjustments done by the application at runtime.
+	// ~~~~~~~~~~~~
+	// The user sets this via the MIXER command, which lets them magnify or
+	// diminish the channel's volume relative to other adjustments, such as
+	// any adjustments done by the application at runtime.
 	AudioFrame user_volume_gain = {1.0f, 1.0f};
 
 	// The application (might) adjust a channel's volume programmatically at
-	// runtime via the Sound Blaster or ReelMagic control interfaces.
+	// runtime (e.g., via the Sound Blaster or ReelMagic control interfaces).
 	AudioFrame app_volume_gain = {1.0f, 1.0f};
 
 	// The 0 dB volume gain is used to bring a channel to 0 dB in the
@@ -372,9 +372,9 @@ private:
 	//
 	float db0_volume_gain = 1.0f;
 
-	// All three of these are multiplied together to form the combined
-	// volume gain. This means we can apply one float-multiply per sample
-	// and perform all three adjustments at once.
+	// All three of these volume gains are multiplied together to form the
+	// combined volume gain. This means we can apply one float-multiply per
+	// sample and perform all three adjustments at once.
 	//
 	AudioFrame combined_volume_gain = {1.0f, 1.0f};
 
@@ -431,7 +431,7 @@ private:
 			int order          = 0;
 			int cutoff_freq_hz = 0;
 		} lowpass = {};
-	} filters               = {};
+	} filters = {};
 
 	struct {
 		float strength  = 0.0f;
@@ -462,7 +462,7 @@ void MIXER_DisableFastForwardMode();
 bool MIXER_FastForwardModeEnabled();
 
 const AudioFrame MIXER_GetMasterVolume();
-void MIXER_SetMasterVolume(const AudioFrame volume);
+void MIXER_SetMasterVolume(const AudioFrame gain);
 
 void MIXER_Mute();
 void MIXER_Unmute();
@@ -472,7 +472,7 @@ void MIXER_UnlockMixerThread();
 void MIXER_CloseAudioDevice();
 
 // Return true if the mixer was explicitly muted by the user (as opposed to
-// auto-muted when `mute_when_inactive` is enabled)
+// auto-muted when `mute_when_inactive` is enabled).
 bool MIXER_IsManuallyMuted();
 
 CrossfeedPreset MIXER_GetCrossfeedPreset();
@@ -484,61 +484,62 @@ void MIXER_SetReverbPreset(const ReverbPreset new_preset);
 ChorusPreset MIXER_GetChorusPreset();
 void MIXER_SetChorusPreset(const ChorusPreset new_preset);
 
-// Generic callback used for audio devices which generate audio on the main thread
-// These devices produce audio on the main thread and consume on the mixer thread
-// This callback is the consumer part
+// Generic callback used for audio devices which generate audio on the main
+// thread. These devices produce audio on the main thread and consume on the
+// mixer thread. This callback is the consumer part.
 template <class DeviceType, class AudioType, bool stereo, bool signeddata, bool nativeorder>
 inline void MIXER_PullFromQueueCallback(const int frames_requested, DeviceType* device)
 {
-	// Currently only handles mono sound (output_queue is a primitive type and frames == samples)
-	// Special case for AudioType == AudioFrame (stereo floating-point sound)
-	static_assert((!stereo) || std::is_same<AudioType, AudioFrame>::value);
+	// Currently only handles mono sound (output_queue is a primitive type
+	// and frames == samples). Special case for AudioType == AudioFrame
+	// (stereo floating-point sound).
+	static_assert((!stereo) || std::is_same_v<AudioType, AudioFrame>);
 
 	// AudioFrame type is always stereo
-	static_assert(stereo || (!std::is_same<AudioType, AudioFrame>::value));
+	static_assert(stereo || (!std::is_same_v<AudioType, AudioFrame>));
+
+	assert(device && device->channel);
 
 	if (MIXER_FastForwardModeEnabled()) {
-		// Special case, normally only hit when using the fast-forward hotkey (Alt + F12)
-		// We need a very large buffer to compensate or it results in static
+		// Special case, normally only hit when using the fast-forward
+		// hotkey (Alt + F12). We need a very large buffer to compensate
+		// or it results in static.
 
 		// Mostly arbitrary but it works well in testing.
-		// The queue just needs to be large enough to hold the large frame requests we get in fast-forward mode.
-		// This value can be tweaked without much consequence if it ever becomes problematic.
+		// The queue just needs to be large enough to hold the large
+		// frame requests we get in fast-forward mode. This value can be
+		// tweaked without much consequence if it ever becomes
+		// problematic.
 		constexpr float MaxExpectedFastForwardFactor = 100.0f;
-		device->output_queue.Resize(iceil(device->channel->GetFramesPerBlock() * MaxExpectedFastForwardFactor));
+		device->output_queue.Resize(iceil(device->channel->GetFramesPerBlock() *
+		                                  MaxExpectedFastForwardFactor));
 	} else {
-		// Normal case, resize the queue to ensure we don't have high latency
-		// Resize is a fast operation, only setting a variable for max capacity
-		// It does not drop frames or append zeros to the end of the underlying data structure
+		// Normal case, resize the queue to ensure we don't have high
+		// latency. Resize is a fast operation, only setting a variable
+		// for max capacity It does not drop frames or append zeros to
+		// the end of the underlying data structure.
 
-		// Size to 2x blocksize. The mixer callback will request 1x blocksize.
-		// This provides a good size to avoid over-runs and stalls.
-		device->output_queue.Resize(iceil(device->channel->GetFramesPerBlock() * 2.0f));
+		// Size to 2x blocksize. The mixer callback will request 1x
+		// blocksize. This provides a good size to avoid over-runs and
+		// stalls.
+		device->output_queue.Resize(
+		        iceil(device->channel->GetFramesPerBlock() * 2.0f));
 	}
-	int frames_recieved = 0;
-	if (frames_requested > 0) {
-		std::vector<AudioType> to_mix = {};
-		device->output_queue.BulkDequeue(to_mix, frames_requested);
-		frames_recieved = check_cast<int>(to_mix.size());
-		if (frames_recieved > 0) {
-			// One of the GCC CI builds throws a duplicated branch warning
-			// Clang apparently doesn't have this warning because it throws an "unknown warning" warning in the pragma
-			#ifndef __clang__
-			#pragma GCC diagnostic push
-			#pragma GCC diagnostic ignored "-Wduplicated-branches"
-			#endif
-			if (std::is_same<AudioType, AudioFrame>::value) {
-				// AudioFrame has the same memory layout as 2x floats
-				device->channel->template AddSamples<float, stereo, signeddata, nativeorder>(frames_recieved, reinterpret_cast<float*>(to_mix.data()));
-			} else {
-				device->channel->template AddSamples<AudioType, stereo, signeddata, nativeorder>(frames_recieved, to_mix.data());
-			}
-			#ifndef __clang__
-			#pragma GCC diagnostic pop
-			#endif
+	static std::vector<AudioType> to_mix = {};
+
+	const auto frames_received = check_cast<int>(
+	        device->output_queue.BulkDequeue(to_mix, frames_requested));
+
+	if (frames_received > 0) {
+		if constexpr (std::is_same_v<AudioType, AudioFrame>) {
+			device->channel->AddAudioFrames(to_mix);
+		} else {
+			device->channel->template AddSamples<AudioType, stereo, signeddata, nativeorder>(
+			        frames_received, to_mix.data());
 		}
 	}
-	if (frames_requested > frames_recieved) {
+	// Fill any shortfall with silence
+	if (frames_received < frames_requested) {
 		device->channel->AddSilence();
 	}
 }

@@ -76,6 +76,30 @@
 #include "vga.h"
 #include "video.h"
 
+static void switch_console_to_utf8()
+{
+#if WIN32
+	constexpr uint16_t CodePageUtf8 = 65001;
+	if (!sdl.original_code_page) {
+		sdl.original_code_page = GetConsoleOutputCP();
+		// Don't do anything if we couldn't get the original code page
+		if (sdl.original_code_page) {
+			SetConsoleOutputCP(CodePageUtf8);
+		}
+	}
+#endif
+}
+
+static void restore_console_encoding()
+{
+#if WIN32
+	if (sdl.original_code_page) {
+		SetConsoleOutputCP(sdl.original_code_page);
+		sdl.original_code_page = 0;
+	}
+#endif
+}
+
 #if C_OPENGL
 //Define to report opengl errors
 //#define DB_OPENGL_ERROR
@@ -288,6 +312,7 @@ static void QuitSDL()
 		SDL_Quit();
 #endif
 	}
+	restore_console_encoding();
 }
 
 // Globals for keyboard initialisation
@@ -617,7 +642,7 @@ void GFX_ResetScreen()
 {
 	GFX_Stop();
 	if (sdl.draw.callback) {
-		(sdl.draw.callback)(GFX_CallBackReset);
+		(sdl.draw.callback)(GFX_CallbackReset);
 	}
 	GFX_Start();
 	CPU_ResetAutoAdjust();
@@ -1320,16 +1345,7 @@ static SDL_Window* SetWindowMode(const RenderingBackend rendering_backend,
 
 		SDL_GL_DeleteContext(temp_context);
 		SDL_DestroyWindow(temp_window);
-#if WIN32
-		const auto is_vendors_srgb_unreliable = (gl_vendor == "Intel");
-#else
-		constexpr auto is_vendors_srgb_unreliable = false;
-#endif
-		if (is_vendors_srgb_unreliable) {
-			LOG_WARNING("OPENGL: Not requesting an sRGB framebuffer"
-			            " because %s's driver is unreliable",
-			            gl_vendor.c_str());
-		} else if (SDL_GL_SetAttribute(SDL_GL_FRAMEBUFFER_SRGB_CAPABLE, 1)) {
+		if (SDL_GL_SetAttribute(SDL_GL_FRAMEBUFFER_SRGB_CAPABLE, 1)) {
 			LOG_ERR("OPENGL: Failed requesting an sRGB framebuffer: %s",
 			        SDL_GetError());
 		}
@@ -1436,7 +1452,7 @@ finish:
 
 	// Force redraw after changing the window
 	if (sdl.draw.callback)
-		sdl.draw.callback(GFX_CallBackRedraw);
+		sdl.draw.callback(GFX_CallbackRedraw);
 
 	// Ensure the time to change window modes isn't counted against
 	// our paced timing. This is a rare event that depends on host
@@ -1712,7 +1728,7 @@ static void initialize_sdl_window_size(SDL_Window* sdl_window,
 
 uint8_t GFX_SetSize(const int render_width_px, const int render_height_px,
                     const Fraction& render_pixel_aspect_ratio, const uint8_t flags,
-                    const VideoMode& video_mode, GFX_CallBack_t callback)
+                    const VideoMode& video_mode, GFX_Callback_t callback)
 {
 	uint8_t retFlags = 0;
 	if (sdl.updating)
@@ -2803,7 +2819,7 @@ static void GUI_ShutDown(Section *)
 	GFX_Stop();
 
 	if (sdl.draw.callback)
-		(sdl.draw.callback)( GFX_CallBackStop );
+		(sdl.draw.callback)( GFX_CallbackStop );
 
 	GFX_SetMouseCapture(false);
 	GFX_SetMouseVisibility(true);
@@ -3928,7 +3944,7 @@ bool GFX_Events()
 				// LOG_DEBUG("SDL: Window has gained
 				// keyboard focus");
 				if (sdl.draw.callback)
-					sdl.draw.callback(GFX_CallBackRedraw);
+					sdl.draw.callback(GFX_CallbackRedraw);
 				focus_input();
 				continue;
 
@@ -4257,12 +4273,18 @@ static void messages_add_command_line()
 	        "  --list-countries         List all supported countries with their numeric codes.\n"
 	        "                           Codes are to be used in the 'country' config setting.\n"
 	        "\n"
+	        "  --list-layouts           List all supported keyboard layouts with their codes.\n"
+	        "                           Codes are to be used in the 'keyboard_layout' config setting.\n"
+	        "\n"
+	        "  --list-code-pages        List all bundled code pages.\n"
+	        "\n"
 	        "  --list-glshaders         List all available OpenGL shaders and their paths.\n"
 	        "                           Shaders are to be used in the 'glshader' config setting.\n"
 	        "\n"
 	        "  --fullscreen             Start in fullscreen mode.\n"
 	        "\n"
-	        "  --lang <lang_file>       Start with the language specified in <lang_file>.\n"
+	        "  --lang <lang_file>       Start with the language specified in <lang_file>. If set to\n"
+	        "                           'auto', tries to detect the language from the host OS.\n"
 	        "\n"
 	        "  --machine <type>         Emulate a specific type of machine. The machine type has\n"
 	        "                           influence on both the emulated video and sound cards.\n"
@@ -4557,6 +4579,9 @@ extern void DEBUG_ShutDown(Section * /*sec*/);
 #endif
 
 void restart_dosbox(std::vector<std::string> &parameters) {
+
+	control->ApplyQueuedValuesToCli(parameters);
+
 #ifdef WIN32
 	std::string command_line = {};
 	bool first = true;
@@ -4644,7 +4669,7 @@ static void list_glshaders()
 {
 #if C_OPENGL
 	for (const auto& line : RENDER_GenerateShaderInventoryMessage()) {
-		printf_utf8("%s\n", line.c_str());
+		printf("%s\n", line.c_str());
 	}
 #else
 	fprintf(stderr,
@@ -4656,7 +4681,19 @@ static void list_glshaders()
 static void list_countries()
 {
 	const auto message_utf8 = DOS_GenerateListCountriesMessage();
-	printf_utf8("%s\n", message_utf8.c_str());
+	printf("%s\n", message_utf8.c_str());
+}
+
+static void list_keyboard_layouts()
+{
+	const auto message_utf8 = DOS_GenerateListKeyboardLayoutsMessage();
+	printf("%s\n", message_utf8.c_str());
+}
+
+static void list_code_pages()
+{
+	const auto message_utf8 = DOS_GenerateListCodePagesMessage();
+	printf("%s\n", message_utf8.c_str());
 }
 
 static int print_primary_config_location()
@@ -4737,6 +4774,11 @@ static void set_wm_class()
 
 int sdl_main(int argc, char* argv[])
 {
+	// Ensure we perform SDL cleanup and restore console settings
+	atexit(QuitSDL);
+
+	switch_console_to_utf8();
+
 	CommandLine command_line(argc, argv);
 	control = std::make_unique<Config>(&command_line);
 
@@ -4754,6 +4796,7 @@ int sdl_main(int argc, char* argv[])
 
 	if (arguments->version || arguments->help || arguments->printconf ||
 	    arguments->editconf || arguments->eraseconf || arguments->list_countries ||
+	    arguments->list_layouts || arguments->list_code_pages ||
 	    arguments->list_glshaders || arguments->erasemapper) {
 		loguru::g_stderr_verbosity = loguru::Verbosity_WARNING;
 	}
@@ -4843,9 +4886,9 @@ int sdl_main(int argc, char* argv[])
 		if (arguments->help) {
 			assert(argv && argv[0]);
 			const auto program_name = argv[0];
-			const auto help_utf8 = format_str(MSG_GetRaw("DOSBOX_HELP"),
-			                                  program_name);
-			printf_utf8("%s", help_utf8.c_str());
+			const auto help = format_str(MSG_GetForHost("DOSBOX_HELP"),
+			                             program_name);
+			printf("%s", help.c_str());
 			return 0;
 		}
 		if (arguments->editconf) {
@@ -4862,6 +4905,14 @@ int sdl_main(int argc, char* argv[])
 		}
 		if (arguments->list_countries) {
 			list_countries();
+			return 0;
+		}
+		if (arguments->list_layouts) {
+			list_keyboard_layouts();
+			return 0;
+		}
+		if (arguments->list_code_pages) {
+			list_code_pages();
 			return 0;
 		}
 		if (arguments->list_glshaders) {
@@ -4928,9 +4979,6 @@ int sdl_main(int argc, char* argv[])
 
 		sdl.initialized = true;
 
-		// Once initialised, ensure we clean up SDL for all exit conditions
-		atexit(QuitSDL);
-
 		SDL_version sdl_version = {};
 		SDL_GetVersion(&sdl_version);
 
@@ -4940,6 +4988,17 @@ int sdl_main(int argc, char* argv[])
 		        sdl_version.patch,
 		        SDL_GetCurrentVideoDriver(),
 		        SDL_GetCurrentAudioDriver());
+
+#if defined SDL_HINT_APP_NAME
+		// For KDE 6 volume applet and PipeWire audio driver; further
+		// SetHint calls have no effect in the GUI, only the first
+		// advertised name is used
+		SDL_SetHint(SDL_HINT_APP_NAME, DOSBOX_NAME);
+#endif
+#if defined SDL_HINT_AUDIO_DEVICE_STREAM_NAME
+		// Useful for 'pw-top' and possibly other PipeWire CLI tools
+		SDL_SetHint(SDL_HINT_AUDIO_DEVICE_STREAM_NAME, DOSBOX_NAME);
+#endif
 
 		for (auto line : arguments->set) {
 			trim(line);
@@ -4980,6 +5039,15 @@ int sdl_main(int argc, char* argv[])
 					            inputline.c_str());
 				}
 			}
+		}
+
+		// Plugins
+		const auto plugins_dir = GetConfigDir() / PluginsDir;
+
+		if (create_dir(plugins_dir, 0700, OK_IF_EXISTS) != 0) {
+			LOG_WARNING("CONFIG: Can't create directory '%s': %s",
+			            plugins_dir.string().c_str(),
+			            safe_strerror(errno).c_str());
 		}
 
 #if C_OPENGL

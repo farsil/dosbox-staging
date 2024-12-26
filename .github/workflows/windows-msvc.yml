@@ -45,6 +45,16 @@ jobs:
         with:
           submodules: false
 
+      - name: Checkout vcpkg baseline
+        shell: pwsh
+        run: |
+          $baseline = (Get-Content vcpkg.json | ConvertFrom-Json).'builtin-baseline'
+          cd $env:VCPKG_INSTALLATION_ROOT
+          git fetch
+          rm vcpkg.exe
+          git -c advice.detachedHead=false checkout $baseline
+          bootstrap-vcpkg.bat -disableMetrics
+
       - name: Export GitHub Actions cache environment variables
         uses: actions/github-script@v7
         with:
@@ -53,7 +63,7 @@ jobs:
             core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
       - name: Setup CMake
-        uses: lukka/get-cmake@v3.30.1
+        uses: lukka/get-cmake@v3.31.3
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
@@ -83,12 +93,16 @@ jobs:
           cd vs
           MSBuild -m dosbox.sln -t:dosbox:Rebuild -p:Configuration=Debug -p:Platform=${{ matrix.conf.arch }} | Tee-Object build.log
 
+      - name: Print VCPKG error log
+        if: failure()
+        shell: pwsh
+        run: Get-Content -Path vcpkg_installed/${{ matrix.conf.arch }}-windows/vcpkg/issue_body.md
+
       - name:  Summarize warnings
         shell: pwsh
         env:
           MAX_WARNINGS: ${{ matrix.conf.max_warnings }}
         run: python scripts\count-warnings.py -f --msclang vs\build.log
-
 
   build_windows_vs_release:
     name: Release ${{ matrix.debugger && 'w/ debugger' || '' }} (${{ matrix.arch }})
@@ -108,6 +122,16 @@ jobs:
         with:
           submodules: false
 
+      - name: Checkout vcpkg baseline
+        shell: pwsh
+        run: |
+          $baseline = (Get-Content vcpkg.json | ConvertFrom-Json).'builtin-baseline'
+          cd $env:VCPKG_INSTALLATION_ROOT
+          git fetch
+          rm vcpkg.exe
+          git -c advice.detachedHead=false checkout $baseline
+          bootstrap-vcpkg.bat -disableMetrics
+
       - name: Export GitHub Actions cache environment variables
         uses: actions/github-script@v7
         with:
@@ -116,7 +140,7 @@ jobs:
             core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
       - name: Setup CMake
-        uses: lukka/get-cmake@v3.30.1
+        uses: lukka/get-cmake@v3.31.3
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v2
@@ -165,6 +189,11 @@ jobs:
         run: |
           cd vs
           MSBuild -m dosbox.sln -t:dosbox:Rebuild -p:Configuration=Release -p:Platform=${{ matrix.arch }}
+
+      - name: Print VCPKG error log
+        if: failure()
+        shell: pwsh
+        run: Get-Content -Path vcpkg_installed/${{ matrix.conf.arch }}-windows/vcpkg/issue_body.md
 
       - name: Package standard build
         if: ${{ !matrix.debugger }}
