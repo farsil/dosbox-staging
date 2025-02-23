@@ -574,7 +574,7 @@ Turco
 Brasiliano, codifica ABICOMP
 .
 :CODE_PAGE_DESCRIPTION_30000
-Lingue sami, Kalo, Finnico
+Lingue sami, kalo, finnico
 .
 :CODE_PAGE_DESCRIPTION_30001
 Celtico e scozzese, con simbolo EUR
@@ -1528,7 +1528,7 @@ d'ambiente SDL_VIDEO_ALLOW_SCREENSAVER, che di solito blocca il salvaschermo
 del sistema operativo mentre l'emulatore è in esecuzione (predefinito 'auto').
 .
 :CONFIG_LANGUAGE
-Seleziona la lingua dei messaggi visualizzati nella finestra DOS:
+Seleziona la lingua dei messaggi visualizzati in DOSBox:
   auto:      Individua la lingua dal sistema operativo in uso (predefinito).
   <valore>:  Carica la traduzione dal file specificato.            
 Note:
@@ -2144,11 +2144,25 @@ Funziona in modalità schermo intero o quando il mouse viene catturato
 in modalità finestra.
 .
 :CONFIG_DOS_MOUSE_DRIVER
-Abilita il driver del mouse DOS integrato (predefinito abilitato).
-Note:
-  - Disabilitalo se intendi utilizzare il driver MOUSE.COM originale.
-  - Quando un sistema operativo guest viene avviato, il driver integrato viene
-    disabilitato automaticamente.
+Abilita il driver del mouse incluso in DOSBox (predefinito abilitato).
+Esso assicura la latenza più bassa possibile e il movimento del mouse più
+fluido, quindi si consiglia di disabilitarlo e caricare un driver DOS esterno
+solo se realmente necessario (ad esempio, se un gioco non è compatibile con
+il driver integrato).
+  on:   Abilita il driver del mouse integrato. Le opzioni `ps2_mouse_model` e
+        `com_mouse_model` non hanno alcun effetto quando il driver integrato è
+        abilitato.
+  off:  Disabilita il driver del mouse integrato (se non è necessaro il
+        supporto del mouse o se si vuole caricare un driver DOS esterno).
+        Per utilizzare un driver DOS esterno (ad es. MOUSE.COM o CTMOUSE.EXE),
+        configurare il tipo di mouse nelle opzioni `ps2_mouse_model` o
+        `com_mouse_model`, quindi caricare il driver.
+        Un driver DOS esterno potrebbe aumentare la compatibilità con alcuni
+        programmi, ma introdurrà una maggiore latenza.
+Nota: Se si avvia una versione di MS-DOS o Windows 9x all'interno di DOSBox,
+      il driver integrato verrà disabilitato automaticamente. Se si utilzza
+      Windows 3.x, il driver integrato non verrà disabilitato ma quello di
+      Windows prenderà il sopravvento.
 .
 :CONFIG_DOS_MOUSE_IMMEDIATE
 Aggiorna immediatamente i contatori di movimento del mouse, senza attendere
@@ -2157,22 +2171,28 @@ specialmente nei giochi dal ritmo veloce (arcade, FPS, ecc.), poiché per alcuni
 incrementa efficacemente la frequenza di campionamento del mouse a 1000 Hz,
 senza aumentare il sovraccarico dell'interrupt. Potrebbe causare problemi di
 compatibilità.
-Elenco di giochi incompatibili noti:
+Elenco di alcuni giochi incompatibili noti:
   - Ultima Underworld: The Stygian Abyss
   - Ultima Underworld II: Labyrinth of Worlds
 Se trovi un altro gioco incompatibile, segnalalo in modo da poter aggiornare
 questo elenco.
 .
 :CONFIG_PS2_MOUSE_MODEL
-Modello mouse porta PS/2 AUX:
+Imposta il modello del mouse sulla porta PS/2 AUX o, più precisamente, il tipo
+di mouse virtuale collegato alla porta PS/2 emulata (predefinito 'explorer').
+Questa opzione non ha alcun effetto sul driver del mouse integrato (fare
+riferimento a 'dos_mouse_driver').
   standard:     3 pulsanti, mouse PS/2 standard.
   intellimouse: 3 pulsanti + rotellina, Microsoft IntelliMouse.
   explorer:     5 pulsanti + rotellina, Microsoft IntelliMouse Explorer
                 (predefinito).
-  none:         nessun mouse PS/2 emulato.
+  none:         nessun mouse PS/2.
 .
 :CONFIG_COM_MOUSE_MODEL
-Modello mouse predefinito porta COM (seriale):
+Imposta il modello predefinito del mouse seriale o, più precisamente, il tipo
+di mouse virtuale collegato alle porte COM emulate (predefinito 'wheel+msm').
+Questa opzione non ha alcun effetto sul driver del mouse integrato (fare
+riferimento a 'dos_mouse_driver').
   2button:     2 pulsanti, mouse Microsoft.
   3button:     3 pulsanti, mouse Logitech;
                per lo più compatibile con mouse Microsoft.
@@ -2934,7 +2954,8 @@ Può essere disabled, dummy, mouse, modem, nullmodem, direct
 (predefinito 'dummy').
 Eventuali parametri aggiuntivi devono essere sulla stessa riga nella forma di
 parametro:valore. Il parametro 'irq' è valido per tutti i tipi di dispositivi.
-  - per 'mouse':      model (sovrascrive l'impostazione della sezione [mouse]).
+  - per 'mouse':      model (facoltativo; sovrascrive l'opzione
+                      'com_mouse_model').
   - per 'direct':     realport (richiesto), rxdelay (facoltativo).
                       (es. realport:COM1, realport:ttyS0).
   - per 'modem':      listenport, sock, bps (tutti facoltativi).
