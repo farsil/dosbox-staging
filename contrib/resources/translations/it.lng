@@ -1844,7 +1844,7 @@ Nota: È possibile scorrere le tavolozze disponibili tramite i tasti di
 :CONFIG_CGA_COLORS
 Imposta l'interpretazione dei colori CGA RGBI (predefinito 'default').
 Interessa tutti i tipi di macchine in grado di visualizzare grafica CGA o
-migliore. Preimpostazioni integrate:
+migliore. Profili integrati:
   default:      Tavolozza CGA emulata come negli adattatori VGA (predefinito).
   tandy <bl>:   Emulazione di un monitor Tandy con livello del marrone
                 regolabile. Il livello del marrone può essere fornito come
@@ -2053,13 +2053,15 @@ Rinominato in 'voodoo_threads'
 .
 :CONFIG_VOODOO_THREADS
 Utilizza i thread per migliorare le prestazioni dell'emulazione 3dfx Voodoo:
-  auto:      Utilizza fino a 8 thread, in base ai core della CPU disponibili
+  auto:      Utilizza fino a 16 thread, in base ai core della CPU disponibili
              (predefinito).
-  <valore>:  Imposta un numero specifico di thread compreso tra 1 e 16.
-Nota: I test hanno dimostrato un aumento di prestazioni tangibile con l'uso di
-      non più di 8 thread. Specificare un numero di thread più elevato può
-      portare ad un aumento irrisorio o, addirittura, ad una diminuzione delle
-      prestazioni.
+  <valore>:  Imposta un numero specifico di thread compreso tra 1 e 128.
+Nota: Impostando questa opzione su un valore più alto del numero di processori
+      logici supportati dal tuo hardware, è molto probabile possa verificarsi
+      una diminuzione delle prestazioni. È stato testato che si possono avere
+      buoni risultati con un massimo di 8-16 thread. Attualmente non si hanno
+      dati riguardo processori con più core, quindi se possiedi un precessore
+      AMD Threadripper o simile, facci sapere come va.
 .
 :CONFIG_VOODOO_BILINEAR_FILTERING
 Utilizza il filtro bilineare per emulare l'effetto smussato delle texture delle
@@ -2255,46 +2257,58 @@ il ritaglio (clipping) dell'uscita audio:
   on:        Abilita il compressore (predefinito).
 .
 :CONFIG_CROSSFEED
-Abilita l'alimentazione incrociata a livello globale su tutti i canali stereo
-per l'ascolto in cuffia:
+Abilita l'alimentazione incrociata sui canali OPL e CMS (Gameblaster) del mixer
+Con questi dispositivi audio, nella riproduzione in stereofonia, molti giochi
+collocano gli strumenti al 100%% nel canale sinistro e al 100%% in quello destro,
+il che può risultare spiacevole da ascoltare con le cuffie. Abilitando
+l'alimentazione incrociata, una parte del segnale del canale sinistro viene
+miscelato nel canale destro e viceversa, creando un'esperienza di ascolto più
+naturale.
   off:       Alimentazione incrociata disabilitata (predefinito).
-  on:        Abilita l'alimentazione incrociata (preimpostazione 'normal').
+  on:        Abilita l'alimentazione incrociata (profilo 'normal').
   light:     Alimentazione incrociata minima (intensità 15).
   normal:    Alimentazione incrociata normale (intensità 40).
   strong:    Alimentazione incrociata forte (intensità 65).
-Nota: È possibile regolare con precisione l'intensità dell'alimentazione
-      incrociata di ciascun canale tramite il comando MIXER.
+Note:
+  - Utilizzare il comando MIXER per applicare l'alimentazione incrociata anche
+    ad altri canali audio e per regolarne l'intensità in ciascun canale.
 .
 :CONFIG_REVERB
 Abilita l'effetto riverbero a livello globale per aggiungere un senso di
 spazializzazione del suono:
   off:       Nessun riverbero (predefinito).
-  on:        Abilita riverbero (preimpostazione 'medium').
+  on:        Abilita riverbero (profilo 'medium').
   tiny:      Simula il suono di un piccolo altoparlante integrato;
              specificamente progettato per sistemi audio di piccole dimensioni
              (altoparlante interno, Tandy, PS/1 Audio, e dispositivi DAC LPT).
   small:     Aggiunge un sottile senso di spazializzazione; ottimo per i giochi
              che usano un singolo canale del sintetizzatore (tipicamente OPL)
              sia per la musica che per gli effetti sonori.
-  medium:    Preimpostazione Stanza Media; funziona bene con un'ampia varietà
-             di giochi
-  large:     Preimpostazione Grande Sala; è consigliato per i giochi che
-             utilizzano canali separati per musica e audio digitale.
-  huge:      Variante della preimpostazione Grande Sala con intensità maggiore;
-             funziona davvero bene nei giochi con colonne sonore più suggestive
-Nota: È possibile regolare con precisione i livelli di riverbero di ciascun
-      canale tramite il comando MIXER.
+  medium:    Profilo Stanza Media; funziona bene con un'ampia varietà di giochi
+  large:     Profilo Grande Sala; è consigliato per i giochi che utilizzano
+             canali separati per musica e audio digitale.
+  huge:      Variante del profilo Grande Sala con intensità maggiore; funziona
+             davvero bene nei giochi con colonne sonore più suggestive.
+Note:
+  - I profili applicano una notevole quantità di riverbero ai canali dei
+    sintetizzatori (ad eccezione di quelli con effetto riverbero incorporato,
+    come il Roland MT-32) e una quantità minima ai canali dell'audio digitale.
+  - Utilizzare il comando MIXER per regolare i livelli di riverbero in ciascun
+    canale.
 .
 :CONFIG_CHORUS
 Abilita l'effetto coro a livello globale per un suono più avvolgente:
   off:       Nessun effetto coro (predefinito).
-  on:        Abilita effetto coro (preimpostazione 'normal').
+  on:        Abilita effetto coro (profilo 'normal').
   light:     Effetto coro leggero (particolarmente adatto per la musica
              sintetizzata che presenta molto rumore bianco).
   normal:    Effetto coro normale; funziona bene con un'ampia varietà di giochi
   strong:    Effetto coro molto evidente.
-Nota: È possibile regolare con precisione i livelli di coro di ciascun canale
-      tramite il comando MIXER.
+Note:
+  - I profili applicano l'effetto coro solo ai canali dei sintetizzatori (ad
+    eccezione di quelli con effetto coro integrato, come il Roland MT-32).
+  - Utilizzare il comando MIXER per regolare i livelli di coro in ciascun
+    canale.
 .
 :CONFIG_SOUNDFONT
 Nome o percorso del file SoundFont da utilizzare (predefinito 'default.sf2').
@@ -2704,7 +2718,8 @@ Canale DMA della scheda Gravis UltraSound (predefinito 3).
 .
 :CONFIG_GUS_FILTER
 Filtro per l'uscita audio della scheda Gravis UltraSound:
-  off:              Non filtra l'uscita audio (predefinito).
+  on:               Filtra l'uscita audio (predefinito).
+  off:              Non filtra l'uscita audio.
   <personalizzato>: Definizione di filtri personalizzati;
                     fare riferimento a 'sb_filter' per ulteriori dettagli.
 .
