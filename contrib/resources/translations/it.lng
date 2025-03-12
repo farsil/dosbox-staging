@@ -667,7 +667,7 @@ Messicano, con simbolo EUR
 Messicano-2, con simbolo EUR
 .
 :CODE_PAGE_DESCRIPTION_30031
-Latino-4 (Nord Europa), con simbolo EUR
+Latino-4 (Europa settentrionale), con simbolo EUR
 .
 :CODE_PAGE_DESCRIPTION_30032
 Latino-6 (nordico), con simbolo EUR
@@ -2059,9 +2059,9 @@ Utilizza i thread per migliorare le prestazioni dell'emulazione 3dfx Voodoo:
 Nota: Impostando questa opzione su un valore più alto del numero di processori
       logici supportati dal tuo hardware, è molto probabile possa verificarsi
       una diminuzione delle prestazioni. È stato testato che si possono avere
-      buoni risultati con un massimo di 8-16 thread. Attualmente non si hanno
-      dati riguardo processori con più core, quindi se possiedi un precessore
-      AMD Threadripper o simile, facci sapere come va.
+      buoni risultati fino ad un massimo di 8-16 thread. Non sono attualmente
+      disponibili dati riguardo processori con più core, quindi se possiedi un
+      processore AMD Threadripper o simile, facci sapere come va.
 .
 :CONFIG_VOODOO_BILINEAR_FILTERING
 Utilizza il filtro bilineare per emulare l'effetto smussato delle texture delle
@@ -2088,7 +2088,7 @@ Imposta il formato di acquisizione delle istantanee dello schermo
              frazionario in orizzontale e con numeri interi in verticale).
              I nomi delle istantanee ridimensionate non hanno alcun suffisso
              (es. "image0001.png").
-  rendered:  Viene acquisita l'immagine postrenderizzata mostrata sullo schermo
+  rendered:  Viene acquisita l'immagine renderizzata mostrata sullo schermo.
              I nomi delle istantanee renderizzate terminano con '-rendered'
              (es. 'image0001-rendered.png').
   raw:       Viene acquisito il contenuto del framebuffer non elaborato
@@ -2152,8 +2152,8 @@ fluido, quindi si consiglia di disabilitarlo e caricare un driver DOS esterno
 solo se realmente necessario (ad esempio, se un gioco non è compatibile con
 il driver integrato).
   on:   Abilita il driver del mouse integrato. Le opzioni `ps2_mouse_model` e
-        `com_mouse_model` non hanno alcun effetto quando il driver integrato è
-        abilitato.
+        `com_mouse_model` non hanno alcun effetto se si utilizza il driver
+        integrato.
   off:  Disabilita il driver del mouse integrato (se non è necessaro il
         supporto del mouse o se si vuole caricare un driver DOS esterno).
         Per utilizzare un driver DOS esterno (ad es. MOUSE.COM o CTMOUSE.EXE),
@@ -2173,7 +2173,7 @@ specialmente nei giochi dal ritmo veloce (arcade, FPS, ecc.), poiché per alcuni
 incrementa efficacemente la frequenza di campionamento del mouse a 1000 Hz,
 senza aumentare il sovraccarico dell'interrupt. Potrebbe causare problemi di
 compatibilità.
-Elenco di alcuni giochi incompatibili noti:
+Elenco di alcuni giochi noti non compatibili:
   - Ultima Underworld: The Stygian Abyss
   - Ultima Underworld II: Labyrinth of Worlds
 Se trovi un altro gioco incompatibile, segnalalo in modo da poter aggiornare
@@ -2259,8 +2259,8 @@ il ritaglio (clipping) dell'uscita audio:
 :CONFIG_CROSSFEED
 Abilita l'alimentazione incrociata sui canali OPL e CMS (Gameblaster) del mixer
 Con questi dispositivi audio, nella riproduzione in stereofonia, molti giochi
-collocano gli strumenti al 100%% nel canale sinistro e al 100%% in quello destro,
-il che può risultare spiacevole da ascoltare con le cuffie. Abilitando
+distribuiscono gli strumenti al 100%% nel canale sinistro e al 100%% in quello
+destro, il che può risultare spiacevole da ascoltare con le cuffie. Abilitando
 l'alimentazione incrociata, una parte del segnale del canale sinistro viene
 miscelato nel canale destro e viceversa, creando un'esperienza di ascolto più
 naturale.
@@ -3087,7 +3087,7 @@ software (usando libslirp) con le seguenti proprietà (predefinito abilitato):
   - 10.0.2.2:       IP del gateway e del servizio DHCP.
   - 10.0.2.3:       IP del server DNS virtuale.
   - 10.0.2.15:      Primo IP fornito dal DHCP, il tuo IP!
-Nota: All'interno del DOS, la configurazione richiede un pacchetto driver
+Nota: All'interno del DOS, la configurazione richiede un driver di pacchetto
       NE2000, un client DHCP e una pila TCP/IP. Potrebbe essere necessario
       inoltrare le porte dal sistema operativo primario all'emulatore DOS
       e dal router al sistema stesso, quando quest'ultimo funge da server per
@@ -3112,18 +3112,19 @@ Inoltra una o più porte TCP dal sistema operativo primario all'emulatore DOS
 (predefinito non impostato).
 Il formato è:
   porta1  porta2  porta3 ... (ad es. 21 80 443)
-  Questo inoltrerà FTP, HTTP e HTTPS sull'emulatore DOS.
+  Questo inoltrerà le porte FTP, HTTP e HTTPS verso l'emulatore DOS.
 Se le porte sono privilegiate sul sistema primario, è possibile utilizzare una
 mappatura:
   primario:emulatore  ..., (ad es. 8021:21 8080:80)
-  Questo inoltrerà le porte 8021 e 8080 su FTP e HTTP nell'emulatore DOS.
+  Questo inoltrerà le porte 8021 e 8080 verso quelle FTP e HTTP
+  dell'emulatore DOS.
 Un intervallo di porte adiacenti può essere abbreviato con un trattino:
   inizio-fine ... (ad es. 27910-27960)
-  Questo inoltrerà le porte da 27910 a 27960 sull'emulatore DOS.
+  Questo inoltrerà le porte da 27910 a 27960 verso l'emulatore DOS.
 Le mappature e gli intervalli possono essere combinati:
   pinizio-pfine:einizio-efine ..., (ad es. 8040-8080:20-60)
-  Questo inoltra le porte da 8040 a 8080 sull'intervallo che va da 20 a 60
-  nell'emulatore DOS.
+  Questo inoltra le porte da 8040 a 8080 verso l'intervallo di porte
+  dell'emulatore DOS che va da 20 a 60.
 Note:
   - Se gli intervalli mappati differiscono, l'intervallo più corto viene
     esteso per adattarsi.
@@ -3798,7 +3799,7 @@ Possono essere modificate nel [color=brown]mappatore dei tasti[reset].
 [color=yellow]%s+F1[reset]   %s Avvia il [color=brown]mappatore dei tasti[reset].
 [color=yellow]%s+F4[reset]   %s Passa tra le immagini disco montate, scansiona tutte le unità per
            rilevare modifiche.
-[color=yellow]%s+F5[reset]     Scatta un'istantanea dello schermo (immagine postrenderizzata).
+[color=yellow]%s+F5[reset]     Scatta un'istantanea dello schermo (immagine renderizzata).
 [color=yellow]%s+F5[reset]   %s Scatta un'istantanea dello schermo (immagine ridimensionata).
 [color=yellow]%s+F6[reset]   %s Avvia/Ferma la registrazione dell'uscita audio in un file wave.
 [color=yellow]%s+F7[reset]   %s Avvia/Ferma la registrazione dell'uscita video in un file zmbv.
