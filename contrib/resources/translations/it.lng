@@ -2059,7 +2059,7 @@ Utilizza i thread per migliorare le prestazioni dell'emulazione 3dfx Voodoo:
 Nota: Impostando questa opzione su un valore più alto del numero di processori
       logici supportati dal tuo hardware, è molto probabile possa verificarsi
       una diminuzione delle prestazioni. È stato testato che si possono avere
-      buoni risultati fino ad un massimo di 8-16 thread. Non sono attualmente
+      buoni risultati con un massimo di 8-16 thread. Non sono attualmente
       disponibili dati riguardo processori con più core, quindi se possiedi un
       processore AMD Threadripper o simile, facci sapere come va.
 .
