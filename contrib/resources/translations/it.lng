@@ -2199,7 +2199,7 @@ opzioni separate da uno spazio o una virgola (predefinito non impostato).
               aggiornare questo elenco.
   modern:     Se presente, viene emulato il comportamento del driver del mouse
               Microsoft v7.0+, in caso contrario quello della v6.0 e precedenti
-              (le due sono versioni leggermente incompatibili). Finora, solo
+              (le due versioni sono leggermente incompatibili). Finora, solo
               Descent II con l'aggiornamento ufficiale per il supporto 3dfx
               Voodoo ha richiesto il comportamento della v7.0+.
 .
