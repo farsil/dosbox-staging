@@ -2147,8 +2147,8 @@ accelerazione del mouse del tuo sistema operativo (predefinito 'on').
 Funziona in modalità schermo intero o quando il mouse viene catturato
 in modalità finestra.
 .
-:CONFIG_DOS_MOUSE_DRIVER
-Abilita il driver del mouse incluso in DOSBox (predefinito 'on').
+:CONFIG_BUILTIN_DOS_MOUSE_DRIVER
+Abilita il driver del mouse DOS incluso in DOSBox (predefinito 'on').
 Esso assicura la latenza più bassa possibile e il movimento del mouse più
 fluido, quindi si consiglia di disabilitarlo e caricare un driver DOS esterno
 solo se realmente necessario (ad esempio, se un gioco non è compatibile con
@@ -2168,18 +2168,43 @@ Nota: Se si avvia una versione di MS-DOS o Windows 9x all'interno di DOSBox,
       Windows 3.x, il driver integrato non verrà disabilitato ma quello di
       Windows prenderà il sopravvento.
 .
+:CONFIG_DOS_MOUSE_DRIVER
+Rinominato in 'builtin_dos_mouse_driver'.
+.
+:CONFIG_BUILTIN_DOS_MOUSE_DRIVER_MODEL
+Imposta il modello del mouse da emulare tramite il driver del mouse DOS
+incluso in DOSBox (predefinito '2button').
+  2button:  2 pulsanti, l'opzione più sicura nella maggioranza dei casi.
+            La maggior parte dei giochi DOS supporta solo mouse con 2 pulsanti.
+            Alcuni inoltre potrebbero avere problemi con i mouse che presentano
+            un pulsante centrale.
+  3button:  3 pulsanti, tipologia di mouse supportata da pochissimi giochi DOS.
+            Da utilizzare solo se il gioco supporta un mouse a 3 pulsanti.
+  wheel:    3 pulsanti + rotellina, supporta l'API CuteMouse Wheel v1.0.
+            Nessun gioco DOS utilizza la rotellina del mouse, solo un ristretto
+            numero di applicazioni DOS e Windows 3.x con speciali driver di
+            terze parti.
+.
+:CONFIG_BUILTIN_DOS_MOUSE_DRIVER_OPTIONS
+Impostazioni aggiuntive del driver del mouse DOS integrato, come elenco di
+opzioni separate da uno spazio o una virgola (predefinito non impostato).
+  immediate:  Aggiorna immediatamente i contatori di movimento del mouse, senza
+              attendere l'interrupt. Può migliorare la latenza del mouse nei
+              giochi dal ritmo veloce (arcade, FPS, ecc.), ma potrebbe causare
+              problemi con alcuni titoli.
+              Elenco di alcuni giochi noti non compatibili:
+                - Ultima Underworld: The Stygian Abyss
+                - Ultima Underworld II: Labyrinth of Worlds
+              Si prega di segnalare altri giochi incompatibili così da poter
+              aggiornare questo elenco.
+  modern:     Se presente, viene emulato il comportamento del driver del mouse
+              Microsoft v7.0+, in caso contrario quello della v6.0 e precedenti
+              (le due sono versioni leggermente incompatibili). Finora, solo
+              Descent II con l'aggiornamento ufficiale per il supporto 3dfx
+              Voodoo ha richiesto il comportamento della v7.0+.
+.
 :CONFIG_DOS_MOUSE_IMMEDIATE
-Aggiorna immediatamente i contatori di movimento del mouse, senza attendere
-l'interrupt (predefinito 'off'). Può migliorare la giocabilità, specialmente
-nei giochi dal ritmo veloce (arcade, FPS, ecc.), poiché per alcuni incrementa
-efficacemente la frequenza di campionamento del mouse a 1000 Hz, senza
-aumentare il sovraccarico dell'interrupt. Potrebbe causare problemi di
-compatibilità.
-Elenco di alcuni giochi noti non compatibili:
-  - Ultima Underworld: The Stygian Abyss
-  - Ultima Underworld II: Labyrinth of Worlds
-Se trovi un altro gioco incompatibile, segnalalo in modo da poter aggiornare
-questo elenco.
+Configurare utilizzando l'opzione 'builtin_dos_mouse_driver_options'.
 .
 :CONFIG_PS2_MOUSE_MODEL
 Imposta il modello del mouse sulla porta PS/2 AUX o, più precisamente, il tipo
@@ -2440,11 +2465,11 @@ Percorso ROM  :
 .
 :CONFIG_SOUNDCANVAS_MODEL
 Modello di Roland Sound Canvas da utilizzare.
-Nella cartella 'plugin' situata nella directory di configurazione di DOSBox,
-devono essere presenti uno o più moduli audio CLAP che implementano i modelli
-Sound Canvas supportati. DOSBox individua il modello richiesto esaminando le
-descrizioni dei moduli audio disponibili.
-La ricerca dei modelli viene eseguita nel seguente ordine:
+Nella cartella 'plugins' situata nella directory di installazione o
+configurazione di DOSBox, devono essere presenti uno o più moduli audio CLAP
+che implementano i modelli Sound Canvas supportati. DOSBox individua il modello
+richiesto esaminando le descrizioni dei moduli audio disponibili.
+La ricerca del modello viene eseguita nel seguente ordine:
   auto:       Seleziona il miglior modello disponibile (predefinito).
   sc55:       Seleziona il miglior modello SC-55 originale disponibile.
   sc55mk2:    Seleziona il miglior modello SC-55mk2 disponibile.
@@ -4629,8 +4654,8 @@ Parametri:
   Per [color=light-cyan]MODEM[reset]     : IRQ, LISTENPORT, SOCK
   Per [color=light-cyan]NULLMODEM[reset] : IRQ, SERVER, RXDELAY, TXDELAY, TELNET, USEDTR, TRANSPARENT,
                   PORT, INHSOCKET, SOCK
-  Per [color=light-cyan]MOUSE[reset]     : IRQ, RATE (NORMAL o SMOOTH), TYPE (2BTN, 3BTN, WHEEL, MSM,
-                  2BTN+MSM, 3BTN+MSM, o WHEEL+MSM)
+  Per [color=light-cyan]MOUSE[reset]     : IRQ, MODEL (2BUTTON, 3BUTTON, WHEEL, MSM, 2BUTTON+MSM,
+                  3BUTTON+MSM, o WHEEL+MSM)
   Per [color=light-cyan]DIRECT[reset]    : IRQ, REALPORT (richiesto), RXDELAY
   Per [color=light-cyan]DUMMY[reset]     : IRQ
 
@@ -4639,7 +4664,7 @@ Esempi:
   [color=light-green]serial[reset] [color=white]2[reset] [color=light-cyan]NULLMODEM[reset] SERVER:10.0.0.6 PORT:1250: Connesso a TCP:1250 come client
   [color=light-green]serial[reset] [color=white]3[reset] [color=light-cyan]MODEM[reset] LISTENPORT:5000 SOCK:1       : Ascolto su UDP:5000 come server
   [color=light-green]serial[reset] [color=white]4[reset] [color=light-cyan]DIRECT[reset] REALPORT:ttyUSB0            : Usa una porta fisica su Linux
-  [color=light-green]serial[reset] [color=white]1[reset] [color=light-cyan]MOUSE[reset] TYPE:MSM                     : Mouse di tipo Mouse Systems
+  [color=light-green]serial[reset] [color=white]1[reset] [color=light-cyan]MOUSE[reset] MODEL:MSM                    : Mouse di tipo Mouse Systems
 
 .
 :PROGRAM_SERIAL_SHOW_PORT
