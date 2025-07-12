@@ -90,6 +90,54 @@ Elenco delle opzioni disponibili:
   -V, --version             Mostra le informazioni sulla versione.
 
 .
+:PROGRAM_CONFIG_PROPERTY_ERROR
+Sezione o proprietà non trovata: %s
+
+.
+:PROGRAM_CONFIG_NO_PROPERTY
+La proprietà '%s' non è presente nella sezione [%s]
+
+.
+:PROGRAM_CONFIG_SET_SYNTAX
+Utilizzo: [color=light-green]config [reset]-set [color=light-cyan][SEZIONE][reset] [color=white]PROPRIETÀ[reset][=][color=white]VALORE[reset]
+
+.
+:TITLEBAR_CYCLES_MS
+cicli/ms
+.
+:TITLEBAR_CYCLES_THROTTLED
+limitato
+.
+:TITLEBAR_MUTED
+MUTO
+.
+:TITLEBAR_PAUSED
+PAUSA
+.
+:TITLEBAR_HINT_CAPTURED
+mouse catturato
+.
+:TITLEBAR_HINT_CAPTURED_HOTKEY
+mouse catturato, %s+F10 per rilasciarlo
+.
+:TITLEBAR_HINT_CAPTURED_HOTKEY_MIDDLE
+mouse catturato, %s+F10 o pulsante centrale del mouse per rilasciarlo
+.
+:TITLEBAR_HINT_RELEASED_HOTKEY
+per catturare il mouse premere %s+F10
+.
+:TITLEBAR_HINT_RELEASED_HOTKEY_MIDDLE
+per catturare il mouse premere %s+F10 o pulsante centrale del mouse
+.
+:TITLEBAR_HINT_RELEASED_HOTKEY_ANY_BUTTON
+per catturare il mouse premere %s+F10 o fare clic su qualsiasi pulsante
+.
+:TITLEBAR_HINT_SEAMLESS_HOTKEY
+mouse senza soluzione di continuità, %s+F10 per catturarlo
+.
+:TITLEBAR_HINT_SEAMLESS_HOTKEY_MIDDLE
+mouse senza soluzione di continuità, %s+F10 o pulsante centrale del mouse per catturarlo
+.
 :DOSBOX_HELP_LIST_COUNTRIES_1
 Elenco dei codici paese disponibili (per lo più uguali ai prefissi telefonici)
 .
@@ -1272,59 +1320,11 @@ Il percorso '%s' non contiene shader
 :DOSBOX_HELP_LIST_GLSHADERS_LIST
 Il percorso '%s' contiene:
 .
-:PROGRAM_CONFIG_PROPERTY_ERROR
-Sezione o proprietà non trovata: %s
-
-.
-:PROGRAM_CONFIG_NO_PROPERTY
-La proprietà '%s' non è presente nella sezione [%s]
-
-.
-:PROGRAM_CONFIG_SET_SYNTAX
-Utilizzo: [color=light-green]config [reset]-set [color=light-cyan][SEZIONE][reset] [color=white]PROPRIETÀ[reset][=][color=white]VALORE[reset]
-
-.
-:TITLEBAR_CYCLES_MS
-cicli/ms
-.
-:TITLEBAR_CYCLES_THROTTLED
-limitato
-.
-:TITLEBAR_MUTED
-MUTO
-.
-:TITLEBAR_PAUSED
-PAUSA
-.
-:TITLEBAR_HINT_CAPTURED
-mouse catturato
-.
-:TITLEBAR_HINT_CAPTURED_HOTKEY
-mouse catturato, %s+F10 per rilasciarlo
-.
-:TITLEBAR_HINT_CAPTURED_HOTKEY_MIDDLE
-mouse catturato, %s+F10 o pulsante centrale del mouse per rilasciarlo
-.
-:TITLEBAR_HINT_RELEASED_HOTKEY
-per catturare il mouse premere %s+F10
-.
-:TITLEBAR_HINT_RELEASED_HOTKEY_MIDDLE
-per catturare il mouse premere %s+F10 o pulsante centrale del mouse
-.
-:TITLEBAR_HINT_RELEASED_HOTKEY_ANY_BUTTON
-per catturare il mouse premere %s+F10 o fare clic su qualsiasi pulsante
-.
-:TITLEBAR_HINT_SEAMLESS_HOTKEY
-mouse senza soluzione di continuità, %s+F10 per catturarlo
-.
-:TITLEBAR_HINT_SEAMLESS_HOTKEY_MIDDLE
-mouse senza soluzione di continuità, %s+F10 o pulsante centrale del mouse per catturarlo
-.
 :CONFIGITEM_OUTPUT_OPENGL_DEFAULT
 Modalità di uscita video da utilizzare (predefinito 'opengl').
 Solo la modalità 'opengl' ha il supporto per gli shader ed è quindi l'opzione
 consigliata. La modalità 'texture' viene fornita solo come ultima risorsa
-per driver OpenGL difettosi o inesistenti (circostanza estremamente rara).
+per driver OpenGL 2.1+ difettosi o inesistenti (circostanza estremamente rara).
 .
 :CONFIGITEM_OUTPUT_TEXTURE_DEFAULT
 Modalità di uscita video da utilizzare (predefinito 'texture').
@@ -1350,16 +1350,43 @@ Numero dello schermo da utilizzare; Il valore dipende dal sistema operativo
 e dalle impostazioni dell'utente (predefinito 0).
 .
 :CONFIG_FULLSCREEN
-Avvia direttamente a schermo intero (predefinito 'off').
-Digita INTRO e osserva la sezione Tasti Speciali per la lista dei tasti di
-scelta rapida per il controllo della finestra.
+Avvia in modalità a schermo intero (predefinito 'off').
 .
 :CONFIG_FULLRESOLUTION
-Risoluzione da utilizzare in modalità schermo intero: 'original', 'desktop' o
-dimensione fissa, es. 1024x768 (predefinito 'desktop').
+L'opzione 'fullresolution' è deprecata ma ancora consentita; si prega invece
+di utilizzare l'opzione 'fullscreen_mode'.
+.
+:CONFIG_FULLSCREEN_MODE
+Imposta il tipo di modalità a schermo intero (predefinito 'standard'):
+.
+:CONFIGITEM_FULLSCREEN_MODE_STANDARD
+  standard:          Utilizza la modalità a schermo intero standard del sistema
+                     operativo in uso (predefinito).
+.
+:CONFIGITEM_FULLSCREEN_MODE_FORCED-BORDERLESS
+  forced-borderless: Forza la modalità in finestra senza bordi se il driver
+                     della scheda video decide di disabilitare le
+                     ottimizzazioni a schermo intero su Windows, con
+                     conseguente utilizzo della modalità a schermo intero
+                     esclusivo. Forzare la modalità senza bordi potrebbe
+                     comportare un calo delle prestazioni e un leggero
+                     peggioramento della fluidità dell'immagine.
+.
+:CONFIGITEM_FULLSCREEN_MODE_ORIGINAL
+  original:          Utilizza la modalità a schermo intero esclusivo con la
+                     risoluzione originale del gioco o con quella più vicina
+                     disponibile. Questa opzione è consigliata solo nel caso
+                     in cui si voglia utilizzare DOSBox Staging con un
+                     monitor CRT. In questa modalità, la commutazione da
+                     schermo intero a finestra e viceversa potrebbe causare
+                     strani comportamenti.
 .
 :CONFIG_WINDOWRESOLUTION
-Imposta le dimensioni iniziali della finestra per la modalità finestra.
+L'opzione ''windowresolution' è deprecata ma ancora consentita; si prega invece
+di utilizzare l'opzione 'window_size'.
+.
+:CONFIG_WINDOW_SIZE
+Imposta le dimensioni iniziali della finestra per la modalità in finestra.
 Inoltre è possibile ridimensionare la finestra dopo l'avvio dell'emulatore.
   default:   Seleziona l'opzione migliore in base al tuo sistema e ad altre
              impostazioni (ad esempio se la correzione delle proporzioni è
@@ -1373,12 +1400,13 @@ Inoltre è possibile ridimensionare la finestra dopo l'avvio dell'emulatore.
 Imposta la posizione iniziale della finestra per la modalità finestra:
   auto:      Lascia che sia il gestore delle finestre a decidere la posizione
              (predefinito).
-  X,Y:       Imposta la posizione della finestra nel formato X,Y
-             (ad esempio 250,100).
+  X,Y:       Imposta la posizione della finestra nel formato X,Y in unità
+             logiche (ad esempio 250,100).
              0,0 è l'angolo in alto a sinistra dello schermo.
 .
 :CONFIG_WINDOW_DECORATIONS
-Abilita le decorazioni delle finestre in modalità finestra (predefinito 'on').
+Abilita le decorazioni delle finestre in modalità in finestra
+(predefinito 'on').
 .
 :CONFIG_WINDOW_TITLEBAR
 Elenco di informazioni, separate da spazi, da visualizzare nella barra del
@@ -1443,7 +1471,7 @@ Spostato nella sezione [render] e rinominato in 'viewport'.
 :CONFIG_HOST_RATE
 Imposta la frequenza di aggiornamento dello schermo:
   auto:      Utilizza le frequenze SDI oppure, su uno schermo ad alta frequenza
-             di aggiornamento, le frequenze VRR quando si è in modalità
+             di aggiornamento, le frequenze VRR quando si è in modalità a
              schermo intero (predefinito).
   sdi:       Utilizza le frequenze dell'interfaccia del dispositivo seriale
              (SDI), senza ulteriori regolazioni.
@@ -1453,10 +1481,10 @@ Imposta la frequenza di aggiornamento dello schermo:
              (sono ammessi valori decimali; 23.000 è il minimo consentito).
 .
 :CONFIG_VSYNC
-Imposta la modalità di sincronizzazione verticale (vsync) del driver video:
+Imposta la modalità di sincronizzazione verticale del driver video:
   auto:      Limita il vsync solo in casi d'uso vantaggiosi, come quando si
              utilizza uno schermo VRR con funzionalità di interpolazione in
-             modalità schermo intero (predefinito).
+             modalità a schermo intero (predefinito).
   on:        Abilita il vsync. Ciò può impedire gli strappi dell'immagine su
              schermo (tearing), ma può influire sulle prestazioni o causare
              perdite di fotogrammi quando la frequenza DOS supera la frequenza
@@ -1465,12 +1493,12 @@ Imposta la modalità di sincronizzazione verticale (vsync) del driver video:
   adaptive:  Abilita il vsync quando la frequenza dei fotogrammi è superiore
              a quella dello schermo, ma lo disabilita quando la frequenza dei
              fotogrammi scende al di sotto della frequenza dello schermo.
-             Questa è una valida alternativa su MacOS invece di 'on'.
+             Su MacOS, questa è una valida alternativa all'opzione 'on'.
              Nota: valido solo nelle modalità di uscita OpenGL; altrimenti
              equivalente ad 'on'.
   off:       Prova a disabilitare il vsync per consentire una presentazione più
-             rapida dei fotogrammi con il rischio di strappi dell'immagine su
-             schermo in alcuni giochi.
+             rapida dei fotogrammi con il rischio, in alcuni giochi, di strappi
+             dell'immagine su schermo.
   yield:     Consente al driver video del sistema operativo primario di
              controllare la sincronizzazione video.
 .
@@ -1511,6 +1539,13 @@ Disattiva il suono quando la finestra è inattiva (predefinito 'off').
 .
 :CONFIG_PAUSE_WHEN_INACTIVE
 Mette in pausa l'emulazione quando la finestra è inattiva (predefinito 'off').
+.
+:CONFIG_KEYBOARD_CAPTURE
+Cattura i tasti di scelta rapida di sistema (predefinito 'off').
+Se abilitata, la maggior parte delle scorciatoie da tastiera come Alt+Tab viene
+catturata e inviata a DOSBox Staging. Questa opzione è utile per Windows 3.1x e
+alcuni programmi DOS con scorciatoie da tastiera non modificabili, che entrano
+in conflitto con quelle di sistema.
 .
 :CONFIG_MAPPERFILE
 Percorso del file di mappatura (predefinito 'mapper-sdl2-XYZ.map', dove XYZ è
@@ -1694,6 +1729,20 @@ Consente una gestione semplificata delle opzioni di configurazione tramite
 comandi in formato abbreviato (predefinito 'on'). Ad esempio invece di
 'config -set sbtype sb16', è sufficiente eseguire 'sbtype sb16'; allo stesso
 modo invece di 'config -get sbtype' è sufficiente eseguire il comando 'sbtype'.
+.
+:CONFIG_HARD_DISK_SPEED
+Imposta la velocità del disco rigido emulato (predefinito 'maximum').
+  maximum:  Il più veloce possibile, senza rallentamenti (predefinito)
+  fast:     Velocità tipica dei dischi rigidi di metà anni '90 (~15 MB/s)
+  medium:   Velocità tipica dei dischi rigidi dei primi anni '90 (~2,5 MB/s)
+  slow:     Velocità tipica dei dischi rigidi degli anni '80 (~600 kB/s)
+.
+:CONFIG_FLOPPY_DISK_SPEED
+Imposta la velocità dell'unità a dischi floppy emulata (predefinito 'maximum').
+  maximum:  Il più veloce possibile, senza rallentamenti (predefinito)
+  fast:     Velocità dei floppy ad altissima densità (ED) (~120 kB/s)
+  medium:   Velocità dei floppy ad alta densità (HD) (~60 kB/s)
+  slow:     Velocità dei floppy a doppia densità (DD) (~30 kB/s)
 .
 :CONFIG_FRAMESKIP
 Prendi in considerazione l'idea di limitare la frequenza dei fotogrammi
@@ -1970,8 +2019,7 @@ programma non funzioni correttamente in modalità 'auto'.
 .
 :CONFIG_CYCLES
 L'opzione 'cycles' è deprecata ma ancora consentita; si prega invece di
-utilizzare le opzioni 'cpu_cycles', 'cpu_cycles_protected' e 'cpu_throttle'
-poiché il supporto a 'cycles' verrà rimosso in futuro.
+utilizzare le opzioni 'cpu_cycles', 'cpu_cycles_protected' e 'cpu_throttle'.
 .
 :CONFIG_CPU_CYCLES
 Velocità della CPU emulata (predefinito '3000'). Se 'cpu_cycles_protected' è
@@ -2125,12 +2173,12 @@ occuperà anche di catturarlo (predefinito 'on').
 .
 :CONFIG_MOUSE_MULTI_DISPLAY_AWARE
 Consente il funzionamento della modalità mouse senza soluzione di continuità
-e il rilascio del puntatore del mouse in modalità schermo intero nei sistemi
+e il rilascio del puntatore del mouse in modalità a schermo intero nei sistemi
 multischermo (predefinito 'on').
 Nota: Dovresti disabilitarlo nel caso in cui vengano rilevati erroneamente
       schermi multipli, quando in realtà ne è presente solo uno. Ciò potrebbe
       accadere se si utilizza la modalità di visualizzazione speculare o
-      l'ingresso HDMI di un ricevitore AV per l'ascolto dell'audio.
+      l'ingresso HDMI di un ricevitore AV per la riproduzione audio.
 .
 :CONFIG_MOUSE_SENSITIVITY
 Sensibilità del mouse a livello globale per gli assi orizzontale e verticale,
@@ -2143,30 +2191,36 @@ utilizzando lo strumento interno MOUSECTL.COM disponibile sull'unità Z.
 .
 :CONFIG_MOUSE_RAW_INPUT
 Abilita questa opzione per bypassare le impostazioni di sensibilità e
-accelerazione del mouse del tuo sistema operativo (predefinito 'on').
-Funziona in modalità schermo intero o quando il mouse viene catturato
+accelerazione del mouse del sistema operativo in uso (predefinito 'on').
+Funziona in modalità a schermo intero o quando il mouse viene catturato
 in modalità finestra.
 .
 :CONFIG_BUILTIN_DOS_MOUSE_DRIVER
-Abilita il driver del mouse DOS incluso in DOSBox (predefinito 'on').
-Esso assicura la latenza più bassa possibile e il movimento del mouse più
-fluido, quindi si consiglia di disabilitarlo e caricare un driver DOS esterno
-solo se realmente necessario (ad esempio, se un gioco non è compatibile con
-il driver integrato).
-  on:   Abilita il driver del mouse integrato. Le opzioni `ps2_mouse_model` e
-        `com_mouse_model` non hanno alcun effetto se si utilizza il driver
-        integrato.
-  off:  Disabilita il driver del mouse integrato (se non è necessaro il
-        supporto del mouse o se si vuole caricare un driver DOS esterno).
-        Per utilizzare un driver DOS esterno (ad es. MOUSE.COM o CTMOUSE.EXE),
-        configurare il tipo di mouse nelle opzioni `ps2_mouse_model` o
-        `com_mouse_model`, quindi caricare il driver.
-        Un driver DOS esterno potrebbe aumentare la compatibilità con alcuni
-        programmi, ma introdurrà una maggiore latenza.
-Nota: Se si avvia una versione di MS-DOS o Windows 9x all'interno di DOSBox,
-      il driver integrato verrà disabilitato automaticamente. Se si utilzza
-      Windows 3.x, il driver integrato non verrà disabilitato ma quello di
-      Windows prenderà il sopravvento.
+Modalità del driver del mouse DOS incluso in DOSBox (predefinito 'on').
+Esso aggira le porte seriali (COM) e PS/2 e comunica direttamente con il mouse.
+Ciò si traduce in una latenza inferiore, movimenti più fluidi e una maggiore
+reattività del mouse, quindi si consiglia di disabilitarlo e caricare un
+driver DOS esterno solo se realmente necessario (ad esempio, se un gioco non
+è compatibile con il driver integrato).
+  on:      Abilita il driver del mouse simulando un programma TSR, caricato da
+           AUTOEXEC.BAT (predefinito). È il modo più compatibile per emulare il
+           driver del mouse DOS. In caso di problemi con un determinato gioco,
+           provare la modalità 'no-tsr'.
+  no-tsr:  Abilita il driver del mouse senza simulare un programma TSR.
+           Fateci sapere se questo risolve i problemi con quei software che non
+           funzionano con la modalità 'on'.
+  off:     Disabilita il driver del mouse integrato. È possibile comunque
+           abilitarlo durante l'esecuzione dell'emulatore eseguendo il
+           programma MOUSE.COM incluso nell'unità Z.
+Note:
+  - Le opzioni `ps2_mouse_model` e `com_mouse_model` non hanno alcun effetto
+    sul driver integrato.
+  - Se si avvia una versione di MS-DOS o Windows 9x all'interno di DOSBox,
+    il driver verrà disabilitato automaticamente. Se si avvia Windows 3.x, il
+    driver non verrà disabilitato ma quello di Windows prenderà il sopravvento.
+  - Per utilizzare un driver del mouse DOS esterno (ad esempio MOUSE.COM o
+    CTMOUSE.EXE), configurare il tipo di mouse nell'opzione `ps2_mouse_model` o
+    `com_mouse_model`, quindi caricare il driver.
 .
 :CONFIG_DOS_MOUSE_DRIVER
 Rinominato in 'builtin_dos_mouse_driver'.
@@ -2506,12 +2560,14 @@ Imposta dove l'interfaccia MPU-401 emulata invia i dati MIDI
                alla sezione [mt32]).
 .
 :CONFIGITEM_MIDIDEVICE_SOUNDCANVAS
-  soundcanvas: Sintetizzatore Roland SC-55 incluso in DOSBox (fare riferimento
+  soundcanvas: Sintetizzatore Roland SC-55 incluso in DOSBox (richiede un
+               modulo audio CLAP che emuli un Sound Canvas; fare riferimento
                alla sezione [soundcanvas]).
 .
 :CONFIGITEM_MIDIDEVICE_FLUIDSYNTH
   fluidsynth:  Sintetizzatore MIDI FluidSynth incluso in DOSBox (necessita di
-               un SoundFont) (fare riferimento alla sezione [fluidsynth]).
+               un SoundFont) (richiede la libreria di collegamento dinamico
+               di FluidSynth; fare riferimento alla sezione [fluidsynth]).
 .
 :CONFIGITEM_MIDIDEVICE_NONE
   none:        Disabilita l'uscita MIDI.
@@ -2827,6 +2883,18 @@ Filtro per l'uscita audio della scheda Innovation:
   <personalizzato>: Definizione di filtri personalizzati;
                     per ulteriori dettagli, fare riferimento a 'sb_filter'.
 .
+:CONFIG_HARD_DISK_NOISE
+Abilita il rumore del disco rigido emulato (predefinito 'off').
+Se abilitato, verranno riprodotti i suoni di rotazione del disco e dello
+spostamento della testina. Per un'esperienza autentica, si consiglia di
+impostare 'hard_disk_speed' ad un valore inferiore a 'maximum'.
+.
+:CONFIG_FLOPPY_DISK_NOISE
+Abilita il rumore dell'unità a dischi floppy emulata (predefinito 'off').
+Se abilitato, verranno riprodotti i suoni di rotazione del disco e dello
+spostamento della testina. Per un'esperienza autentica, si consiglia di
+impostare 'floppy_disk_speed' ad un valore inferiore a 'maximum'.
+.
 :CONFIG_PCSPEAKER
 Modello di emulazione dell'altoparlante interno del PC (PC speaker):
   impulse:   Emulazione molto fedele dell'uscita audio dell'altoparlante
@@ -3128,16 +3196,16 @@ Abilita l'emulazione IPX tramite UDP/IP (predefinito 'off').
 .
 :CONFIGITEM_NE2000_SLIRP
 Abilita l'emulazione della scheda di rete Novell NE2000 su una rete basata su
-software (usando libslirp) con le seguenti proprietà (predefinito 'on'):
-  - 255.255.255.0:  Maschera di sottorete della LAN virtuale 10.0.2.0.
-  - 10.0.2.2:       IP del gateway e del servizio DHCP.
-  - 10.0.2.3:       IP del server DNS virtuale.
-  - 10.0.2.15:      Primo IP fornito dal DHCP, il tuo IP!
-Nota: All'interno del DOS, la configurazione richiede un driver di pacchetto
-      NE2000, un client DHCP e una pila TCP/IP. Potrebbe essere necessario
-      inoltrare le porte dal sistema operativo primario all'emulatore DOS
-      e dal router al sistema stesso, quando quest'ultimo funge da server per
-      i giochi multigiocatore.
+software con le seguenti proprietà (predefinito 'off'):
+  - 255.255.255.0   Maschera di sottorete della LAN virtuale 10.0.2.0.
+  - 10.0.2.2        IP del gateway e del servizio DHCP.
+  - 10.0.2.3        IP del server DNS virtuale.
+  - 10.0.2.15       Primo IP fornito dal DHCP (è il tuo IP)
+Nota: Per utilizzare questa funzionalità è necessario configurare in DOS un
+      driver di pacchetto NE2000, un client DHCP e una pila TCP/IP. Potrebbe
+      essere necessario inoltrare le porte dal sistema operativo primario a
+      DOSBox e dal router al sistema primario, quando quest'ultimo funge da
+      server per i giochi multigiocatore.
 .
 :CONFIGITEM_NICBASE_SLIRP
 Indirizzo di base della scheda NE2000 (predefinito 300).
@@ -3839,7 +3907,7 @@ Inoltre puoi usare [color=light-blue]imgmount[reset] per montare immagini ISO o 
 Queste sono le combinazioni di tasti predefinite.
 Possono essere modificate nel [color=brown]mappatore dei tasti[reset].
 
-[color=yellow]%s+Invio[reset]  Passa dalla modalità a schermo intero a quella a finestra
+[color=yellow]%s+Invio[reset]  Passa dalla modalità a schermo intero a quella in finestra
            e viceversa.
 [color=yellow]%s+Pausa[reset]  Mette in Pausa/Riprende l'emulazione.
 [color=yellow]%s+F1[reset]   %s Avvia il [color=brown]mappatore dei tasti[reset].
@@ -4388,7 +4456,6 @@ Note:
   - '-t overlay' reindirizza le scritture per l'unità montata in un'altra
     directory.
   - '-ro' monta l'unità in sola lettura.
-  - Ulteriori opzioni sono descritte nel manuale (file README, capitolo 4).
 
 Esempi:
 
@@ -4483,6 +4550,43 @@ Qualcosa è andato storto.
 .
 :PROGRAM_MOUNT_OVERLAY_STATUS
 Sovrapposizione %s nell'unità %c montata.
+
+.
+:PROGRAM_MOUSE_HELP_LONG
+Carica il driver del mouse integrato.
+
+Utilizzo:
+  [color=light-green]mouse[reset] [on] [/e] [/q]
+
+Parametri:
+  on    carica il driver (azione predefinita)
+  /e    carica il driver nella memoria convenzionale
+  /q    modalità silenziosa (salta i messaggi di conferma)
+
+Note:
+  Il driver integrato aggira le porte seriali (COM) e PS/2 e comunica
+  direttamente con il mouse. Ciò si traduce in una latenza inferiore, movimenti
+  più fluidi e una maggiore reattività del mouse.
+.
+:PROGRAM_MOUSE_INSTALLED
+Driver del mouse installato.
+
+.
+:PROGRAM_MOUSE_ALREADY_INSTALLED
+Il driver del mouse è già installato.
+
+.
+:PROGRAM_MOUSE_COULD_NOT_INSTALL
+Impossibile installare il driver del mouse.
+
+.
+:PROGRAM_MOUSE_PORT_SELECTION
+Selezione della porta non supportata, il driver utilizza sempre il mouse di
+sistema.
+
+.
+:PROGRAM_MOUSE_HARDWARE_CURSOR
+Cursore hardware del mouse non supportato.
 
 .
 :PROGRAM_MOUSECTL_HELP_LONG
@@ -4906,6 +5010,10 @@ Errore durante la lettura del file - '%s'
 Errore durante la scrittura del file - '%s'
 
 .
+:SHELL_CANT_RUN_UNDER_WINDOWS
+Questo comando non può essere eseguito in Microsoft Windows.
+
+.
 :SHELL_CMD_HELP
 Per una lista di tutti i comandi supportati, esegui [color=yellow]help /all[reset].
 Segue una breve lista dei comandi più comuni:
@@ -5165,7 +5273,6 @@ Si noti che è possibile utilizzare SUBST solo su unità locali.
 ║                                                                      ║
 ║ Per regolare la velocità della CPU emulata, usa [color=light-red]%s+F11[color=white] e [color=light-red]%s+F12[color=white].%s%s ║
 ║ Per attivare il mappatore dei tasti, usa [color=light-red]%s+F1[color=white].%s                    ║
-║ Ulteriori informazioni nel file [color=light-cyan]README[color=white] nella directory di DOSBox.    ║
 ║                                                                      ║
 
 .
