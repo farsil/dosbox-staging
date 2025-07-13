@@ -1400,8 +1400,8 @@ Inoltre è possibile ridimensionare la finestra dopo l'avvio dell'emulatore.
 Imposta la posizione iniziale della finestra per la modalità finestra:
   auto:      Lascia che sia il gestore delle finestre a decidere la posizione
              (predefinito).
-  X,Y:       Imposta la posizione della finestra nel formato X,Y in unità
-             logiche (ad esempio 250,100).
+  X,Y:       Imposta la posizione della finestra nel formato X,Y
+             (ad esempio 250,100).
              0,0 è l'angolo in alto a sinistra dello schermo.
 .
 :CONFIG_WINDOW_DECORATIONS
