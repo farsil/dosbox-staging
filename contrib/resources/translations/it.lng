@@ -1789,7 +1789,7 @@ Possono essere utilizzati anche i seguenti shader (elenco non esaustivo):
   sharp:                 Ridimensiona l'immagine trattando i pixel come piccoli
                          rettangoli, ottenendo così un'immagine nitida con
                          sfocatura minima e mantenendo al contempo il rapporto
-                         di aspetto corretto dei pixel. Questa è l'opzione
+                         d'aspetto corretto dei pixel. Questa è l'opzione
                          consigliata per chi non desidera utilizzare gli
                          shader CRT adattivi.
   bilinear:              Ridimensiona l'immagine utilizzando il metodo di
@@ -1799,8 +1799,8 @@ Possono essere utilizzati anche i seguenti shader (elenco non esaustivo):
                          ricampionamento vicino più prossimo. Ciò si traduce
                          nell'immagine più nitida possibile a scapito di
                          eventuali pixel irregolari, soprattutto con rapporti
-                         di aspetto con pixel non quadrati (questo è un
-                         problema minore sugli schermi ad alta risoluzione).
+                         d'aspetto con pixel non quadrati (questo è un problema
+                         minore sugli schermi ad alta risoluzione).
 
 Avviare DOSBox Staging con l'argomento della riga di comando '--list-glshaders'
 per avere la lista completa di tutti gli shader disponibili. È inoltre
@@ -1876,11 +1876,11 @@ di quest'area, tenendo conto delle proporzioni specificate (vedi opzione
                     disponibile, e quindi ridimensionato in base ai fattori di
                     scala orizzontale e verticale O e V (l'intervallo valido va
                     dal 20%% al 300%%). L'area di visualizzazione risultante può
-                    può estendersi oltre i limiti della finestra o schermo.
-                    Questo è utile per forzare determinati rapporti d'aspetto
-                    con 'aspect = stretch' o per ingrandire l'immagine.
-                    Ciò emula efficacemente i controlli per la dimensione
-                    orizzontale e verticale dell'immagine dei monitor CRT.
+                    estendersi oltre i limiti della finestra o schermo. Questo
+                    è utile per forzare determinati rapporti d'aspetto con
+                    'aspect = stretch' o per ingrandire l'immagine. Ciò emula
+                    efficacemente i controlli per la dimensione orizzontale e
+                    verticale dell'immagine dei monitor CRT.
 Note:
   - L'uso della modalità 'relative' in combinazione con 'integer_scaling',
     potrebbe portare a risultati sorprendenti (ma corretti).
@@ -1935,9 +1935,9 @@ sono rispettivamente:
 :CONFIG_SCALER
 Gli scaler software sono deprecati in favore delle soluzioni con accelerazione
 hardware:
- - Se in passato hai utilizzato gli scaler normal2x/3x, considera l'utilizzo
-   dell'opzione 'integer_scaling' con 'glshader = sharp', e imposta in modo
-   facoltativo la dimensione di 'window_size' o 'viewport'.
+ - Se in passato hai utilizzato gli scaler normal2x/3x, considera l'uso
+   dell'opzione 'integer_scaling' con 'glshader = sharp' e imposta, in modo
+   facoltativo, la dimensione di 'window_size' o 'viewport'.
  - Se in passato hai utilizzato uno scaler avanzato, considera una delle
    opzioni 'glshader'.
 .
