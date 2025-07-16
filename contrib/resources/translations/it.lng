@@ -2427,7 +2427,7 @@ I due filtri devono essere di tipo diverso.
 Definizione di dissolvenza personalizzata non valida: [color=white]'%s'[reset].
 Deve essere specificato nel formato [color=light-cyan]'ATTESA DISSOLVENZA'[reset] dove [color=light-cyan]ATTESA[reset] è
 compreso tra %d e %d (in millisecondi) e [color=light-cyan]DISSOLVENZA[reset] è compreso tra %d e %d
-(in millisecondi). Reimpostato ad [color=white]'off'[reset].
+(in millisecondi). Reimpostato a [color=white]'off'[reset].
 .
 :CONFIG_SOUNDFONT
 Nome o percorso del file SoundFont da utilizzare (predefinito 'default.sf2').
@@ -2499,7 +2499,7 @@ Nessun SoundFont disponibile
 .
 :FLUIDSYNTH_INVALID_EFFECT_PARAMETER
 Parametro del sintetizzatore [color=light-green]'%s'[reset] non valido (%s): [color=white]%s[reset];
-deve essere compreso tra %.2f e %.2f. Reimpostato ad [color=white]'%s'[reset]
+deve essere compreso tra %.2f e %.2f. Reimpostato a [color=white]'%s'[reset]
 .
 :FLUIDSYNTH_INVALID_CHORUS_WAVE
 Parametro del sintetizzatore [color=light-green]'fsynth_chorus'[reset] non valido (tipo di forma
@@ -2507,7 +2507,7 @@ d'onda): [color=white]%s[reset]; deve essere [color=white]'sine'[reset] o [color
 .
 :FLUIDSYNTH_INVALID_NUM_EFFECT_PARAMS
 Numero di parametri [color=light-green]'%s'[reset] non valido: [color=white]%d[reset];
-devono essere valori %d separati da spazi. Reimpostato ad [color=white]'auto'[reset]
+devono essere %d valori separati da spazi. Reimpostato a [color=white]'auto'[reset]
 .
 :CONFIG_MODEL
 Modello di Roland MT-32/CM-32ML da utilizzare.
