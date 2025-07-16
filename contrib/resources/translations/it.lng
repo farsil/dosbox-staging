@@ -90,54 +90,6 @@ Elenco delle opzioni disponibili:
   -V, --version             Mostra le informazioni sulla versione.
 
 .
-:PROGRAM_CONFIG_PROPERTY_ERROR
-Sezione o proprietà non trovata: %s
-
-.
-:PROGRAM_CONFIG_NO_PROPERTY
-La proprietà '%s' non è presente nella sezione [%s]
-
-.
-:PROGRAM_CONFIG_SET_SYNTAX
-Utilizzo: [color=light-green]config [reset]-set [color=light-cyan][SEZIONE][reset] [color=white]PROPRIETÀ[reset][=][color=white]VALORE[reset]
-
-.
-:TITLEBAR_CYCLES_MS
-cicli/ms
-.
-:TITLEBAR_CYCLES_THROTTLED
-limitato
-.
-:TITLEBAR_MUTED
-MUTO
-.
-:TITLEBAR_PAUSED
-PAUSA
-.
-:TITLEBAR_HINT_CAPTURED
-mouse catturato
-.
-:TITLEBAR_HINT_CAPTURED_HOTKEY
-mouse catturato, %s+F10 per rilasciarlo
-.
-:TITLEBAR_HINT_CAPTURED_HOTKEY_MIDDLE
-mouse catturato, %s+F10 o pulsante centrale del mouse per rilasciarlo
-.
-:TITLEBAR_HINT_RELEASED_HOTKEY
-per catturare il mouse premere %s+F10
-.
-:TITLEBAR_HINT_RELEASED_HOTKEY_MIDDLE
-per catturare il mouse premere %s+F10 o pulsante centrale del mouse
-.
-:TITLEBAR_HINT_RELEASED_HOTKEY_ANY_BUTTON
-per catturare il mouse premere %s+F10 o fare clic su qualsiasi pulsante
-.
-:TITLEBAR_HINT_SEAMLESS_HOTKEY
-mouse senza soluzione di continuità, %s+F10 per catturarlo
-.
-:TITLEBAR_HINT_SEAMLESS_HOTKEY_MIDDLE
-mouse senza soluzione di continuità, %s+F10 o pulsante centrale del mouse per catturarlo
-.
 :DOSBOX_HELP_LIST_COUNTRIES_1
 Elenco dei codici paese disponibili (per lo più uguali ai prefissi telefonici)
 .
@@ -1320,6 +1272,42 @@ Il percorso '%s' non contiene shader
 :DOSBOX_HELP_LIST_GLSHADERS_LIST
 Il percorso '%s' contiene:
 .
+:TITLEBAR_CYCLES_MS
+cicli/ms
+.
+:TITLEBAR_CYCLES_THROTTLED
+limitato
+.
+:TITLEBAR_MUTED
+MUTO
+.
+:TITLEBAR_PAUSED
+PAUSA
+.
+:TITLEBAR_HINT_CAPTURED
+mouse catturato
+.
+:TITLEBAR_HINT_CAPTURED_HOTKEY
+mouse catturato, %s+F10 per rilasciarlo
+.
+:TITLEBAR_HINT_CAPTURED_HOTKEY_MIDDLE
+mouse catturato, %s+F10 o pulsante centrale del mouse per rilasciarlo
+.
+:TITLEBAR_HINT_RELEASED_HOTKEY
+per catturare il mouse premere %s+F10
+.
+:TITLEBAR_HINT_RELEASED_HOTKEY_MIDDLE
+per catturare il mouse premere %s+F10 o pulsante centrale del mouse
+.
+:TITLEBAR_HINT_RELEASED_HOTKEY_ANY_BUTTON
+per catturare il mouse premere %s+F10 o fare clic su qualsiasi pulsante
+.
+:TITLEBAR_HINT_SEAMLESS_HOTKEY
+mouse senza soluzione di continuità, %s+F10 per catturarlo
+.
+:TITLEBAR_HINT_SEAMLESS_HOTKEY_MIDDLE
+mouse senza soluzione di continuità, %s+F10 o pulsante centrale del mouse per catturarlo
+.
 :CONFIGITEM_OUTPUT_OPENGL_DEFAULT
 Modalità di uscita video da utilizzare (predefinito 'opengl').
 Solo la modalità 'opengl' ha il supporto per gli shader ed è quindi l'opzione
@@ -1463,10 +1451,10 @@ Imposta la trasparenza della finestra di DOSBox Staging (predefinito 0).
 Da 0 (nessuna trasparenza) a 90 (trasparenza elevata).
 .
 :CONFIG_MAX_RESOLUTION
-Spostato nella sezione [render] e rinominato in 'viewport'.
+Spostato nella sezione [color=light-cyan][render][reset] e rinominato in [color=light-green]'viewport'[reset].
 .
 :CONFIG_VIEWPORT_RESOLUTION
-Spostato nella sezione [render] e rinominato in 'viewport'.
+Spostato nella sezione [color=light-cyan][render][reset] e rinominato in [color=light-green]'viewport'[reset].
 .
 :CONFIG_HOST_RATE
 Imposta la frequenza di aggiornamento dello schermo:
@@ -1518,13 +1506,13 @@ Seleziona la modalità di presentazione dei fotogrammi:
              variabile.
 .
 :CONFIG_CAPTURE_MOUSE
-Spostato nella sezione [mouse] e rinominato in 'mouse_capture'.
+Spostato nella sezione [color=light-cyan][mouse][reset] e rinominato in [color=light-green]'mouse_capture'[reset].
 .
 :CONFIG_SENSITIVITY
-Spostato nella sezione [mouse] e rinominato in 'mouse_sensitivity'.
+Spostato nella sezione [color=light-cyan][mouse][reset] e rinominato in [color=light-green]'mouse_sensitivity'[reset].
 .
 :CONFIG_RAW_MOUSE_INPUT
-Spostato nella sezione [mouse] e rinominato in 'mouse_raw_input'.
+Spostato nella sezione [color=light-cyan][mouse][reset] e rinominato in [color=light-green]'mouse_raw_input'[reset].
 .
 :CONFIG_WAITONERROR
 Mantiene la console aperta se si verifica un errore (predefinito 'on').
@@ -2413,6 +2401,34 @@ fastidioso.
         qualità del suono; rimuove solo il rumore residuo appena udibile nei
         momenti di silenzo.
 .
+:MIXER_CHANNEL_DEPRECATED
+Il nome del canale [color=light-cyan]%s[reset] è deprecato; utilizzare invece [color=light-cyan]%s[reset]
+.
+:MIXER_INVALID_CUSTOM_FILTER
+Definizione di filtro personalizzato non valida: [color=white]'%s'[reset].
+Deve essere specificato nel formato [color=light-cyan]'lpf|hpf ORDINE FREQUENZA_DI_TAGLIO'[reset].
+.
+:MIXER_INVALID_CUSTOM_FILTER_ORDER
+Ordine del filtro %s non valido: [color=white]'%s'[reset].
+Deve essere un numero intero compreso tra 1 e %d.
+.
+:MIXER_INVALID_CUSTOM_FILTER_CUTOFF
+Frequenza di taglio del filtro %s non valida: [color=white]'%s'[reset].
+Deve essere un numero positivo.
+.
+:MIXER_INVALID_CUSTOM_FILTER_TYPE
+Tipo di filtro non valido: [color=white]'%s'[reset]. Deve essere 'hpf' o 'lpf'.
+.
+:MIXER_INVALID_CUSTOM_FILTER_DUPLICATE
+Definizione di filtro personalizzato non valida: [color=white]'%s'[reset].
+I due filtri devono essere di tipo diverso.
+.
+:MIXER_INVALID_CUSTOM_FADEOUT
+Definizione di dissolvenza personalizzata non valida: [color=white]'%s'[reset].
+Deve essere specificato nel formato [color=light-cyan]'ATTESA DISSOLVENZA'[reset] dove [color=light-cyan]ATTESA[reset] è
+compreso tra %d e %d (in millisecondi) e [color=light-cyan]DISSOLVENZA[reset] è compreso tra %d e %d
+(in millisecondi). Reimpostato ad [color=white]'off'[reset].
+.
 :CONFIG_SOUNDFONT
 Nome o percorso del file SoundFont da utilizzare (predefinito 'default.sf2').
 Il SoundFont verrà ricercato nelle seguenti posizioni, rispettivamente:
@@ -2447,7 +2463,7 @@ Configura l'effetto coro di FluidSynth. Valori possibili:
                       - livello:           Numero decimale da 0.0 a 10.0
                       - velocità:          Numero decimale da 0.1 a 5.0 (in Hz)
                       - profondità:        Numero decimale da 0.0 a 21.0
-                      - modulazione onda:  'sine' o 'triangle'
+                      - forma d'onda:      'sine' o 'triangle'
                     Per esempio: 'fsynth_chorus = 3 1.2 0.3 8.0 sine'
 Nota: È possibile disabilitare l'effetto coro di FluidSynth e abilitare invece
       il coro a livello del mixer sul canale FluidSynth, oppure abilitare
@@ -2480,6 +2496,18 @@ Filtro per l'uscita audio di FluidSynth:
 .
 :FLUIDSYNTH_NO_SOUNDFONTS
 Nessun SoundFont disponibile
+.
+:FLUIDSYNTH_INVALID_EFFECT_PARAMETER
+Parametro del sintetizzatore [color=light-green]'%s'[reset] non valido (%s): [color=white]%s[reset];
+deve essere compreso tra %.2f e %.2f. Reimpostato ad [color=white]'%s'[reset]
+.
+:FLUIDSYNTH_INVALID_CHORUS_WAVE
+Parametro del sintetizzatore [color=light-green]'fsynth_chorus'[reset] non valido (tipo di forma
+d'onda): [color=white]%s[reset]; deve essere [color=white]'sine'[reset] o [color=white]'triangle'[reset]
+.
+:FLUIDSYNTH_INVALID_NUM_EFFECT_PARAMS
+Numero di parametri [color=light-green]'%s'[reset] non valido: [color=white]%d[reset];
+devono essere valori %d separati da spazi. Reimpostato ad [color=white]'auto'[reset]
 .
 :CONFIG_MODEL
 Modello di Roland MT-32/CM-32ML da utilizzare.
@@ -2725,6 +2753,21 @@ Sound Blaster:
 Forza il filtro della scheda Sound Blaster Pro 2 ad essere sempre attivo
 (predefinito 'off'). Gli altri modelli di Sound Blaster non consentono di
 attivare/disattivare il filtro nel software.
+.
+:SBLASTER_INVALID_ESS_OPLMODE
+Opzione [color=light-green]'%s'[reset] non valida per la scheda ESS: [color=white]'%s'[reset].
+Reimpostato a [color=white]'%s'[reset]
+.
+:SBLASTER_CMS_OPLMODE_DEPRECATED
+L'opzione [color=white]'cms'[reset] per [color=light-green]'oplmode'[reset] è deprecata; utilizzare invece [color=white]'cms = on'[reset]
+.
+:SBLASTER_CMS_FORCED_AUTO
+L'opzione [color=light-green]'%s'[reset] è impostata ad [color=white]'off'[reset], ma nella scheda Game Blaster è
+forzata a [color=white]'%s'[reset]
+.
+:SBLASTER_CMS_FORCED_OFF
+L'opzione [color=light-green]'%s'[reset] impostata ad [color=white]'on'[reset] non è supportata su questa scheda.
+Reimpostato a [color=white]'%s'[reset]
 .
 :CONFIG_OPLRATE
 L'uscita OPL viene ora ricampionata alla frequenza di riproduzione del mixer.
@@ -3272,12 +3315,6 @@ del file di configurazione!
 # Le righe che iniziano con il carattere '#' sono commenti.
 
 .
-:CONFIG_VALID_VALUES
-Valori possibili
-.
-:CONFIG_DEPRECATED_VALUES
-Valori deprecati
-.
 :PROGRAM_CONFIG_NOCONFIGFILE
 Nessun file di configurazione caricato
 
@@ -3419,11 +3456,7 @@ Operazione non consentita in modalità sicura.
 
 .
 :PROGRAM_CONFIG_SECTION_ERROR
-La sezione [%s] non esiste.
-
-.
-:PROGRAM_CONFIG_VALUE_ERROR
-'%s' non è un valore valido per l'opzione '%s'.
+La sezione [color=light-cyan][%s][reset] non esiste.
 
 .
 :PROGRAM_CONFIG_GET_SYNTAX
@@ -3458,10 +3491,46 @@ dell'emulatore con il comando 'CONFIG -r' o tramite l'apposito tasto di
 scelta rapida.
 
 .
-:PROGRAM_CONFIG_DEPRECATED
+:PROGRAM_CONFIG_DEPRECATION_WARNING
 [color=light-red]Questa opzione è deprecata, ed è supportata solo per compatibilità con i vecchi
 file di configurazione. Si prega di utilizzare le alternative suggerite;
 il supporto a questa opzione sarà rimosso in futuro.[reset]
+.
+:PROGRAM_CONFIG_NO_PROPERTY
+La proprietà [color=light-green]'%s'[reset] non è presente nella sezione [color=light-cyan][%s][reset]
+
+.
+:PROGRAM_CONFIG_SET_SYNTAX
+Utilizzo: [color=light-green]config [reset]-set [color=light-cyan][SEZIONE][reset] [color=white]PROPRIETÀ[reset][=][color=white]VALORE[reset]
+
+.
+:PROGRAM_CONFIG_INVALID_SETTING
+Opzione [color=light-green]'%s'[reset] non valida: [color=white]'%s'[reset];
+reimpostato a [color=white]'%s'[reset]
+.
+:PROGRAM_CONFIG_DEPRECATED_SETTING_VALUE
+Opzione [color=light-green]'%s'[reset] deprecata: [color=white]'%s'[reset];
+reimpostato a [color=white]'%s'[reset]
+.
+:PROGRAM_CONFIG_SETTING_OUTSIDE_VALID_RANGE
+Opzione [color=light-green]'%s'[reset] non valida: [color=white]'%s'[reset];
+deve essere compreso tra %s-%s. Reimpostato a [color=white]'%s'[reset]
+.
+:PROGRAM_CONFIG_NO_HELP
+Nessuna guida disponibile per l'opzione [color=light-green]'%s'[reset].
+.
+:PROGRAM_CONFIG_SECTION_OR_SETTING_NOT_FOUND
+Non esiste alcuna sezione di configurazione o opzione con il nome [color=light-green]'%s'[reset]
+
+.
+:PROGRAM_CONFIG_DEPRECATED_SETTING
+Opzione deprecata [color=light-green]'%s'[reset]
+.
+:PROGRAM_CONFIG_VALID_VALUES
+Valori possibili
+.
+:PROGRAM_CONFIG_DEPRECATED_VALUES
+Valori deprecati
 .
 :BIOS_REBOOTING_3
 Riavvio tra 3 secondi...
@@ -4261,55 +4330,55 @@ Il canale [color=light-cyan]%s[reset] non è attivo
 Comando globale non valido: [color=white]%s[reset]
 .
 :SHELL_CMD_MIXER_INVALID_VOLUME_COMMAND
-Volume non valido per il canale [color=light-cyan]%s[reset]: [color=white]%s[reset] (per aiuto, esegui MIXER /?)
+Volume non valido per il canale [color=light-cyan]%s[reset]: [color=white]%s[reset]
 .
 :SHELL_CMD_MIXER_INVALID_CROSSFEED_STRENGTH
-Intensità alimentazione incrociata non valida per il canale [color=light-cyan]%s[reset]: [color=white]%s[reset]
-(deve essere compresa tra 0 e 100)
+Intensità alimentazione incrociata non valida per il canale [color=light-cyan]%s[reset]: [color=white]%s[reset];
+deve essere un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_INVALID_CHORUS_LEVEL
-Livello di coro non valido per il canale [color=light-cyan]%s[reset]: [color=white]%s[reset]
-(deve essere compreso tra 0 e 100)
+Livello di coro non valido per il canale [color=light-cyan]%s[reset]: [color=white]%s[reset];
+deve essere un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_INVALID_REVERB_LEVEL
-Livello di riverbero non valido per il canale [color=light-cyan]%s[reset]: [color=white]%s[reset]
-(deve essere compreso tra 0 e 100)
+Livello di riverbero non valido per il canale [color=light-cyan]%s[reset]: [color=white]%s[reset];
+deve essere un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_MISSING_CROSSFEED_STRENGTH
-Intensità alimentazione incrociata mancante dopo [color=white]x[reset] per il canale [color=light-cyan]%s[reset]
-(deve essere compresa tra 0 e 100)
+Intensità alimentazione incrociata mancante dopo [color=white]x[reset] per il canale [color=light-cyan]%s[reset];
+è necessario fornire un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_MISSING_CHORUS_LEVEL
-Livello di coro mancante dopo [color=white]c[reset] per il canale [color=light-cyan]%s[reset]
-(deve essere compreso tra 0 e 100)
+Livello di coro mancante dopo [color=white]c[reset] per il canale [color=light-cyan]%s[reset];
+è necessario fornire un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_MISSING_REVERB_LEVEL
-Livello di riverbero mancante dopo [color=white]r[reset] per il canale [color=light-cyan]%s[reset]
-(deve essere compreso tra 0 e 100)
+Livello di riverbero mancante dopo [color=white]r[reset] per il canale [color=light-cyan]%s[reset];
+è necessario fornire un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_INVALID_GLOBAL_CROSSFEED_STRENGTH
-Intensità alimentazione incrociata a livello globale non valida [color=white]%s[reset]
-(deve essere compresa tra 0 e 100)
+Intensità alimentazione incrociata a livello globale non valida [color=white]%s[reset];
+deve essere un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_INVALID_GLOBAL_CHORUS_LEVEL
-Livello di coro a livello globale non valido [color=white]%s[reset]
-(deve essere compreso tra 0 e 100)
+Livello di coro a livello globale non valido [color=white]%s[reset];
+deve essere un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_INVALID_GLOBAL_REVERB_LEVEL
-Livello di riverbero a livello globale non valido [color=white]%s[reset]
-(deve essere compreso tra 0 e 100)
+Livello di riverbero a livello globale non valido [color=white]%s[reset];
+deve essere un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_MISSING_GLOBAL_CROSSFEED_STRENGTH
-Intensità alimentazione incrociata a livello globale mancante dopo [color=white]x[reset]
-(deve essere compresa tra 0 e 100)
+Intensità alimentazione incrociata a livello globale mancante dopo [color=white]x[reset];
+è necessario fornire un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_MISSING_GLOBAL_CHORUS_LEVEL
-Livello di coro a livello globale mancante dopo [color=white]c[reset]
-(deve essere compreso tra 0 e 100)
+Livello di coro a livello globale mancante dopo [color=white]c[reset];
+è necessario fornire un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_MISSING_GLOBAL_REVERB_LEVEL
-Livello di riverbero a livello globale mancante dopo [color=white]r[reset]
-(deve essere compreso tra 0 e 100)
+Livello di riverbero a livello globale mancante dopo [color=white]r[reset];
+è necessario fornire un numero compreso tra 0 e 100
 .
 :SHELL_CMD_MIXER_MISSING_CHANNEL_COMMAND
 Comando mancante per il canale [color=light-cyan]%s[reset]
