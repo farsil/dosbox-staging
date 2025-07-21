@@ -1341,8 +1341,8 @@ e dalle impostazioni dell'utente (predefinito 0).
 Avvia in modalità a schermo intero (predefinito 'off').
 .
 :CONFIG_FULLRESOLUTION
-L'opzione 'fullresolution' è deprecata ma ancora consentita; si prega invece
-di utilizzare l'opzione 'fullscreen_mode'.
+L'opzione [color=light-green]'fullresolution'[reset] è deprecata ma ancora consentita; si prega invece
+di utilizzare l'opzione [color=light-green]'fullscreen_mode'[reset].
 .
 :CONFIG_FULLSCREEN_MODE
 Imposta il tipo di modalità a schermo intero (predefinito 'standard'):
@@ -1370,8 +1370,8 @@ Imposta il tipo di modalità a schermo intero (predefinito 'standard'):
                      strani comportamenti.
 .
 :CONFIG_WINDOWRESOLUTION
-L'opzione ''windowresolution' è deprecata ma ancora consentita; si prega invece
-di utilizzare l'opzione 'window_size'.
+L'opzione [color=light-green]'windowresolution'[reset] è deprecata ma ancora consentita; si prega invece
+di utilizzare l'opzione [color=light-green]'window_size'[reset].
 .
 :CONFIG_WINDOW_SIZE
 Imposta le dimensioni iniziali della finestra per la modalità in finestra.
@@ -2017,8 +2017,8 @@ programma non funzioni correttamente in modalità 'auto'.
                  opzione è per lo più utile solo per le produzioni demoscene.
 .
 :CONFIG_CYCLES
-L'opzione 'cycles' è deprecata ma ancora consentita; si prega invece di
-utilizzare le opzioni 'cpu_cycles', 'cpu_cycles_protected' e 'cpu_throttle'.
+L'opzione [color=light-green]'cycles'[reset] è deprecata ma ancora consentita; si prega invece di
+utilizzare le opzioni [color=light-green]'cpu_cycles'[reset], [color=light-green]'cpu_cycles_protected'[reset] e [color=light-green]'cpu_throttle'[reset].
 .
 :CONFIG_CPU_CYCLES
 Velocità della CPU emulata (predefinito '3000'). Se 'cpu_cycles_protected' è
@@ -2400,9 +2400,6 @@ fastidioso.
         (predefinito). Questo filtro audio non introduce alcun degrado nella
         qualità del suono; rimuove solo il rumore residuo appena udibile nei
         momenti di silenzo.
-.
-:MIXER_CHANNEL_DEPRECATED
-Il nome del canale [color=light-cyan]%s[reset] è deprecato; utilizzare invece [color=light-cyan]%s[reset]
 .
 :MIXER_INVALID_CUSTOM_FILTER
 Definizione di filtro personalizzato non valida: [color=white]'%s'[reset].
@@ -4385,6 +4382,9 @@ Comando mancante per il canale [color=light-cyan]%s[reset]
 .
 :SHELL_CMD_MIXER_INVALID_CHANNEL_COMMAND
 Comando non valido per il canale [color=light-cyan]%s[reset]: [color=white]%s[reset]
+.
+:SHELL_CMD_MIXER_CHANNEL_DEPRECATED
+Il nome del canale [color=light-cyan]%s[reset] è stato deprecato; utilizzare invece [color=light-cyan]%s[reset]
 .
 :PROGRAM_MODE_HELP_LONG
 Imposta la modalità di visualizzazione o la frequenza tipomatica.
