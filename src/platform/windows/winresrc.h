@@ -1,0 +1,6 @@
+#ifndef DOSBOX_WINRESRC_H
+#define DOSBOX_WINRESRC_H
+
+#define IDI_DOSBOX 1001
+
+#endif // DOSBOX_WINRESRC_H

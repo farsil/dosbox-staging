@@ -1,8 +1,7 @@
-
-#include "winresrc.h"
+#include "platform/windows/winresrc.h"
 
 // icon resource
-DOSBOX_ICO ICON "@CMAKE_SOURCE_DIR@/extras/icons/windows/dosbox-staging.ico"
+IDI_DOSBOX ICON "@CMAKE_SOURCE_DIR@/extras/icons/windows/dosbox-staging.ico"
 
 // version resource
 VS_VERSION_INFO VERSIONINFO

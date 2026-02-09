@@ -19,6 +19,7 @@
 #endif
 
 #ifdef WIN32
+#include "platform/windows/winresrc.h"
 #include <SDL_syswm.h>
 #include <windows.h>
 #endif
@@ -1912,7 +1913,7 @@ void GFX_InitAndStartGui()
 	if (SDL_GetWindowWMInfo(sdl.window, &wm_info) &&
 	    wm_info.subsystem == SDL_SYSWM_WINDOWS) {
 		auto h_big = LoadImage(wm_info.info.win.hinstance,
-		                       "DOSBOX_ICO",
+		                       MAKEINTRESOURCE(IDI_DOSBOX),
 		                       IMAGE_ICON,
 		                       GetSystemMetrics(SM_CXICON),
 		                       GetSystemMetrics(SM_CYICON),
@@ -1925,7 +1926,7 @@ void GFX_InitAndStartGui()
 		}
 
 		auto h_small = LoadImage(wm_info.info.win.hinstance,
-		                         "DOSBOX_ICO",
+		                         MAKEINTRESOURCE(IDI_DOSBOX),
 		                         IMAGE_ICON,
 		                         GetSystemMetrics(SM_CXSMICON),
 		                         GetSystemMetrics(SM_CYSMICON),
