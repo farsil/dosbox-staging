@@ -18,6 +18,11 @@
 #include <queue>
 #endif
 
+#ifdef WIN32
+#include <SDL_syswm.h>
+#include <windows.h>
+#endif
+
 #include "audio/mixer.h"
 #include "capture/capture.h"
 #include "config/config.h"
@@ -1900,6 +1905,38 @@ void GFX_InitAndStartGui()
 	// https://github.com/libsdl-org/SDL/issues/6172 is resolved.
 	//
 	set_window_decorations();
+#elif defined(WIN32)
+	SDL_SysWMinfo wm_info = {};
+	SDL_GetVersion(&wm_info.version);
+
+	if (SDL_GetWindowWMInfo(sdl.window, &wm_info) &&
+	    wm_info.subsystem == SDL_SYSWM_WINDOWS) {
+		auto h_big = LoadImage(wm_info.info.win.hinstance,
+		                       "DOSBOX_ICO",
+		                       IMAGE_ICON,
+		                       GetSystemMetrics(SM_CXICON),
+		                       GetSystemMetrics(SM_CYICON),
+		                       LR_DEFAULTCOLOR);
+		if (h_big) {
+			SendMessage(wm_info.info.win.window,
+			            WM_SETICON,
+			            ICON_BIG,
+			            static_cast<LPARAM>(h_big));
+		}
+
+		auto h_small = LoadImage(wm_info.info.win.hinstance,
+		                         "DOSBOX_ICO",
+		                         IMAGE_ICON,
+		                         GetSystemMetrics(SM_CXSMICON),
+		                         GetSystemMetrics(SM_CYSMICON),
+		                         LR_DEFAULTCOLOR);
+		if (h_small) {
+			SendMessage(wm_info.info.win.window,
+			            WM_SETICON,
+			            ICON_SMALL,
+			            static_cast<LPARAM>(h_small));
+		}
+	}
 #endif
 
 	set_minimum_window_size();
