@@ -4549,7 +4549,7 @@ msgid ""
 msgstr ""
 "Imposta la luminosità dell'uscita video (predefinito 45). L'intervallo valido è\n"
 "compreso tra 0 e 100. Permette di emulare il controllo della luminosità dei\n"
-"monitor a tubo catodico con controllo del livello del nero; valori più alti\n"
+"monitor a tubo catodico con controllo del punto di nero; valori più alti\n"
 "produrranno neri più sbiaditi."
 
 #: src/config/setup.cpp:262
@@ -8292,7 +8292,39 @@ msgstr ""
 "Inoltra una o più porte UDP dal sistema operativo primario all'emulatore DOS\n"
 "(predefinito non impostato). Il formato è lo stesso dell'inoltro porte TCP."
 
-#: src/dosbox.cpp:1088
+#: src/config/setup.cpp:262
+#, c-format, no-wrap
+msgctxt "CONFIG_WEBSERVER_ENABLED"
+msgid ""
+"Enable the HTTP REST API that exposes internal state and memory.\n"
+"Open [color=blue]http://localhost:8080[reset] (or configured port) to show documentation."
+msgstr ""
+"Abilita l'API REST HTTP che espone lo stato interno e la memoria.\n"
+"Recarsi su [color=blue]http://localhost:8080[reset] (o la porta configurata) per visualizzare la\n"
+"documentazione."
+
+#: src/config/setup.cpp:262
+#, c-format, no-wrap
+msgctxt "CONFIG_WEBSERVER_BIND_ADDRESS"
+msgid ""
+"Bind to the given IP address. This API gives full control over DOSBox, do not\n"
+"ever expose this to untrusted hosts.\n"
+"\n"
+"By default only local connections are allowed."
+msgstr ""
+"Indirizzo IP a cui collegarsi. Questa API fornisce il controllo completo su\n"
+"DOSBox: non esporre mai il seguente indirizzo ad utenti non attendibili.\n"
+"\n"
+"Per impostazione predefinita, sono consentite solo le connessioni su rete\n"
+"locale."
+
+#: src/config/setup.cpp:262
+#, c-format, no-wrap
+msgctxt "CONFIG_WEBSERVER_PORT"
+msgid "TCP port to bind to."
+msgstr "Porta TCP a cui collegarsi."
+
+#: src/dosbox.cpp:1093
 #, c-format, no-wrap
 msgctxt "AUTOEXEC_CONFIGFILE_HELP"
 msgid ""
@@ -8302,7 +8334,7 @@ msgstr ""
 "Ogni riga in questa sezione viene eseguita all'avvio come comando DOS.\n"
 "Importante: la sezione [autoexec] deve necessariamente essere l'ultima!"
 
-#: src/dosbox.cpp:1092
+#: src/dosbox.cpp:1097
 #, c-format, no-wrap
 msgctxt "CONFIGFILE_INTRO"
 msgid ""
