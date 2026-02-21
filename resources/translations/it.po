@@ -4511,8 +4511,8 @@ msgid ""
 msgstr ""
 "Imposta un profilo colore CRT per un'emulazione video più autentica\n"
 "(predefinito 'auto'). Tutti i profili hanno una temperatura di colore\n"
-"prefissata (punto di bianco) che è possibile modificare tramite l'opzione\n"
-"'color_temperature'. Valori possibili:\n"
+"prefissata (punto di bianco) che è possibile modificare ulteriormente tramite\n"
+"l'opzione 'color_temperature'. Valori possibili:\n"
 "\n"
 "  auto:      Seleziona un profilo colore autentico per gli shader CRT adattivi;\n"
 "             per qualsiasi altro shader, sarà utilizzato 'none' (predefinito).\n"
@@ -8296,12 +8296,13 @@ msgstr ""
 #, c-format, no-wrap
 msgctxt "CONFIG_WEBSERVER_ENABLED"
 msgid ""
-"Enable the HTTP REST API that exposes internal state and memory.\n"
-"Open [color=blue]http://localhost:8080[reset] (or configured port) to show documentation."
+"Enable the HTTP REST API that exposes internal state and memory (disabled by\n"
+"default). Open http://localhost:8080 in a browser (or use the configured port)\n"
+"to view the API documentation."
 msgstr ""
-"Abilita l'API REST HTTP che espone lo stato interno e la memoria.\n"
-"Recarsi su [color=blue]http://localhost:8080[reset] (o la porta configurata) per visualizzare la\n"
-"documentazione."
+"Abilita l'API REST HTTP che espone lo stato interno e la memoria\n"
+"(predefinito 'off'). Con un browser, vai su http://localhost:8080 (o la porta\n"
+"configurata) per visualizzare la documentazione dell'API."
 
 #: src/config/setup.cpp:262
 #, c-format, no-wrap
@@ -8886,7 +8887,7 @@ msgstr ""
 "  [color=light-green]autotype[reset] -p [color=white]0.2[reset] [color=light-cyan]f1 kp_8 , , enter[reset]\n"
 "  [color=light-green]autotype[reset] -w [color=white]1.3[reset] [color=light-cyan]esc enter , p l a y e r enter[reset]\n"
 
-#: src/dos/programs/boot.cpp:533
+#: src/dos/programs/boot.cpp:534
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_HELP_LONG"
 msgid ""
@@ -8931,25 +8932,25 @@ msgstr ""
 "  [color=light-green]boot[reset] [color=white]c:[reset]\n"
 "  [color=light-green]boot[reset] [color=light-cyan]disco1.ima disco2.ima[reset]\n"
 
-#: src/dos/programs/boot.cpp:552
+#: src/dos/programs/boot.cpp:553
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_NOT_EXIST"
 msgid "Bootdisk file does not exist. Failing.\n"
 msgstr "Il file immagine di avvio non esiste. Fallimento.\n"
 
-#: src/dos/programs/boot.cpp:553
+#: src/dos/programs/boot.cpp:554
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_NOT_OPEN"
 msgid "Cannot open bootdisk file. Failing.\n"
 msgstr "Impossibile aprire il file immagine di avvio. Fallimento.\n"
 
-#: src/dos/programs/boot.cpp:554
+#: src/dos/programs/boot.cpp:555
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_WRITE_PROTECTED"
 msgid "Image file is read-only! Might create problems.\n"
 msgstr "Il file immagine è di sola lettura! Potrebbe creare dei problemi.\n"
 
-#: src/dos/programs/boot.cpp:555
+#: src/dos/programs/boot.cpp:556
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_PRINT_ERROR"
 msgid ""
@@ -8975,49 +8976,49 @@ msgstr ""
 "\n"
 "Digita [color=light-blue]BOOT /?[reset] per ulteriori informazioni sulla sintassi di questo comando.\n"
 
-#: src/dos/programs/boot.cpp:563
+#: src/dos/programs/boot.cpp:564
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_UNABLE"
 msgid "Unable to boot off of drive %c.\n"
 msgstr "Impossibile avviare dall'unità %c.\n"
 
-#: src/dos/programs/boot.cpp:564
+#: src/dos/programs/boot.cpp:565
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_IMAGE_OPEN"
 msgid "Opening image file: %s\n"
 msgstr "Apertura del file immagine: %s\n"
 
-#: src/dos/programs/boot.cpp:565
+#: src/dos/programs/boot.cpp:566
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_IMAGE_MOUNTED"
 msgid "Floppy image(s) already mounted.\n"
 msgstr "Immagine/i floppy già montata/e.\n"
 
-#: src/dos/programs/boot.cpp:566
+#: src/dos/programs/boot.cpp:567
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_IMAGE_NOT_OPEN"
 msgid "Cannot open %s\n"
 msgstr "Impossibile aprire %s\n"
 
-#: src/dos/programs/boot.cpp:567
+#: src/dos/programs/boot.cpp:568
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_BOOT"
 msgid "Booting from drive %c...\n"
 msgstr "Avvio dall'unità %c...\n"
 
-#: src/dos/programs/boot.cpp:568
+#: src/dos/programs/boot.cpp:569
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_CART_WO_PCJR"
 msgid "PCjr cartridge found, but machine is not PCjr.\n"
 msgstr "Trovata cartuccia PCjr, ma la macchina non è PCjr.\n"
 
-#: src/dos/programs/boot.cpp:569
+#: src/dos/programs/boot.cpp:570
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_CART_LIST_CMDS"
 msgid "Available PCjr cartridge commands: %s\n"
 msgstr "Comandi della cartuccia PCjr disponibili: %s\n"
 
-#: src/dos/programs/boot.cpp:570
+#: src/dos/programs/boot.cpp:571
 #, c-format, no-wrap
 msgctxt "PROGRAM_BOOT_CART_NO_CMDS"
 msgid "No PCjr cartridge commands found.\n"
