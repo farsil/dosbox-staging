@@ -6351,25 +6351,25 @@ msgstr ""
 "  <personalizzato>: Definizione di filtri personalizzati;\n"
 "                    per ulteriori dettagli, fare riferimento a 'sb_filter'."
 
-#: src/midi/fluidsynth.cpp:1115
+#: src/midi/fluidsynth.cpp:1086
 #, c-format, no-wrap
 msgctxt "FLUIDSYNTH_NO_SOUNDFONTS"
 msgid "No available SoundFonts"
 msgstr "Nessun SoundFont disponibile"
 
-#: src/midi/fluidsynth.cpp:1117
+#: src/midi/fluidsynth.cpp:1088
 #, c-format, no-wrap
 msgctxt "FLUIDSYNTH_INVALID_SOUNDFONT_DIR"
 msgid "Invalid [color=light-green]soundfont_dir[reset] setting; cannot open directory [color=white]'%s'[reset], using ''"
 msgstr "Opzione [color=light-green]soundfont_dir[reset] non valida; impossibile aprire la directory [color=white]'%s'[reset], utilizzo di ''"
 
-#: src/midi/fluidsynth.cpp:1121
+#: src/midi/fluidsynth.cpp:1092
 #, c-format, no-wrap
 msgctxt "FLUIDSYNTH_ERROR_LOADING_SOUNDFONT"
 msgid "Error loading SoundFont [color=white]'%s'[reset]"
 msgstr "Errore durante il caricamento del SoundFont [color=white]'%s'[reset]"
 
-#: src/midi/fluidsynth.cpp:1124
+#: src/midi/fluidsynth.cpp:1095
 #, c-format, no-wrap
 msgctxt "FLUIDSYNTH_INVALID_EFFECT_PARAMETER"
 msgid ""
@@ -6379,7 +6379,7 @@ msgstr ""
 "Parametro del sintetizzatore [color=light-green]'%s'[reset] non valido (%s): [color=white]%s[reset];\n"
 "deve essere compreso tra %.2f e %.2f, utilizzo di [color=white]'%s'[reset]"
 
-#: src/midi/fluidsynth.cpp:1129
+#: src/midi/fluidsynth.cpp:1100
 #, c-format, no-wrap
 msgctxt "FLUIDSYNTH_INVALID_CHORUS_WAVE"
 msgid ""
@@ -6389,7 +6389,7 @@ msgstr ""
 "Parametro del sintetizzatore [color=light-green]'fsynth_chorus'[reset] non valido (tipo di forma\n"
 "d'onda): [color=white]%s[reset]; deve essere [color=white]'sine'[reset] o [color=white]'triangle'[reset]"
 
-#: src/midi/fluidsynth.cpp:1134
+#: src/midi/fluidsynth.cpp:1105
 #, c-format, no-wrap
 msgctxt "FLUIDSYNTH_INVALID_NUM_EFFECT_PARAMS"
 msgid ""
@@ -8330,10 +8330,10 @@ msgstr "Porta TCP a cui collegarsi."
 msgctxt "AUTOEXEC_CONFIGFILE_HELP"
 msgid ""
 "Each line in this section is executed at startup as a DOS command.\n"
-"Important: The [autoexec] section must be the last section in the config!"
+"Important: The [autoexec] section must be the last section in the config!\n"
 msgstr ""
 "Ogni riga in questa sezione viene eseguita all'avvio come comando DOS.\n"
-"Importante: la sezione [autoexec] deve necessariamente essere l'ultima!"
+"Importante: la sezione [autoexec] deve necessariamente essere l'ultima!\n"
 
 #: src/dosbox.cpp:1105
 #, c-format, no-wrap
@@ -8796,37 +8796,55 @@ msgctxt "BIOS_REBOOTING_1"
 msgid "Rebooting in 1 second..."
 msgstr "Riavvio tra 1 secondo..."
 
-#: src/dos/programs/mount_common.cpp:81
+#: src/dos/programs/mount_common.cpp:82
 #, c-format, no-wrap
 msgctxt "MOUNT_TYPE_LOCAL_DIRECTORY"
 msgid "Local directory"
 msgstr "Directory locale"
 
-#: src/dos/programs/mount_common.cpp:82
+#: src/dos/programs/mount_common.cpp:83
 #, c-format, no-wrap
 msgctxt "MOUNT_TYPE_CDROM"
 msgid "CD-ROM drive"
 msgstr "Unità CD-ROM"
 
-#: src/dos/programs/mount_common.cpp:83
+#: src/dos/programs/mount_common.cpp:84
 #, c-format, no-wrap
 msgctxt "MOUNT_TYPE_FAT"
 msgid "FAT image"
 msgstr "Immagine FAT"
 
-#: src/dos/programs/mount_common.cpp:84
-#, c-format, no-wrap
-msgctxt "MOUNT_TYPE_ISO"
-msgid "ISO image"
-msgstr "Immagine ISO"
-
 #: src/dos/programs/mount_common.cpp:85
 #, c-format, no-wrap
-msgctxt "MOUNT_TYPE_VIRTUAL"
-msgid "Internal virtual drive"
-msgstr "Unità virtuale interna"
+msgctxt "MOUNT_TYPE_FAT_PLURAL"
+msgid "FAT images"
+msgstr "Immagini FAT"
 
 #: src/dos/programs/mount_common.cpp:86
+#, c-format, no-wrap
+msgctxt "MOUNT_TYPE_CDIMAGE"
+msgid "CD-ROM image"
+msgstr "Immagine CD-ROM"
+
+#: src/dos/programs/mount_common.cpp:87
+#, c-format, no-wrap
+msgctxt "MOUNT_TYPE_CDIMAGE_PLURAL"
+msgid "CD-ROM images"
+msgstr "Immagini CD-ROM"
+
+#: src/dos/programs/mount_common.cpp:88
+#, c-format, no-wrap
+msgctxt "MOUNT_TYPE_VIRTUAL"
+msgid "Internal drive"
+msgstr "Unità interna"
+
+#: src/dos/programs/mount_common.cpp:89
+#, c-format, no-wrap
+msgctxt "MOUNT_TYPE_OVERLAY"
+msgid "Overlay drive"
+msgstr "Unità di sovrapposizione"
+
+#: src/dos/programs/mount_common.cpp:90
 #, c-format, no-wrap
 msgctxt "MOUNT_TYPE_UNKNOWN"
 msgid "unknown drive"
@@ -8960,7 +8978,7 @@ msgid ""
 "pressing [color=yellow]%s+F4[reset], and -l specifies the mounted drive to boot from. If no drive\n"
 "letter is specified, this defaults to booting from the A drive. The only\n"
 "bootable drive letters are A, C, and D. For booting from a hard drive (C or D),\n"
-"the image should have already been mounted using the [color=light-blue]IMGMOUNT[reset] command.\n"
+"the image should have already been mounted using the [color=light-blue]MOUNT[reset] command.\n"
 "\n"
 "Type [color=light-blue]BOOT /?[reset] for the syntax of this command.\n"
 msgstr ""
@@ -8972,7 +8990,7 @@ msgstr ""
 "unità, l'impostazione predefinita prevede l'avvio dall'unità A. Le uniche\n"
 "lettere di unità avviabili sono A, C, e D. Per l'avvio da un'immagine\n"
 "disco rigido (C o D), questa dovrebbe essere già stata montata utilizzando il\n"
-"comando [color=light-blue]IMGMOUNT[reset].\n"
+"comando [color=light-blue]MOUNT[reset].\n"
 "\n"
 "Digita [color=light-blue]BOOT /?[reset] per ulteriori informazioni sulla sintassi di questo comando.\n"
 
@@ -10949,47 +10967,57 @@ msgstr "Tipo"
 
 #: src/dos/programs/mount_common.cpp:72
 #, c-format, no-wrap
+msgctxt "PROGRAM_MOUNT_STATUS_PATH"
+msgid "Path"
+msgstr "Percorso"
+
+#: src/dos/programs/mount_common.cpp:73
+#, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_STATUS_LABEL"
 msgid "Label"
 msgstr "Etichetta"
 
-#: src/dos/programs/mount_common.cpp:73
+#: src/dos/programs/mount_common.cpp:74
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_STATUS_NAME"
 msgid "Image name"
 msgstr "Nome immagine"
 
-#: src/dos/programs/mount_common.cpp:74
+#: src/dos/programs/mount_common.cpp:75
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_STATUS_SLOT"
 msgid "Swap slot"
 msgstr "Scambia slot"
 
-#: src/dos/programs/mount_common.cpp:75
+#: src/dos/programs/mount_common.cpp:76
+#, c-format, no-wrap
+msgctxt "PROGRAM_MOUNT_RESULT"
+msgid ""
+"%s mounted as %c drive:\n"
+"%s"
+msgstr ""
+"%s montato come unità %c:\n"
+"%s"
+
+#: src/dos/programs/mount_common.cpp:77
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_STATUS_2"
 msgid "%s mounted as %c drive\n"
 msgstr "%s montata come unità %c\n"
 
-#: src/dos/programs/mount_common.cpp:76
-#, c-format, no-wrap
-msgctxt "PROGRAM_MOUNT_STATUS_1"
-msgid "The currently mounted drives are:\n"
-msgstr "Le unità attualmente montate sono:\n"
-
-#: src/dos/programs/mount_common.cpp:77
+#: src/dos/programs/mount_common.cpp:78
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_READONLY"
 msgid "Mounted read-only\n"
 msgstr "Montato in modalità sola lettura\n"
 
-#: src/dos/programs/mount.cpp:1063
+#: src/dos/programs/mount.cpp:1147
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_HELP"
 msgid "Mount a directory or an image file to a drive letter.\n"
 msgstr "Monta una directory o un file immagine su una lettera di unità.\n"
 
-#: src/dos/programs/mount.cpp:1066
+#: src/dos/programs/mount.cpp:1150
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_HELP_LONG"
 msgid ""
@@ -11100,7 +11128,7 @@ msgstr ""
 "\n"
 "Esempi:\n"
 
-#: src/dos/programs/mount.cpp:1115
+#: src/dos/programs/mount.cpp:1199
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_HELP_LONG_WIN32"
 msgid ""
@@ -11120,7 +11148,7 @@ msgstr ""
 "  [color=light-green]mount[reset] [color=white]A[reset] [color=light-cyan]floppy*.img[reset] -t floppy\n"
 "  [color=light-green]mount[reset] [color=white]A[reset] [color=light-cyan]disco01.img disco02.img[reset] -t floppy\n"
 
-#: src/dos/programs/mount.cpp:1124
+#: src/dos/programs/mount.cpp:1208
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_HELP_LONG_MACOSX"
 msgid ""
@@ -11142,7 +11170,7 @@ msgstr ""
 "  [color=light-green]mount[reset] [color=white]A[reset] [color=light-cyan]floppy*.img[reset] -t floppy -ro\n"
 "  [color=light-green]mount[reset] [color=white]A[reset] [color=light-cyan]disco01.img disco02.img[reset] -t floppy\n"
 
-#: src/dos/programs/mount.cpp:1134
+#: src/dos/programs/mount.cpp:1218
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_HELP_LONG_OTHER"
 msgid ""
@@ -11164,13 +11192,13 @@ msgstr ""
 "  [color=light-green]mount[reset] [color=white]A[reset] [color=light-cyan]floppy*.img[reset] -t floppy -ro\n"
 "  [color=light-green]mount[reset] [color=white]A[reset] [color=light-cyan]disco01.img disco02.img[reset] -t floppy\n"
 
-#: src/dos/programs/mount.cpp:1144
+#: src/dos/programs/mount.cpp:1228
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_CDROMS_FOUND"
 msgid "CD-ROMs found: %d\n"
 msgstr "CD-ROM trovati: %d\n"
 
-#: src/dos/programs/mount.cpp:1145
+#: src/dos/programs/mount.cpp:1229
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_ERROR_1"
 msgid "Directory or file %s doesn't exist.\n"
@@ -11178,67 +11206,67 @@ msgstr ""
 "La directory o il file %s non esiste.\n"
 "\n"
 
-#: src/dos/programs/mount.cpp:1147
+#: src/dos/programs/mount.cpp:1231
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_ERROR_2"
 msgid "%s isn't a directory or valid image file.\n"
 msgstr "%s non è una directory o un file immagine valido.\n"
 
-#: src/dos/programs/mount.cpp:1150
+#: src/dos/programs/mount.cpp:1234
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_ILL_TYPE"
 msgid "Illegal type %s\n"
 msgstr "Tipo %s non valido\n"
 
-#: src/dos/programs/mount.cpp:1151
+#: src/dos/programs/mount.cpp:1235
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_ALREADY_MOUNTED"
 msgid "Drive %c already mounted with %s\n"
 msgstr "Unità %c già montata come %s\n"
 
-#: src/dos/programs/mount.cpp:1152
+#: src/dos/programs/mount.cpp:1236
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_UMOUNT_NOT_MOUNTED"
 msgid "Drive %c isn't mounted.\n"
 msgstr "L'unità %c non è montata.\n"
 
-#: src/dos/programs/mount.cpp:1154
+#: src/dos/programs/mount.cpp:1238
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_UMOUNT_SUCCESS"
 msgid "Drive %c has successfully been removed.\n"
 msgstr "L'unità %c è stata rimossa con successo.\n"
 
-#: src/dos/programs/mount.cpp:1157
+#: src/dos/programs/mount.cpp:1241
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_UMOUNT_NO_VIRTUAL"
 msgid "Virtual Drives can not be unMOUNTed.\n"
 msgstr "Le unità virtuali non possono essere smontate.\n"
 
-#: src/dos/programs/mount.cpp:1160
+#: src/dos/programs/mount.cpp:1244
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_DRIVEID_ERROR"
 msgid "'%c' is not a valid drive identifier.\n"
 msgstr "'%c' non è un identificatore di unità valido.\n"
 
-#: src/dos/programs/mount.cpp:1163
+#: src/dos/programs/mount.cpp:1247
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_WARNING_WIN"
 msgid "[color=light-red]Mounting c:\\ is NOT recommended. Please mount a (sub)directory next time.[reset]\n"
 msgstr "[color=light-red]Montare C:\\ NON è consigliato. Si prega di montare una sottodirectory.[reset]\n"
 
-#: src/dos/programs/mount.cpp:1166
+#: src/dos/programs/mount.cpp:1250
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_WARNING_OTHER"
 msgid "[color=light-red]Mounting / is NOT recommended. Please mount a (sub)directory next time.[reset]\n"
 msgstr "[color=light-red]Montare / NON è consigliato. Si prega di montare una sottodirectory.[reset]\n"
 
-#: src/dos/programs/mount.cpp:1169
+#: src/dos/programs/mount.cpp:1253
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_NO_OPTION"
 msgid "Warning: Ignoring unsupported option '%s'.\n"
 msgstr "Avviso: l'opzione '%s' non è supportata e sarà ignorata.\n"
 
-#: src/dos/programs/mount.cpp:1172
+#: src/dos/programs/mount.cpp:1256
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_OVERLAY_NO_BASE"
 msgid ""
@@ -11248,13 +11276,13 @@ msgstr ""
 "Deve essere montata una directory normale prima di poter aggiungere una\n"
 "sovrapposizione.\n"
 
-#: src/dos/programs/mount.cpp:1176
+#: src/dos/programs/mount.cpp:1260
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_OVERLAY_INCOMPAT_BASE"
 msgid "The overlay is NOT compatible with the drive that is specified.\n"
 msgstr "La sovrapposizione NON è compatibile con l'unità specificata.\n"
 
-#: src/dos/programs/mount.cpp:1179
+#: src/dos/programs/mount.cpp:1263
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_OVERLAY_MIXED_BASE"
 msgid ""
@@ -11265,31 +11293,31 @@ msgstr ""
 "percorso, relativo o assoluto, dell'unità sottostante.\n"
 "Non mescolare percorsi relativi e assoluti.\n"
 
-#: src/dos/programs/mount.cpp:1183
+#: src/dos/programs/mount.cpp:1267
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_OVERLAY_SAME_AS_BASE"
 msgid "The overlay directory can not be the same as underlying drive.\n"
 msgstr "La directory di sovrapposizione non può essere la stessa dell'unità sottostante\n"
 
-#: src/dos/programs/mount.cpp:1186
+#: src/dos/programs/mount.cpp:1270
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_OVERLAY_GENERIC_ERROR"
 msgid "Something went wrong.\n"
 msgstr "Qualcosa è andato storto.\n"
 
-#: src/dos/programs/mount.cpp:1187
+#: src/dos/programs/mount.cpp:1271
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_OVERLAY_STATUS"
 msgid "Overlay %s on drive %c mounted.\n"
 msgstr "Sovrapposizione %s nell'unità %c montata.\n"
 
-#: src/dos/programs/mount.cpp:1189
+#: src/dos/programs/mount.cpp:1273
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_INVALID_CHS"
 msgid "Invalid CHS format. Use -chs cylinders,heads,sectors\n"
 msgstr "Formato CTS non valido. Utilizzare -chs cilindri,testine,settori\n"
 
-#: src/dos/programs/mount.cpp:1192
+#: src/dos/programs/mount.cpp:1276
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_OVERLAY_REL_ABS"
 msgid ""
@@ -11300,19 +11328,19 @@ msgstr ""
 "percorso, relativo o assoluto, dell'unità sottostante.\n"
 "Non mescolare percorsi relativi e assoluti.\n"
 
-#: src/dos/programs/mount.cpp:1196
+#: src/dos/programs/mount.cpp:1280
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_OVERLAY_SAME_FS"
 msgid "The overlay needs to be on the same filesystem as the underlying drive.\n"
 msgstr "La sovrapposizione deve trovarsi sullo stesso file system dell'unità sottostante.\n"
 
-#: src/dos/programs/mount.cpp:1199
+#: src/dos/programs/mount.cpp:1283
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_OVERLAY_UNKNOWN_ERROR"
 msgid "Something went wrong.\n"
 msgstr "Qualcosa è andato storto.\n"
 
-#: src/dos/programs/mount.cpp:1202
+#: src/dos/programs/mount.cpp:1286
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_SPECIFY2"
 msgid "Must specify a drive letter A/B/C/D or drive number 0/1/2/3 to mount image at.\n"
@@ -11320,7 +11348,7 @@ msgstr ""
 "È necessario specificare una lettera di unità A/B/C/D o un numero di unità\n"
 "0/1/2/3 su cui montare l'immagine.\n"
 
-#: src/dos/programs/mount.cpp:1205
+#: src/dos/programs/mount.cpp:1289
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_SPECIFY_GEOMETRY"
 msgid ""
@@ -11338,19 +11366,19 @@ msgstr ""
 "Per le immagini CD-ROM:\n"
 "  [color=light-green]imgmount[reset] [color=white]UNITÀ[reset] [color=light-cyan]FILEIMMAGINE[reset] -t iso\n"
 
-#: src/dos/programs/mount.cpp:1213
+#: src/dos/programs/mount.cpp:1297
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_STATUS_NONE"
 msgid "No drive available.\n"
 msgstr "Nessuna unità disponibile.\n"
 
-#: src/dos/programs/mount.cpp:1215
+#: src/dos/programs/mount.cpp:1299
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_IDE_CONTROLLERS_UNAVAILABLE"
 msgid "No available IDE controllers. Drive will not have IDE emulation.\n"
 msgstr "Nessun controller IDE disponibile. L'unità non avrà l'emulazione IDE.\n"
 
-#: src/dos/programs/mount.cpp:1218
+#: src/dos/programs/mount.cpp:1302
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_INVALID_IMAGE"
 msgid ""
@@ -11360,7 +11388,7 @@ msgstr ""
 "Impossibile caricare il file immagine.\n"
 "Verifica che il percorso sia corretto e che l'immagine sia accessibile.\n"
 
-#: src/dos/programs/mount.cpp:1222
+#: src/dos/programs/mount.cpp:1306
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_INVALID_GEOMETRY"
 msgid ""
@@ -11373,31 +11401,31 @@ msgstr ""
 "In alternativa: -size BytePerSettore,Settori,Testine,Cilindri\n"
 "\n"
 
-#: src/dos/programs/mount.cpp:1227
+#: src/dos/programs/mount.cpp:1311
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_FILE_NOT_FOUND"
 msgid "Image file not found.\n"
 msgstr "File immagine non trovato.\n"
 
-#: src/dos/programs/mount.cpp:1229
+#: src/dos/programs/mount.cpp:1313
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_ALREADY_MOUNTED"
 msgid "Drive already mounted at that letter.\n"
 msgstr "Unità già montata con la stessa lettera.\n"
 
-#: src/dos/programs/mount.cpp:1232
+#: src/dos/programs/mount.cpp:1316
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_CANT_CREATE"
 msgid "Can't create drive from file.\n"
 msgstr "Impossibile creare l'unità dal file.\n"
 
-#: src/dos/programs/mount.cpp:1233
+#: src/dos/programs/mount.cpp:1317
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_MOUNT_NUMBER"
 msgid "Drive number %d mounted as %s.\n"
 msgstr "Unità numero %d montata come %s.\n"
 
-#: src/dos/programs/mount.cpp:1235
+#: src/dos/programs/mount.cpp:1319
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_DEPRECATED"
 msgid ""
