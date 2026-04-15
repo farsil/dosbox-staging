@@ -6462,7 +6462,7 @@ msgstr ""
 #, c-format, no-wrap
 msgctxt "FLUIDSYNTH_INVALID_NUM_EFFECT_PARAMS"
 msgid ""
-"Invalid number of [color=light-green]'%s'[reset] parameters: [color=white]%d[/reset];\n"
+"Invalid number of [color=light-green]'%s'[reset] parameters: [color=white]%d[reset];\n"
 "must be %d space-separated values, using [color=white]'auto'[reset]"
 msgstr ""
 "Numero di parametri [color=light-green]'%s'[reset] non valido: [color=white]%d[reset];\n"
@@ -11497,7 +11497,7 @@ msgstr "Unità numero %d montata come %s.\n"
 #: src/dos/programs/mount.cpp:1380
 #, c-format, no-wrap
 msgctxt "PROGRAM_IMGMOUNT_DEPRECATED"
-msgid "The [color=light-green]IMGMOUNT[reset] command is deprecated; please use [color=light-green]MOUNT[/reset] instead.[reset]"
+msgid "The [color=light-green]IMGMOUNT[reset] command is deprecated; please use [color=light-green]MOUNT[reset] instead."
 msgstr ""
 "Il comando [color=light-green]IMGMOUNT[reset] è stato deprecato; utilizzare invece [color=light-green]MOUNT[reset]."
 
