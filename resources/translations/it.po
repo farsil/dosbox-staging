@@ -8743,7 +8743,7 @@ msgid ""
 "[color=light-red]This is a deprecated setting only kept for compatibility with old configs.\n"
 "Please use the suggested alternatives; support will be removed in the future.[reset]\n"
 msgstr ""
-"[color=light-red]Questa opzione è deprecata, ed è supportata solo per compatibilità con i vecchi\\n\"\n"
+"[color=light-red]Questa opzione è deprecata, ed è supportata solo per compatibilità con i vecchi\n"
 "file di configurazione. Si prega di utilizzare le alternative suggerite;\n"
 "il supporto a questa opzione sarà rimosso in futuro.[reset]\n"
 
