@@ -4406,7 +4406,7 @@ msgstr ""
 "\n"
 "Note:\n"
 "  - La conversione dello spazio colore viene applicata solo alle istantanee\n"
-"    dell schermo renderizzate ('rendered'). Le istantanee non elaborate\n"
+"    dello schermo renderizzate ('rendered'). Le istantanee non elaborate\n"
 "    ('raw'), ridimensionate ('upscaled') e le acquisizioni video sono sempre\n"
 "    in sRGB."
 
