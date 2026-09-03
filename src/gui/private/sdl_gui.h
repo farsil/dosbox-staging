@@ -93,7 +93,15 @@ struct SDL_Block {
 	SDL_Window* window = {};
 	SDL_DisplayID display_number = 0;
 
-	float dpi_scale    = 1.0f;
+	// Number of pixels per logical unit; this is the pixel density of the
+	// window multiplied by the content scale of the display it's on.
+	float dpi_scale = 1.0f;
+
+	// Number of SDL window coordinates per logical unit, which is the
+	// content scale of the display the window is on. See the comment above
+	// `to_logical_units()` in 'sdl_gui.cpp'.
+	float content_scale = 1.0f;
+
 	bool is_fullscreen = false;
 
 	bool mute_when_inactive  = false;
