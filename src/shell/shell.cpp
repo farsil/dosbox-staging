@@ -422,6 +422,11 @@ void DOS_Shell::RunBatchFile()
 	}
 }
 
+bool DOS_Shell::IsRunningBatchFile() const
+{
+	return !batchfiles.empty();
+}
+
 static bool is_shell_running = false;
 
 void DOS_Shell::Run()

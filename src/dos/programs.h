@@ -69,6 +69,15 @@ public:
 
 protected:
 	HELP_Detail help_detail{};
+
+	/**
+	 * Checks if the program is invoked interactively.
+	 *
+	 * Useful for programs like XCOPY or MOVE that in real DOS change
+	 * behavior whether they're invoked from an interactive shell or from a
+	 * batch file.
+	 */
+	[[nodiscard]] bool IsInvokedInteractively() const;
 };
 
 void PROGRAMS_AddMessages();
