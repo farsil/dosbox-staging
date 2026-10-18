@@ -6,7 +6,39 @@
 #include "misc/support.h"
 #include "more_output.h"
 
+#include <array>
+
 extern unsigned int result_errorcode;
+
+static constexpr DosFilename DefaultFilespec = {.name = "*", .ext = "*"};
+
+static bool has_invalid_drive_spec(const std::string& path)
+{
+	if (path.length() < 2 || path[1] != ':') {
+		// Path doesn't have a drive spec, so it can't be invalid
+		return false;
+	}
+	const auto drive = path[0];
+	return !isalpha(static_cast<unsigned char>(drive)) ||
+	       !Drives[drive_index(drive)];
+}
+
+static std::string doserr_msg_get(const uint16_t error_code)
+{
+	switch (error_code) {
+	case DOSERR_FILE_NOT_FOUND:
+		return MSG_Get("PROGRAM_XCOPY_FILE_NOT_FOUND");
+	case DOSERR_PATH_NOT_FOUND:
+		return MSG_Get("PROGRAM_XCOPY_PATH_NOT_FOUND");
+	case DOSERR_TOO_MANY_OPEN_FILES:
+		return MSG_Get("PROGRAM_XCOPY_TOO_MANY_OPEN_FILES");
+	case DOSERR_ACCESS_DENIED:
+		return MSG_Get("PROGRAM_XCOPY_ACCESS_DENIED");
+	case DOSERR_LOCK_VIOLATION:
+		return MSG_Get("PROGRAM_XCOPY_LOCK_VIOLATION");
+	default: return MSG_Get("PROGRAM_XCOPY_GENERAL_FAILURE");
+	}
+}
 
 void XCOPY::Run()
 {
@@ -17,14 +49,259 @@ void XCOPY::Run()
 		return;
 	}
 
-	WriteErr(MSG_Get("PROGRAM_XCOPY_INVALID_PARAM_NUM"));
-	WriteOut(MSG_Get("PROGRAM_XCOPY_FILES_COPIED"), 0);
-	result_errorcode = enum_val(XcopyExitCode::InitializationError);
+	if (!Initialize()) {
+		WriteOut(MSG_Get("PROGRAM_XCOPY_FILES_COPIED"), 0);
+		result_errorcode = enum_val(XcopyExitCode::InitializationError);
+		return;
+	}
+
+	const auto maybe_snapshot = BuildSourceSnapshot();
+	if (!maybe_snapshot) {
+		WriteOut(MSG_Get("PROGRAM_XCOPY_FILES_COPIED"), 0);
+		result_errorcode = enum_val(XcopyExitCode::FileNotFoundError);
+		return;
+	}
+
+	const auto [success, copied_count] = CopyToDestination(*maybe_snapshot);
+	if (!success) {
+		result_errorcode = enum_val(XcopyExitCode::InitializationError);
+		// Don't return so we can still show the copied count
+	}
+
+	WriteOut(MSG_Get("PROGRAM_XCOPY_FILES_COPIED"), copied_count);
+}
+
+bool XCOPY::InitializeSource(const std::string& value)
+{
+	if (has_invalid_drive_spec(value)) {
+		WriteErr(MSG_Get("PROGRAM_XCOPY_INVALID_DRIVE"));
+		return false;
+	}
+
+	// The original XCOPY implementation rejects trailing slashes when the
+	// source is not a bare drive (eg: C:\). Canonicalization makes
+	// this implementation more tolerant.
+	const auto canonicalized = DOS_Canonicalize(value.c_str());
+	if (canonicalized.empty()) {
+		WriteErr(MSG_Get("PROGRAM_XCOPY_INVALID_PATH"));
+		return false;
+	}
+
+	FatAttributeFlags attr = {};
+	if (canonicalized.find_last_of("?*") == std::string::npos) {
+		// If there are no wildcards, source may be a folder and the
+		// filespec is omitted. If it is, assume *.*.
+		if (DOS_GetFileAttr(canonicalized.c_str(), &attr) && attr.directory) {
+			src_path = canonicalized;
+			src_spec = DefaultFilespec;
+			return true;
+		}
+
+		// The specified path is a file or does not exist. If the user
+		// wants a directory (trailing slash), tell them it's invalid.
+		// Using value here because canonicalization may strip slashes.
+		if (value.ends_with(DosSeparator)) {
+			WriteErr(MSG_Get("PROGRAM_XCOPY_INVALID_PATH"));
+			return false;
+		}
+	}
+
+	const auto last_sep_pos = canonicalized.rfind(DosSeparator);
+	assertm(last_sep_pos != std::string::npos,
+	        "Canonicalization ensures a slash is always present");
+
+	src_path = canonicalized.substr(0, last_sep_pos);
+	src_spec = parse_dos_filename(canonicalized.substr(last_sep_pos + 1));
+	if (!DOS_GetFileAttr(src_path.c_str(), &attr) || !attr.directory) {
+		WriteErr(MSG_Get("PROGRAM_XCOPY_INVALID_PATH"));
+		return false;
+	}
+
+	return true;
+}
+
+bool XCOPY::Initialize()
+{
+	std::string found = {};
+
+	// TODO: support all switches
+	if (cmd->FindStringBegin("/", found)) {
+		// found does not contain the leading /, the message key does
+		WriteErr(MSG_Get("PROGRAM_XCOPY_INVALID_SWITCH"), found.c_str());
+		return false;
+	}
+
+	const auto args = cmd->GetArguments();
+	if (args.size() == 0 || args.size() > 2) {
+		WriteErr(MSG_Get("PROGRAM_XCOPY_INVALID_PARAM_NUM"));
+		return false;
+	}
+
+	return InitializeSource(args[0]);
+}
+
+std::optional<std::vector<DOS_DTA::Result>> XCOPY::BuildSourceSnapshot()
+{
+	static constexpr auto SearchAttributes = FatAttributeFlags::Archive |
+	                                         FatAttributeFlags::ReadOnly;
+
+	const auto original_dta_ptr = dos.dta();
+	dos.dta(dos.tables.tempdta);
+	const DOS_DTA temp_dta(dos.tables.tempdta);
+
+	const auto spec_str = to_string(src_spec);
+	const auto src      = src_path + DosSeparator + spec_str;
+
+	if (!DOS_FindFirst(src.c_str(), SearchAttributes)) {
+		WriteOut(MSG_Get("PROGRAM_XCOPY_FILE_NOT_FOUND"), spec_str.c_str());
+		dos.dta(original_dta_ptr);
+		return {};
+	}
+
+	WriteOut(MSG_Get("PROGRAM_XCOPY_READING_SOURCE"));
+
+	std::vector<DOS_DTA::Result> files = {};
+
+	do {
+		DOS_DTA::Result result = {};
+		temp_dta.GetResult(result);
+		files.push_back(std::move(result));
+	} while (DOS_FindNext());
+
+	dos.dta(original_dta_ptr);
+	return files;
+}
+
+bool XCOPY::CopyFile(const uint16_t source_handle, const uint16_t dest_handle,
+                     const char* filename)
+{
+	static constexpr uint16_t CopyBufferSize = 0x8000;
+	std::array<uint8_t, CopyBufferSize> buf  = {};
+	bool eof                                 = false;
+
+	while (!eof) {
+		// Interrupt the cycle safely when shutting down
+		if (DOSBOX_IsShutdownRequested()) {
+			LOG_WARNING("XCOPY: shutdown requested, aborting copy loop");
+			return false;
+		}
+
+		uint16_t bytes_read = CopyBufferSize;
+		if (!DOS_ReadFile(source_handle, buf.data(), &bytes_read)) {
+			WriteErr(doserr_msg_get(dos.errorcode), filename);
+			return false;
+		}
+
+		if (bytes_read != CopyBufferSize) {
+			// Last loop
+			eof = true;
+		}
+
+		uint16_t bytes_written = bytes_read;
+		if (!DOS_WriteFile(dest_handle, buf.data(), &bytes_written)) {
+			WriteErr(doserr_msg_get(dos.errorcode), filename);
+			return false;
+		}
+
+		if (bytes_read != bytes_written) {
+			WriteErr(MSG_Get("PROGRAM_XCOPY_INSUFFICIENT_DISK_SPACE"),
+			         filename);
+			return false;
+		}
+	}
+
+	return true;
+}
+
+std::pair<bool, int> XCOPY::CopyToDestination(const std::vector<DOS_DTA::Result>& files)
+{
+	int copied_count = 0;
+
+	// TODO: support alternate destinations
+	if (DOS_Canonicalize(CurrentDirectory) == src_path) {
+		WriteErr(MSG_Get("PROGRAM_XCOPY_COPY_ONTO_ITSELF"));
+		return std::make_pair(false, copied_count);
+	}
+
+	for (const DOS_DTA::Result& file : files) {
+		WriteOut_NoParsing(file.name + '\n');
+
+		const auto from_path = src_path + DosSeparator + file.name;
+		uint16_t from_handle = {};
+		if (!DOS_OpenFile(from_path.c_str(), OPEN_READ, &from_handle)) {
+			WriteErr(doserr_msg_get(dos.errorcode), file.name.c_str());
+			return std::make_pair(false, copied_count);
+		}
+
+		// TODO: ask the user instead of assuming they want to overwrite
+		const auto to_path = file.name;
+		uint16_t to_handle = {};
+		if (!DOS_CreateFile(to_path.c_str(),
+		                    FatAttributeFlags::Archive,
+		                    &to_handle)) {
+			// Without this exception it'll print "File not found",
+			// which would be strange for a file we tried to create.
+			const auto msg = dos.errorcode == DOSERR_FILE_NOT_FOUND
+			                       ? MSG_Get("PROGRAM_XCOPY_FILE_CREATION_ERROR")
+			                       : doserr_msg_get(dos.errorcode);
+			WriteErr(msg, file.name.c_str());
+			DOS_CloseFile(from_handle);
+			return std::make_pair(false, copied_count);
+		}
+
+		const bool success = CopyFile(from_handle,
+		                              to_handle,
+		                              file.name.c_str());
+
+		if (success) {
+			DOS_SetFileDate(to_handle, file.time, file.date);
+		}
+
+		DOS_CloseFile(from_handle);
+		DOS_CloseFile(to_handle);
+
+		if (!success) {
+			// Try deleting partial destination
+			DOS_UnlinkFile(to_path.c_str());
+			return std::make_pair(false, copied_count);
+		}
+
+		copied_count++;
+	}
+
+	return std::make_pair(true, copied_count);
 }
 
 void XCOPY::AddMessages()
 {
 	MSG_Add("PROGRAM_XCOPY_INVALID_PARAM_NUM", "Invalid number of parameters\n");
+
+	MSG_Add("PROGRAM_XCOPY_INVALID_SWITCH", "Invalid switch - /%s\n");
+
+	MSG_Add("PROGRAM_XCOPY_INVALID_PATH", "Invalid path\n");
+
+	MSG_Add("PROGRAM_XCOPY_INVALID_DRIVE", "Invalid drive specification\n");
+
+	MSG_Add("PROGRAM_XCOPY_FILE_NOT_FOUND", "File not found - %s\n");
+
+	MSG_Add("PROGRAM_XCOPY_PATH_NOT_FOUND", "Path not found - %s\n");
+
+	MSG_Add("PROGRAM_XCOPY_FILE_CREATION_ERROR", "File creation error\n");
+
+	MSG_Add("PROGRAM_XCOPY_TOO_MANY_OPEN_FILES", "Too many open files\n");
+
+	MSG_Add("PROGRAM_XCOPY_LOCK_VIOLATION", "Lock violation - %s\n");
+
+	MSG_Add("PROGRAM_XCOPY_ACCESS_DENIED", "Access denied - %s\n");
+
+	MSG_Add("PROGRAM_XCOPY_GENERAL_FAILURE", "General failure - %s\n");
+
+	MSG_Add("PROGRAM_XCOPY_INSUFFICIENT_DISK_SPACE", "Insufficient disk space\n");
+
+	MSG_Add("PROGRAM_XCOPY_COPY_ONTO_ITSELF",
+	        "File cannot be copied onto itself\n");
+
+	MSG_Add("PROGRAM_XCOPY_READING_SOURCE", "Reading source file(s)...\n");
 
 	MSG_Add("PROGRAM_XCOPY_FILES_COPIED", "%9d File(s) copied\n");
 

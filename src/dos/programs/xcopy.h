@@ -4,8 +4,10 @@
 #ifndef DOSBOX_PROGRAM_XCOPY_H
 #define DOSBOX_PROGRAM_XCOPY_H
 
+#include "dos/drives.h"
 #include "dos/programs.h"
 
+#include <optional>
 #include <string>
 
 enum class XcopyExitCode : uint8_t {
@@ -28,7 +30,24 @@ public:
 	void Run() override;
 
 private:
+	/// The source path.
+	std::string src_path = {};
+
+	/// The source file specification (default *.*).
+	DosFilename src_spec = {.name = "*", .ext = "*"};
+
 	static void AddMessages();
+
+	[[nodiscard]] bool Initialize();
+
+	[[nodiscard]] bool InitializeSource(const std::string& value);
+
+	std::optional<std::vector<DOS_DTA::Result>> BuildSourceSnapshot();
+
+	std::pair<bool, int> CopyToDestination(const std::vector<DOS_DTA::Result>& files);
+
+	bool CopyFile(uint16_t source_handle, uint16_t dest_handle,
+	              const char* filename);
 
 	template <typename... Args>
 	void WriteErr(const std::string& format, const Args&... args)
