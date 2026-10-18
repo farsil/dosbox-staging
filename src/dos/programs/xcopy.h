@@ -49,6 +49,9 @@ private:
 	bool CopyFile(uint16_t source_handle, uint16_t dest_handle,
 	              const char* filename);
 
+	std::optional<char> PromptForLetter(const std::string& allowed,
+	                                    bool cr_confirms);
+
 	template <typename... Args>
 	void WriteErr(const std::string& format, const Args&... args)
 	{
