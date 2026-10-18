@@ -169,6 +169,65 @@ bool filename_not_strict_8x3(const char *n)
 	return false; /* it is strict 8.3 upper case */
 }
 
+DosFilename parse_dos_filename(const std::string& s)
+{
+	DosFilename split_name = {};
+	size_t pos             = s.rfind('.');
+	split_name.name        = s.substr(0, pos);
+	++pos;
+	if (pos > 0 && pos < s.size()) {
+		split_name.ext = s.substr(pos);
+	} else {
+		split_name.ext = {};
+	}
+	return split_name;
+}
+
+std::string to_string(const DosFilename& filename)
+{
+	return filename.ext == "" ? filename.name
+	                          : filename.name + "." + filename.ext;
+}
+
+static std::string handle_wildcards_part(const std::string& part,
+                                         const std::string& wildcards)
+{
+	std::string expanded_name = {};
+	for (size_t i = 0; i < wildcards.size(); ++i) {
+		char c    = wildcards[i];
+		bool done = false;
+		switch (c) {
+		case '*':
+			if (i < part.size()) {
+				expanded_name.append(part, i);
+			}
+			done = true;
+			break;
+		case '?':
+			if (i < part.size()) {
+				expanded_name.push_back(part[i]);
+			}
+			break;
+		default: expanded_name.push_back(c);
+		}
+		if (done) {
+			break;
+		}
+	}
+	return expanded_name;
+}
+
+DosFilename apply_wildcards(const DosFilename& filename, const DosFilename& wildcards)
+{
+	return {.name = handle_wildcards_part(filename.name, wildcards.name),
+	        .ext  = handle_wildcards_part(filename.ext, wildcards.ext)};
+}
+
+std::string apply_wildcards(const std::string& filename, const DosFilename& wildcards)
+{
+	return to_string(apply_wildcards(parse_dos_filename(filename), wildcards));
+}
+
 DOS_Drive::DOS_Drive()
 	: dirCache()
 {
