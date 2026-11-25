@@ -9225,7 +9225,7 @@ msgctxt "INT10H_CGA_PALETTE_LOAD_FAILED"
 msgid "Failed to load CGA palette resource file: [color=white]'%s'[reset], falling back to default colors"
 msgstr ""
 "Impossibile caricare il file di risorse della tavolozza CGA: [color=white]'%s'[reset];\n"
-"reimpostazione dei colori predefiniti"
+"utilizzo dei colori predefiniti"
 
 #: src/ints/int10.cpp:940
 #, c-format, no-wrap
@@ -11653,7 +11653,7 @@ msgstr "Formato non valido. Utilizzare -size BytePerSettore,Settori,Testine,Cili
 #, c-format, no-wrap
 msgctxt "PROGRAM_MOUNT_UNSUPPORTED_SECTOR_SIZE"
 msgid "Sector sizes larger than 512 bytes are not supported.\n"
-msgstr "Non è supportata una dimensione dei settori superiore a 512 byte.\n"
+msgstr "Dimensione dei settori superiore a 512 byte non supportata.\n"
 
 #: src/dos/programs/mount.cpp:1728
 #, c-format, no-wrap
